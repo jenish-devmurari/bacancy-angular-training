@@ -1,0 +1,38 @@
+$backgroud-color :black;
+$text-color: white;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color:$backgroud-color ;
+    color: $text-color;
+    padding: 20px 20px;
+    font-size: 20px;
+
+    nav {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo{
+        margin-right: 130px;
+    }
+
+    ul {
+        list-style-type: none;
+
+        li {
+            display: inline-block;
+            margin-left: 30px;
+        }
+
+        a {
+            color: $text-color;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: rgb(109, 108, 108);
+        }
+    }
+}
