@@ -1,0 +1,29 @@
+.card-container {
+   display: grid;
+   grid-template-columns: repeat(4, 20%);
+   grid-gap: 5%;
+}
+
+.info-table {
+   margin: 20px;
+   border: 3px solid black;
+   td {
+      border: 1px solid #673a3a;
+      text-align: left;
+      padding: 8px;
+   }
+}
+.light-yellow {
+   background-color: rgb(217, 217, 113);
+}
+
+.light-orange {
+   background-color: rgb(235, 154, 97);
+}
+
+.light-blue {
+   background-color: lightblue;
+}
+.light-pink {
+   background-color: lightpink;
+}
