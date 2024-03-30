@@ -6,11 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'error-handling';
-  user = {};
+  public title: string = 'error-handling';
+  public user = {
+    name: "Jenish Devmurari"  // Add name : "Jenish Devmurari"
+  };
   employees: any;
 
-  addEmp(): void{
+  addEmp(): void {
     this.employees.push('employee')
   }
 
