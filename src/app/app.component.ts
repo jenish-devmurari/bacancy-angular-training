@@ -7,17 +7,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public title: string = 'error-handling';
-  public user = {
+  public user: { name: string } = {
     name: "Jenish Devmurari"  // Add name : "Jenish Devmurari"
   };
-  employees: any;
+  public employees: string[] = [];
 
-  addEmp(): void {
+  public addEmp(): void {
     this.employees.push('employee')
   }
 
-  onRemoveEmp(id: number) {
-    const position = id + 1;
-    this.employees.splice(position, 1);
+  public onRemoveEmp(id: number): void {
+    this.employees.splice(id, 1);
+  }
+
+  public removeAllEmp(): void {
+    this.employees = [];
   }
 }
