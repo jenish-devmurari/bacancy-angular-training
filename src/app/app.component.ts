@@ -6,5 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'bacancy-angular-training';
+  title = 'error-handling';
+  user = {};
+  employees: any;
+
+  addEmp(): void{
+    this.employees.push('employee')
+  }
+
+  onRemoveEmp(id: number) {
+    const position = id + 1;
+    this.employees.splice(position, 1);
+  }
 }

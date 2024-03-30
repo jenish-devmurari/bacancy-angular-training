@@ -1,0 +1,30 @@
+.employee-list-container {
+    padding: 10px;
+  }
+
+  .employee-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .employee-item {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+  }
+  
+  .employee-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .remove-btn {
+    margin-left: 20px;
+    cursor: pointer;
+    color: #ff0000;
+    font-weight: bold;
+  }
+  
