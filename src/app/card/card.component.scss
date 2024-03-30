@@ -1,13 +1,23 @@
-body {
-  .card {
-    width: 300px;
-    margin: 10px;
-    background-color: grey;
+.card {
+  width: 300px;
+  margin: 10px;
+  background-color: grey;
+}
 
-    .btn {
-      position: relative;
-      border-radius: 5px;
-      margin-left: 40%;
-    }
-  }
+.image-container {
+  height: 200px;
+  width: auto;
+  background-color: rgb(197, 186, 186);
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.card-img {
+  height: 200px;
+}
+
+.btn {
+  position: relative;
+  border-radius: 5px;
+  margin-left: 40%;
 }

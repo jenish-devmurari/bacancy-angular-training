@@ -3,7 +3,10 @@
    grid-template-columns: repeat(4, 20%);
    grid-gap: 5%;
 }
-
+.card-style {
+   width: 300px;
+   height: 400px;
+}
 .info-table {
    margin: 20px;
    border: 3px solid black;

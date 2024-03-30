@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-
-<body>
-
-  <div class="card">
-    <img [src]="imageSource" *ngIf="showImage" class="card-img-top" alt="Card Image">
-    <h3 class="text-center">Blog</h3>
-    <div class="card-body">
-      <button class="btn btn-success" (click)="toggleEffect()">{{showImage ? "Hide" :"Show"}}</button>
-    </div>
+<div class="card">
+  <div class="image-container">
+    <img [src]="imageSource" *ngIf="showImage" [ngClass]="showImage ?'card-img':'card-back'" alt="Card Image">
   </div>
-</body>
-
-</html>
+  <h3 class="text-center">Blog</h3>
+  <div class="card-body">
+    <button class="btn btn-success" (click)="toggleEffect()">{{showImage ? hide : show}}</button>
+  </div>
+</div>

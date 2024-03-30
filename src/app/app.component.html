@@ -1,90 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="card-container">
+    <app-card *ngFor="let card of cardImages" [imageSource]="card"></app-card>
+</div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<br>
+<br>
 
-<body>
-    <div class="card-container">
-        <app-card *ngFor="let card of cardImages" [imageSource]="card"></app-card>
-    </div>
+<hr>
+<hr>
 
-    <br>
-    <br>
-    <hr>
-    <hr>
-    <div class="d-flex align-items-center justify-content-center">
-        <label for="options">Choose a Option:</label> <br>
-        <select [(ngModel)]="option" id="options">
-            
-            <option value="home">Home</option>
-            <option value="company">Company</option>
-            <option value="college">College</option>
-            <option value="school">School</option>
-            <option value="city">City</option>
-        </select>
+<div class="d-flex align-items-center justify-content-center">
+    <label for="options">Choose a Option:</label> <br>
+    <select [(ngModel)]="selectedOption" id="options">
+        <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+    </select>
 
-        <ng-container [ngSwitch]="option">
-            
-            <div *ngSwitchCase="'home'">
-                <app-home></app-home>
-            </div>
-            <div *ngSwitchCase="'company'">
-                <app-company></app-company>
-            </div>
-            <div *ngSwitchCase="'college'">
-                <app-college></app-college>
-            </div>
-            <div *ngSwitchCase="'city'">
-                <app-not-found></app-not-found>
-            </div>
-            <div *ngSwitchCase="'school'">
-                <app-not-found></app-not-found>
-            </div>
-            <div *ngSwitchDefault>
-                <h1 class="text-center">Please Select The Option </h1>
-            </div>
-        </ng-container>
+    <ng-container [ngSwitch]="selectedOption">
+        <app-home *ngSwitchCase="'Home'"></app-home>
+        <app-company *ngSwitchCase="'Company'"></app-company>
+        <app-college *ngSwitchCase="'College'"></app-college>
+        <app-not-found *ngSwitchCase="'City'"></app-not-found>
+        <app-not-found *ngSwitchCase="'School'"></app-not-found>
+    </ng-container>
 
-    </div>
+</div>
 
-    <hr>
-    <hr>
+<hr>
+<hr>
 
-    <div class="d-flex align-items-center justify-content-center">
-        <table class="info-table">
-            <tr>
-                <td>Id</td>
-                <td>Name</td>
-                <td>Age</td>
-            </tr>
+<div class="d-flex align-items-center justify-content-center">
+    <table class="info-table">
+        <thead class="text-center">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Age</th>
+        </thead>
 
-            <tr *ngFor="let data of user;let i = index let odd = odd let even = even let first = first let last = last"
-                [ngClass]="{
+        <tr *ngFor="let data of userList;let i = index let odd = odd let even = even let first = first let last = last"
+            [ngClass]="{
                 'light-yellow': first,
                 'light-blue': even && !last && !first,
                 'light-pink': odd && !last && !first,
                 'light-orange': last
                 }">
 
-                <td>{{ i + 1 }}</td>
-                <td>{{ data.name }}</td>
-                <td>{{ data.age }}</td>
+            <td>{{ i + 1 }}</td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.age }}</td>
+        </tr>
 
-            </tr>
+    </table>
+</div>
 
-        </table>
-    </div>
+<hr>
+<hr>
 
-    <hr>
-    <hr>
-
-    <div>
-        <app-card-two></app-card-two>
-    </div>
-</body>
-
-</html>
+<div>
+    <app-card-two></app-card-two>
+</div>

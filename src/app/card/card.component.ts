@@ -7,12 +7,15 @@ import { Component, Input } from '@angular/core';
 })
 export class CardComponent {
 
-  showImage: boolean = false;
-  @Input() imageSource: any;
+  public showImage: boolean = false;
+  @Input() public imageSource: any;
+
+  public hide: string = "Hide";
+  public show: string = "Show";
 
 
-
-  toggleEffect() {
+  public toggleEffect(): void {
     this.showImage = !this.showImage;
   }
 }
+

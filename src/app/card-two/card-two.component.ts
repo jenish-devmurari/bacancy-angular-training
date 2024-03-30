@@ -5,11 +5,12 @@ import { Component } from '@angular/core';
   templateUrl: './card-two.component.html',
   styleUrls: ['./card-two.component.scss']
 })
+
 export class CardTwoComponent {
-  product: any[] = [
+  public product = [
     {
       id: 0,
-      imgurl: "./assets/watch.jpeg",
+      imgUrl: "assets/watch.jpeg",
       description: "Men's Stylish Watch",
       price: "$99",
       discountPrice: "$79.99",
@@ -17,7 +18,7 @@ export class CardTwoComponent {
     },
     {
       id: 1,
-      imgurl: "./assets/headphone.jpeg",
+      imgUrl: "assets/headphone.jpeg",
       description: "Brand New Headphone ",
       price: "$129",
       discountPrice: "$99.99",
@@ -25,7 +26,7 @@ export class CardTwoComponent {
     },
     {
       id: 2,
-      imgurl: "./assets/shoes.jpeg",
+      imgUrl: "assets/shoes.jpeg",
       description: "Men's Party-Wear Shoes With Black Color",
       price: "$199",
       discountPrice: "$179.99",
@@ -33,7 +34,7 @@ export class CardTwoComponent {
     },
     {
       id: 3,
-      imgurl: "./assets/camera.jpeg",
+      imgUrl: "assets/camera.jpeg",
       description: "Camera With High Quality",
       price: "$399",
       discountPrice: "$279.99",
