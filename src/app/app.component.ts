@@ -14,13 +14,13 @@ export class AppComponent {
 
   public addEmp(): void {
     this.employees.push('employee')
-  }
+  };
 
   public onRemoveEmp(id: number): void {
     this.employees.splice(id, 1);
-  }
+  };
 
   public removeAllEmp(): void {
     this.employees = [];
-  }
+  };
 }
