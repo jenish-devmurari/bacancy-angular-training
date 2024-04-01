@@ -1,0 +1,13 @@
+<div>
+    <input type="text" class="searchbar" placeholder="Search" [(ngModel)]="searchItem">
+    <button class="searchbutton" (click)="searchBlog()">Search</button>
+</div>
+
+<div class="blog-list">
+    <ng-container *ngIf="searchBlogs.length > 0;">
+        <div class="blog-card" *ngFor="let blog of searchBlogs">
+            <h2>{{ blog.title }}</h2>
+            <p>{{ blog.content }}</p>
+        </div>
+    </ng-container>
+</div>

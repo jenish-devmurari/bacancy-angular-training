@@ -1,27 +1,26 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BlogModule } from './blog/blog.module';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { BlogComponent } from './blog/blog.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { BlogListComponent } from './blog-list/blog-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    BlogComponent,
+    BlogListComponent,
     HeaderComponent,
     FooterComponent,
-   
+
   ],
   imports: [
     BrowserModule,
-    BlogModule
-  
+    FormsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-  

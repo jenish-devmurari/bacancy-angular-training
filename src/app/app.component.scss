@@ -1,15 +1,25 @@
-*{
+* {
     margin: 0%;
     padding: 0%;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
 .app-blog {
-    flex : 1;
+    flex: 1;
     min-height: calc(100vh - 50px);
+}
+
+.answer {
+    margin-left: 50px;
+    margin-bottom: 50px;
+
+    p {
+        font-size: 20px;
+        padding: 5px;
+    }
 }

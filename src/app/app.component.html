@@ -1,5 +1,18 @@
 <div class="container">
     <app-header></app-header>
-    <app-blog class="app-blog"></app-blog>
+    <app-blog-list class="app-blog"></app-blog-list>
+
+    <div class="answer">
+        <h1>2 Why do we use ~ and ^ in the package.json file?</h1>
+        <p>Both the symbols are use for version range to update the dependencies while install or update packages</p>
+        <p>For ~ symbol --- latest patch updated version is allow for-example ~1.2.3 is allow to update version less
+            then 1.3.0 not (1.3.0) </p>
+        <p>For ^ symbol --- latest minor updated version is allow for-example ~1.2.3 is allow to update version less
+            then 2.0.0 not (2.0.0) </p>
+
+    </div>
+
     <app-footer></app-footer>
+
+
 </div>
