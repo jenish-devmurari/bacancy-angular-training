@@ -1,20 +1,14 @@
+.info-table {
+  border: 3px solid black;
 
-
-.info-table{
-   
-   border: 3px solid black;
- 
-   td {
+  td {
     border: 1px solid #673a3a;
     text-align: left;
     padding: 8px;
   }
-  
 }
 
 #text-show {
-  display: block; 
+  display: block;
   color: red;
- 
 }
-

@@ -6,11 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'bacancy-angular-training';
+  public title: string = 'bacancy-angular-training';
 
-  username: string = "jenish";
+  public username: string = "jenish";
 
-  user = {
+  public user = {
     "id": 1,
     "firstName": "Terry",
     "lastName": "Medhurst",
@@ -34,15 +34,12 @@ export class AppComponent {
     "ein": "20-9487066",
     "ssn": "661-64-2976",
     "userAgent": "Mozilla/5.0 ..."
+  };
 
-  }
+  public info: boolean = false;
+  public button: string = "Hide";
 
-
-
-  info: boolean = false;
-  button: string = "Hide";
-
-  toggleEffect() {
+  public toggleEffect(): void {
     this.info = !this.info;
     this.button = this.info ? "Show" : "Hide";
   }
