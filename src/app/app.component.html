@@ -36,11 +36,11 @@
 
         <tr *ngFor="let data of userList;let i = index let odd = odd let even = even let first = first let last = last"
             [ngClass]="{
-                            'light-yellow': first,
-                            'light-blue': even && !last && !first,
-                            'light-pink': odd && !last && !first,
-                            'light-orange': last
-                            }">
+                        'light-yellow': first,
+                        'light-blue': even && !last && !first,
+                        'light-pink': odd && !last && !first,
+                        'light-orange': last
+                        }">
 
             <td>{{ i + 1 }}</td>
             <td>{{ data.name }}</td>

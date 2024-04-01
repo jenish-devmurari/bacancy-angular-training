@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-interface UserList {
-  id: number;
-  name: string;
-  age: number;
-}
+import { UserList } from './interface/interface';
+
+
 
 @Component({
   selector: 'app-root',

@@ -1,12 +1,5 @@
 import { Component } from '@angular/core';
-interface ProductInfo {
-  id: number;
-  imgUrl: string;
-  description: string;
-  price: number;
-  discountPrice: number;
-  isAvailable: boolean;
-}
+import { ProductInfo } from '../interface/interface';
 
 @Component({
   selector: 'app-card-two',
