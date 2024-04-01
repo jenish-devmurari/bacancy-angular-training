@@ -8,7 +8,7 @@ import { CardTwoComponent } from './card-two/card-two.component';
 
 @NgModule({
   declarations: [AppComponent, CardComponent, CardTwoComponent],
-  imports: [BrowserModule, FormsModule,CoreModule],
+  imports: [BrowserModule, FormsModule, CoreModule],
   providers: [],
   bootstrap: [AppComponent]
 })

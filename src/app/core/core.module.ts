@@ -5,16 +5,13 @@ import { CompanyComponent } from './company/company.component';
 import { CollegeComponent } from './college/college.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
-
-
-
 @NgModule({
   declarations: [
     HomeComponent,
     CompanyComponent,
     CollegeComponent,
     NotFoundComponent,
-  
+
   ],
   imports: [
     CommonModule

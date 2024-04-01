@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+interface UserList {
+  id: number;
+  name: string;
+  age: number;
+}
 
 @Component({
   selector: 'app-root',
@@ -22,7 +27,7 @@ export class AppComponent {
   public selectedOption: string = "";
   public options: string[] = ['Home', 'Company', 'College', 'School', 'City'];
 
-  public userList = [
+  public userList: UserList[] = [
     { id: 0, name: 'Jenish', age: 25 },
     { id: 1, name: 'Vivek', age: 30 },
     { id: 2, name: 'Anjali', age: 28 },

@@ -7,10 +7,10 @@
 
         <p [ngStyle]="{'text-align' :'center'}">{{prod.description}}</p>
 
-        <p class="text-center">Price :{{prod.price}}</p>
+        <p class="text-center">Price :${{prod.price}}</p>
 
-        <p class="discount-price-text text-center"> DiscountPrice :<s> {{prod.price}}</s> <strong
-                [ngStyle]="{'margin-left':'10px'}">{{prod.discountPrice}}</strong> </p>
+        <p class="discount-price-text text-center"> DiscountPrice : <s> ${{prod.price}}</s> <strong
+                [ngStyle]="{'margin-left':'10px'}">${{prod.discountPrice}}</strong> </p>
 
         <p [ngClass]="'available-text-center'"
             [ngStyle]="{'color' : prod.isAvailable ? 'green':'red','font-weight':'700'}">{{prod.isAvailable ?
