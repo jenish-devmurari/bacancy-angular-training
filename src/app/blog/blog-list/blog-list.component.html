@@ -4,10 +4,15 @@
 </div>
 
 <div class="blog-list">
-    <ng-container *ngIf="searchBlogs.length > 0;">
+    <ng-container *ngIf="searchBlogs.length > 0; else noBlogsFound">
         <div class="blog-card" *ngFor="let blog of searchBlogs">
             <h2>{{ blog.title }}</h2>
             <p>{{ blog.content }}</p>
         </div>
     </ng-container>
+    <ng-template #noBlogsFound class="template">
+        <div class="no-result">
+            <h4>No blogs found</h4>
+        </div>
+    </ng-template>
 </div>
