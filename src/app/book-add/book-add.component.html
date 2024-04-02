@@ -1,15 +1,18 @@
-<div class="row">
-    <div class="col-xs-12">
-        <p>Add Book</p>
+<div class="form">
+    <div class=" divdata col-xs-12">
+        <p class="text-primary">Add Book</p>
         <label>Book Title</label>
-        <input type="text" class="form-control s-20" #inputRef>
+        <input type="text" class="form-control s-20" #bookTitleRef>
         <label>Book Author</label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" #bookAuthorRef>
         <label>Book Price</label>
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" #bookPriceRef>
         <label>Book Description</label>
-        <textarea name="textareaName" id="textareaId" rows="4" cols="25" class="form-control"></textarea>
+        <textarea name="textareaName" id="textareaId" rows="2" cols="25" class="form-control"
+            #bookDescriptionRef></textarea>
         <br>
-        <button class="btn btn-primary">Add Book</button>
+        <button class="btn btn-primary"
+            (click)="onAddBook(bookTitleRef,bookAuthorRef,bookPriceRef,bookDescriptionRef)">Add
+            Book</button>
     </div>
 </div>

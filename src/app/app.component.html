@@ -1,4 +1,4 @@
-<app-book-add></app-book-add>
+<app-book-add (addBookAlias)="onAddBook($event)"></app-book-add>
 <div class="books-container">
-    <app-book-list *ngFor="let book of books" [book]="book"></app-book-list>
+    <app-book-list *ngFor="let book of books" [book]="book" (notifyAlias)="notify($event)"></app-book-list>
 </div>

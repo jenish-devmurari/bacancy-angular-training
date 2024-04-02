@@ -1,9 +1,9 @@
-
 .book-card {
-    border: 1px solid #ccc;
+    border: 2px solid #92e05b;
     border-radius: 8px;
     padding: 20px;
     text-align: center;
+    margin-left: 5%;
 }
 
 .book-card h2 {
@@ -14,4 +14,12 @@
 .book-card p {
     font-size: 16px;
     margin-bottom: 5px;
+}
+
+.btn {
+    background-color: rgb(88, 147, 88);
+    border: none;
+    border-radius: 5%;
+    color: white;
+    height: 25px;
 }
