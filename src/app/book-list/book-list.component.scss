@@ -1,0 +1,25 @@
+.book-card {
+    border: 2px solid #92e05b;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin-left: 5%;
+
+    padding: 10%;
+
+    .image {
+        width: auto;
+        height: 150px;
+        background-blend-mode: saturation;
+    }
+}
+
+.book-card h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.book-card p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
