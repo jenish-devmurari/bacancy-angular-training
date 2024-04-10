@@ -1,0 +1,6 @@
+<div>
+    Task: 4 - Please Enter Anything Into TextBook <input type="text" [(ngModel)]="inputValue">
+</div>
+<div [ngStyle]="{'background-color': inputValue ? 'red' : 'white','width': '200px', 'height': '100px'}">
+    {{inputValue}}
+</div>
