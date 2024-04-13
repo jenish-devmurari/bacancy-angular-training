@@ -1,7 +1,5 @@
-<div class="book-card">
-    <img src="{{book.imgUrl}}" class="image" alt="Image">
-    <h2>Title:{{book.title}}</h2>
-    <p>Description:{{ book.description}}</p>
-    <p>Price: {{ book.price }}</p>
-    <button class="btn btn-primary">View More</button>
-</div>
+<app-book-action [book]="selectedBook" [isEditMode]="isEditMode" (bookAdded)="onBookAdded($event)"
+    (bookEdited)="updateBook($event)"></app-book-action>
+<app-book [books]="books" (delete)="deleteBook($event)" (viewClick)="viewBook($event)" (edit)="editBook($event)"
+    (viewStock)="viewStock($event)"></app-book>
+<app-book-details [selectedBook]="selectedBookInfo"></app-book-details>

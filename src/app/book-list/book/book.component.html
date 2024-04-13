@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3" *ngFor="let book of books">
+            <div class="card w-100">
+                <img [src]="book.imgUrl" class="card-img-top" alt="{{ book.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">Price: ${{ book.price }}</p>
+                    <p class="card-text">{{ book.review }}</p>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        (click)="editBook(book.id)">
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="deleteBook(book.id)">
+                        Delete
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="getStock(book.id)">
+                        Stock
+                    </button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                        (click)="viewBook(book.id)" #bookViewRef>
+                        View
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

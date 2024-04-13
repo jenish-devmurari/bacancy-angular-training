@@ -1,6 +1,11 @@
 export interface Book {
-    imgUrl?: string,
+    id: number,
+    imgUrl: string,
     title: string,
-    description?: string,
-    price: number
+    description: string,
+    price: number,
+    review: string,
+    rating: number,
+    stock: number
+
 }

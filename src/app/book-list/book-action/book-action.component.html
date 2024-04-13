@@ -1,0 +1,51 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Book
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"> {{ isEditMode ? 'Edit Book' : 'Add Book' }} </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="imgUrl">Image URL:</label>
+                    <input type="text" class="form-control" id="imgUrl" [(ngModel)]="newBook.imgUrl">
+                </div>
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" class="form-control" id="title" [(ngModel)]="newBook.title">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" id="description" [(ngModel)]="newBook.description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" class="form-control" id="price" [(ngModel)]="newBook.price">
+                </div>
+                <div class="form-group">
+                    <label for="imgUrl">Review</label>
+                    <input type="text" class="form-control" id="rating" [(ngModel)]="newBook.review">
+                </div>
+                <div class="form-group">
+                    <label for="title">Rating</label>
+                    <input type="number" maxlength="5" class="form-control" id="review" [(ngModel)]="newBook.rating">
+                </div>
+                <div class="form-group">
+                    <label for="title">Stock</label>
+                    <input type="number" maxlength="5" class="form-control" id="review" [(ngModel)]="newBook.stock">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)=" isEditMode ? updateBook() : addBook()"> {{
+                    isEditMode ? 'Edit Book' : 'Add Book' }} </button>
+            </div>
+        </div>
+    </div>
+</div>
