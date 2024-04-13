@@ -1,0 +1,12 @@
+$button-text-color: white;
+$stop-feed-btn-bg-color: #df193a;
+
+.stop-feed-btn {
+    background-color: $stop-feed-btn-bg-color;
+    height: 50px;
+    color: $button-text-color;
+    border: none;
+    border-radius: 7px;
+    font-size: 18px;
+    margin-left: 50px;
+}

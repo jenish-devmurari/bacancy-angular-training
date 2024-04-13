@@ -1,0 +1,30 @@
+$button-text-color: white;
+$post-border-color: pink;
+$post-bg-color: #ead9dc;
+$post-btn-bg-color: #eb4863;
+
+.post {
+    width: 300px;
+    height: 225px;
+    border: 3px solid $post-border-color;
+    border-radius: 5px;
+    margin: 3%;
+    padding: 3px;
+    background-color: $post-bg-color;
+    font-size: 18px;
+
+    .post-img {
+        width: 280px;
+        height: 100px;
+        margin-left: 2px;
+        border-radius: 10px;
+    }
+
+    .like {
+        background-color: $post-btn-bg-color;
+        color: $button-text-color;
+        border: none;
+        border-radius: 3px;
+        font-size: 18px;
+    }
+}

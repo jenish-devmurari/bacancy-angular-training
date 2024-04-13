@@ -1,0 +1,2 @@
+<app-social-post *ngFor="let post of postList" [post]="post" (like)="likePost($event)"></app-social-post>
+<button class="stop-feed-btn" (click)="stopFeedOfPost()">Stop Social Feed</button>

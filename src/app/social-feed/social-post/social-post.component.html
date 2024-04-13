@@ -1,0 +1,10 @@
+<div class="post">
+    <img [src]="post.imgUrl" class="post-img">
+    <div>
+        <p>{{ post.content }}</p>
+        <p>Likes : {{ post. likes}}</p>
+        <i class="fas fa-heart" (click)="likePost(post.id); colorEffect = !colorEffect"
+            [ngStyle]="{'color': colorEffect ? '#e34963' : 'white'}">
+        </i>
+    </div>
+</div>
