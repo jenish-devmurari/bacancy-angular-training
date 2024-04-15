@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from './interface/post-details';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class SocialFeedComponent implements OnInit {
 
-  postList: Post[] = [
+  public postList: Post[] = [
     {
       id: 0, content: "Social Post ", likes: 0,
       imgUrl: 'assets/bacancy.png'
@@ -25,6 +25,7 @@ export class SocialFeedComponent implements OnInit {
     },
   ];
 
+  public postsSubscription: Subscription | undefined;
   public stopFeed: boolean = false;
 
 
@@ -46,12 +47,13 @@ export class SocialFeedComponent implements OnInit {
 
     });
 
-    postsObservable.subscribe(post => {
+    this.postsSubscription = postsObservable.subscribe(post => {
       this.postList = post;
     });
+
   }
 
-  likePost(postId: number): void {
+  public likePost(postId: number): void {
     const postIndex = this.postList.findIndex(post => post.id === postId);
     if (postIndex !== -1) {
       this.postList[postIndex].likes++;
@@ -60,6 +62,9 @@ export class SocialFeedComponent implements OnInit {
 
   public stopFeedOfPost(): void {
     this.stopFeed = true;
+    if (this.postsSubscription) {
+      this.postsSubscription.unsubscribe();
+    }
   }
 
 
