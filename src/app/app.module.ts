@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { StoreListComponent } from './store-list/store-list.component';
 import { StoreFormComponent } from './store-form/store-form.component';
-import { BookListComponent } from './book-list/book-list.component';
-import { BookFormComponent } from './book-form/book-form.component';
+import { BookListComponent } from './store-list/book-list/book-list.component';
+import { BookFormComponent } from './store-list/book-form/book-form.component';
 
 @NgModule({
   declarations: [

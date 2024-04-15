@@ -6,7 +6,7 @@ import { Store } from '../interfaces/store-interface';
 })
 export class StoreService {
 
-  private stores: Store[] = [
+  public stores: Store[] = [
     {
       id: 0,
       name: 'Store 1',
@@ -27,12 +27,13 @@ export class StoreService {
 
   constructor() { }
 
-  addStore(newStore: Store) {
+  public addStore(newStore: Store): void {
     newStore.id = this.stores.length;
+    console.log(newStore.id);
     this.stores.push(newStore);
   }
 
-  getStores() {
+  public getStores() {
     return this.stores;
   }
 
