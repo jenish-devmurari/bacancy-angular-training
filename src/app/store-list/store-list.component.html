@@ -1,0 +1,8 @@
+<div class="stores">
+    <div *ngFor="let store of stores" class="store">
+        <h3>{{ store.name }}</h3>
+        <p>Owner: {{ store.owner }}</p>
+        <app-book-form></app-book-form>
+        <app-book-list></app-book-list>
+    </div>
+</div>
