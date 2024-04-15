@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { Book } from '../interfaces/book-interface';
-import { BookService } from '../services/book.service';
-import { StoreService } from '../services/store.service';
+import { Component, Input, Output } from '@angular/core';
+import { Book } from '../../interfaces/book-interface';
+import { BookService } from '../../services/book.service';
+import { StoreService } from '../../services/store.service';
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
@@ -9,7 +9,7 @@ import { StoreService } from '../services/store.service';
 })
 export class BookListComponent {
 
-  @Input() storeId: number = 0;
+  @Input() storeId!: number;
   books: Book[] = [];
 
   constructor(private bookService: BookService) { }

@@ -9,13 +9,13 @@ import { StoreService } from '../services/store.service';
 })
 export class StoreFormComponent {
 
-  store: Store = { id: 0, name: '', owner: '' };
+  public store: Store = { id: 0, name: '', owner: '' };
 
   constructor(private storeService: StoreService) { }
 
-  addStore() {
+  public addStore(): void {
     this.storeService.addStore(this.store);
-    this.store = { id: 0, name: '', owner: '' }; // Clear the form
+    this.store = { id: 0, name: '', owner: '' };
   }
 
 }
