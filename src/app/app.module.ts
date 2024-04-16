@@ -9,9 +9,11 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'product-list', component: ProductListComponent },
   { path: 'product-detail/:id', component: ProductDetailsComponent },
@@ -29,6 +31,7 @@ const appRoutes: Routes = [
     ProductDetailsComponent,
     NotFoundComponent,
     NavbarComponent,
+    FooterComponent,
 
 
   ],

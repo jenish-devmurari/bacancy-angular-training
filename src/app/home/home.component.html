@@ -1,1 +1,38 @@
-<p>home works!</p>
+<div class="container ">
+    <div class="row">
+        <div class="col-md-6 mt-5 ml-3">
+            <h2>Welcome to My Mart</h2>
+            <p>
+                My Mart is your one-stop destination for all your shopping needs. Whether you're looking for the latest
+                gadgets, trendy fashion, or household essentials, we've got you covered.
+            </p>
+            <p>
+                Our mission is to provide high-quality products at affordable prices, ensuring a seamless shopping
+                experience for our customers.
+            </p>
+            <p>
+                Explore our website to discover a wide range of products, exclusive deals, and convenient shopping
+                options.
+            </p>
+        </div>
+        <div class="col-md-6">
+            <img src="assets/home-image.avif" alt="Welcome Image" class="img-fluid">
+        </div>
+    </div>
+</div>
+<div class="container mt-5 mb-5">
+    <h3 class="text-center mb-4">Featured Products</h3>
+    <div class="row">
+        <div class="col-md-3" *ngFor="let product of products">
+            <div class="card h-100 ">
+                <img [src]="product.imgUrl" class="card-img card-img-top" alt="ProductImage">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">Price: ₹{{ product.price }}</p>
+                    <a href="#" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

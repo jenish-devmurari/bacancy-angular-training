@@ -1,11 +1,15 @@
+.navbar {
+    background-color: rgb(136, 185, 185);
+}
+
 .nav-item {
     a {
         text-decoration: none;
-
+        // color: black;
         margin: 10px;
     }
 }
 
-.active {
+a.active {
     color: red;
 }
