@@ -1,4 +1,4 @@
-import { Component, DoCheck, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Book } from '../../interfaces/book-interface';
 import { BookService } from '../../services/book.service';
 import { StoreService } from '../../services/store.service';
@@ -8,10 +8,9 @@ import { StoreService } from '../../services/store.service';
   templateUrl: './book-form.component.html',
   styleUrls: ['./book-form.component.scss']
 })
-export class BookFormComponent implements OnChanges {
+export class BookFormComponent {
 
-  @Input() storeId!: number;
-  public storeId1: number = 0;
+  @Input() index!: number;
   @Output() addBook = new EventEmitter<{ storeId: number, book: Book }>();
 
   book: Book = {
@@ -21,18 +20,11 @@ export class BookFormComponent implements OnChanges {
     price: 0
   };
 
-  ngOnChanges(): void {
-    this.storeId1 = this.storeId;
-    // console.log(this.storeId1);
-  }
   constructor(private bookService: BookService) { }
-// 
-  onAddBook(storeId1: number) {
-    // console.log(storeId1);
-    console.log(this.storeId);
-    const addBookEmitValue = { storeId: this.storeId, book: this.book };
-    this.addBook.emit(addBookEmitValue);
 
+  public onAddBook(): void {
+    const addBookEmitValue = { storeId: this.index, book: this.book };
+    this.addBook.emit(addBookEmitValue);
     this.book = {
       title: '',
       description: '',

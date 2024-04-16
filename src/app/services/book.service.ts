@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Book } from '../interfaces/book-interface';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BookService {
 
   private books: { [storeId: number]: Book[] } = {
@@ -29,8 +27,10 @@ export class BookService {
       this.books[storeId] = [];
     }
     this.books[storeId].push(book);
-    console.log(this.books[storeId]);
-    // console.log("hello from service", storeId);
+  }
+
+  public addBooksStore(storeId: number): void {
+    this.books[storeId] = []; // Initialize an empty array for the new store
   }
 
   public getBooks(storeId: number) {

@@ -5,7 +5,8 @@ import { StoreService } from '../services/store.service';
 @Component({
   selector: 'app-store-form',
   templateUrl: './store-form.component.html',
-  styleUrls: ['./store-form.component.scss']
+  styleUrls: ['./store-form.component.scss'],
+  providers: []
 })
 export class StoreFormComponent {
 

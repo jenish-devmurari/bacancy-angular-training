@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '../interfaces/store-interface';
+import { BookService } from './book.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class StoreService {
 
   public stores: Store[] = [
@@ -25,14 +24,13 @@ export class StoreService {
   ];
 
 
-  constructor() { }
+  constructor(private bookService: BookService) { }
 
   public addStore(newStore: Store): void {
     newStore.id = this.stores.length;
-    console.log(newStore.id);
     this.stores.push(newStore);
+    this.bookService.addBooksStore(newStore.id); // Update BookService with the new store ID
   }
-
   public getStores() {
     return this.stores;
   }

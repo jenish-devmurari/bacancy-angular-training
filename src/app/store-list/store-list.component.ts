@@ -8,13 +8,12 @@ import { Book } from '../interfaces/book-interface';
   selector: 'app-store-list',
   templateUrl: './store-list.component.html',
   styleUrls: ['./store-list.component.scss'],
-
+  providers: []
 })
 export class StoreListComponent {
 
-  public storeId: number = 2;
-  stores: Store[] = [];
-  // storeId !: number;
+  public stores: Store[] = [];
+
   constructor(
     private storeService: StoreService,
     private bookService: BookService
@@ -24,10 +23,7 @@ export class StoreListComponent {
     this.stores = this.storeService.getStores();
   }
 
-  
-  addBook(event: { storeId: number, book: Book }, storeId: number) {
-    console.log('event.storeId', event.storeId)
-    console.log('storeId', storeId);
+  public addBook(event: { storeId: number, book: Book }): void {
     this.bookService.addBook(event.storeId, event.book);
   }
 
