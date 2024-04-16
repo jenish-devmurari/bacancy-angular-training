@@ -1,0 +1,18 @@
+<button class="btn btn-primary" (click)="goBack()"> &larr; Go To Product Page</button>
+
+<div class="container" *ngIf="product">
+    <h3 class="text-center mb-4">Product Details</h3>
+    <div class="row">
+        <div class="col-md-3 mt-5 mb-5">
+            <div class="card h-100">
+                <img [src]="product.imgUrl" class="card-img card-img-top" alt="ProductImage">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">Price: ₹{{ product.price }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

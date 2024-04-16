@@ -13,10 +13,11 @@ import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
+  // { path: '', redirectTo: 'home', pathMatch: "full" }, here we redirect to home page 
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'product-list', component: ProductListComponent },
-  { path: 'product-detail/:id', component: ProductDetailsComponent },
+  { path: 'product-list/product-detail/:id', component: ProductDetailsComponent },
   { path: 'contact', component: ContactComponent },
   { path: '**', component: NotFoundComponent }
 ];

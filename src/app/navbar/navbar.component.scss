@@ -1,15 +1,16 @@
 .navbar {
-    background-color: rgb(136, 185, 185);
+    background-color: rgb(118, 246, 246);
 }
 
 .nav-item {
     a {
         text-decoration: none;
-        // color: black;
+        color: black;
         margin: 10px;
     }
 }
 
 a.active {
-    color: red;
+    font-size: 18px;
+    font-weight: bolder;
 }
