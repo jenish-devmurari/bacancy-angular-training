@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Post } from './interface/post-details';
 import { Observable, Subscription } from 'rxjs';
 
@@ -8,7 +8,8 @@ import { Observable, Subscription } from 'rxjs';
   templateUrl: './social-feed.component.html',
   styleUrls: ['./social-feed.component.scss']
 })
-export class SocialFeedComponent implements OnInit {
+export class SocialFeedComponent implements OnInit, OnDestroy {
+
 
   public postList: Post[] = [
     {
@@ -25,7 +26,7 @@ export class SocialFeedComponent implements OnInit {
     },
   ];
 
-  public postsSubscription: Subscription | undefined;
+  public postsSubscription!: Subscription;
   public stopFeed: boolean = false;
 
 
@@ -62,10 +63,9 @@ export class SocialFeedComponent implements OnInit {
 
   public stopFeedOfPost(): void {
     this.stopFeed = true;
-    if (this.postsSubscription) {
-      this.postsSubscription.unsubscribe();
-    }
   }
 
-
+  ngOnDestroy(): void {
+    this.postsSubscription.unsubscribe();
+  }
 }
