@@ -3,5 +3,8 @@ export interface Product {
     imgUrl: string,
     name: string,
     description: string,
-    price: number
+    price: number,
+    size: string,
+    color: string,
+    isAvailable: boolean
 }

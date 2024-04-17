@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../interface/product.interface';
-import { ProductService } from '../services/product.service';
+import { Product } from '../../interface/product.interface';
+import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,8 +17,10 @@ export class ProductListComponent implements OnInit {
     this.products = this.productService.Products;
   }
 
-  public goToProductDetail(productId: number): void {
-    this.router.navigateByUrl(`product-list/product-detail/${productId}`);
+
+  public goToProductDetailWithMultiParameter(productId: number, size: string, color: string): void {
+    debugger
+    this.router.navigateByUrl(`product-list/product-detail/${productId}/${size}/${color}`);
   }
 
 
