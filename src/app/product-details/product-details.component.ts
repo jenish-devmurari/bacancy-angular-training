@@ -20,7 +20,7 @@ export class ProductDetailsComponent implements OnInit {
     this.productId = +this.activeRoutes.snapshot.params['id'];
     this.product = this.productService.getProduct(this.productId);
     if (!this.product) {
-      this.router.navigate(['**'])
+      this.router.navigate(['notfound'])
     }
   }
 

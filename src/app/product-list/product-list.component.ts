@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
 
-  products!: Product[];
+  public products!: Product[];
   constructor(private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit {
   }
 
   public goToProductDetail(productId: number): void {
-    this.router.navigateByUrl(`product-list/product-detail/${productId}`);
+    this.router.navigateByUrl(`product-detail/${productId}`);
   }
 
 

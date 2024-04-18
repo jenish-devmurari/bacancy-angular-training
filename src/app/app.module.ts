@@ -10,17 +10,9 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { AppRoutingModule } from './app-routing.module';
 
-const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  // { path: '', redirectTo: 'home', pathMatch: "full" }, here we redirect to home page 
-  { path: 'home', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'product-list', component: ProductListComponent },
-  { path: 'product-list/product-detail/:id', component: ProductDetailsComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: '**', component: NotFoundComponent }
-];
+
 
 @NgModule({
   declarations: [
@@ -38,7 +30,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    AppRoutingModule,
   ],
   exports: [RouterModule],
   providers: [],
