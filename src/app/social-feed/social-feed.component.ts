@@ -27,8 +27,6 @@ export class SocialFeedComponent implements OnInit, OnDestroy {
   ];
 
   public postsSubscription!: Subscription;
-  public stopFeed: boolean = false;
-
 
   ngOnInit() {
 
@@ -36,15 +34,13 @@ export class SocialFeedComponent implements OnInit, OnDestroy {
       observer.next(this.postList);
 
       const intervalPost = setInterval(() => {
-        if (!this.stopFeed) {
-          const newPost = { id: this.postList.length, imgUrl: 'assets/bacancy.png', content: `Bacancy Technology LLP`, likes: 0 };
-          this.postList.push(newPost);
-          observer.next(this.postList);
-        } else {
-          clearInterval(intervalPost);
-          observer.complete();
-        }
+        const newPost = { id: this.postList.length, imgUrl: 'assets/bacancy.png', content: `Bacancy Technology LLP`, likes: 0 };
+        this.postList.push(newPost);
+        observer.next(this.postList);
       }, 3000);
+      return () => {
+        clearInterval(intervalPost);
+      };
 
     });
 
@@ -62,7 +58,7 @@ export class SocialFeedComponent implements OnInit, OnDestroy {
   }
 
   public stopFeedOfPost(): void {
-    this.stopFeed = true;
+    this.postsSubscription.unsubscribe();
   }
 
   ngOnDestroy(): void {
