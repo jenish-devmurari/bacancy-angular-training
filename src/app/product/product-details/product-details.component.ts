@@ -15,6 +15,7 @@ export class ProductDetailsComponent implements OnInit {
   public size: string = "";
   public color: string = '';
   public productId2: number = -1;
+  public showAvailability: boolean = false;
 
 
   constructor(private activeRoutes: ActivatedRoute, private productService: ProductService, private router: Router) {
@@ -33,4 +34,7 @@ export class ProductDetailsComponent implements OnInit {
     this.router.navigateByUrl("/product-list");
   }
 
+  public toggleAvailability(): void {
+    this.showAvailability = !this.showAvailability;
+  }
 }

@@ -12,12 +12,21 @@
                     <p class="card-text">Price: ₹{{ product.price }}</p>
                     <p class="card-text">Size: {{ product.size }}</p>
                     <button routerLink="/payment" class="btn btn-primary">Make Payment</button>
+                    <button [routerLink]="['/product-detail']" [queryParams]="{id: product.id}" class="btn btn-primary"
+                        (click)="toggleAvailability()">Is Available</button>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="row text-center" *ngIf="showAvailability">
+    <div class="col-md-12">
+        <h2>Availability Details</h2>
+        <p>{{product?.isAvailable}}</p>
+    </div>
+</div>
 
 <div class="row text-center">
     <div class="col-md-12">
