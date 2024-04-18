@@ -5,12 +5,16 @@
             <div class="card h-100">
                 <img [src]="product.imgUrl" class="card-img card-img-top" alt="ProductImage">
                 <div class="card-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
+                    <a [routerLink]="['./product-detail']"
+                        [queryParams]="{ id:product.id,size:product.size,color:product.color}">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                    </a>
                     <p class="card-text">{{ product.description }}</p>
                     <p class="card-text">Price: ₹{{ product.price }}</p>
-                    <button class="btn btn-primary"
-                        (click)="goToProductDetailWithMultiParameter(product.id,product.size,product.color)">View
-                        Details</button>
+                    <a [routerLink]="['./product-detail']"
+                        [queryParams]="{ id:product.id,size:product.size,color:product.color}"> <button
+                            class="btn btn-primary">View
+                            Details</button></a>
                 </div>
             </div>
         </div>

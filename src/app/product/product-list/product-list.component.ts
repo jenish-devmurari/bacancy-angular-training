@@ -17,11 +17,10 @@ export class ProductListComponent implements OnInit {
     this.products = this.productService.Products;
   }
 
-
   public goToProductDetailWithMultiParameter(productId: number, size: string, color: string): void {
-    debugger
     this.router.navigateByUrl(`product-list/product-detail/${productId}/${size}/${color}`);
   }
+
 
 
 }

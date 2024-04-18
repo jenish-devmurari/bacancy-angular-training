@@ -14,24 +14,20 @@ export class ProductDetailsComponent implements OnInit {
   public product: Product | undefined;
   public size: string = "";
   public color: string = '';
+  public productId2: number = -1;
+
 
   constructor(private activeRoutes: ActivatedRoute, private productService: ProductService, private router: Router) {
   }
 
   ngOnInit(): void {
-
-    this.activeRoutes.params.subscribe(params => {
-      this.productId = +params['id'];
-      this.size = params['size'] as string;
-      this.color = params['isAvailable'] as string;
-      this.product = this.productService.getProductMultiParameter(this.productId, this.size, this.color);
-      if (!this.product) {
-        this.router.navigate(['dbanad']);
-      }
-    });
-
-
+    const queryParams = this.activeRoutes.snapshot.queryParams;
+    this.productId = +queryParams['id'];
+    this.size = queryParams['size'];
+    this.color = queryParams['color'];
+    this.product = this.productService.getProduct(this.productId);
   }
+
 
   public goBack(): void {
     this.router.navigateByUrl("/product-list");

@@ -11,10 +11,19 @@
                     <p class="card-text">{{ product.description }}</p>
                     <p class="card-text">Price: ₹{{ product.price }}</p>
                     <p class="card-text">Size: {{ product.size }}</p>
-                    <p class="card-text" [ngStyle]="{'color': product.isAvailable ? 'green' : 'red'}">{{
-                        product.isAvailable ? 'Available' : 'Not Available' }}</p>
+                    <button routerLink="/payment" class="btn btn-primary">Make Payment</button>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+<div class="row text-center">
+    <div class="col-md-12">
+        <h2>Display Parameter of Product Task-4</h2>
+        <p>Product ID: {{ productId }}</p>
+        <p>Size: {{ size }}</p>
+        <p>Color: {{ color }}</p>
     </div>
 </div>

@@ -178,9 +178,8 @@ export class ProductService {
     return this.Products.find(x => x.id === productId);
   }
 
-  public getProductMultiParameter(productId: number, size: string, isAvailable: string): Product | undefined {
-    debugger
-    return this.Products.find(x => x.id === productId && x.size == size && x.color === isAvailable);
+  public getProductMultiParameter(productId: number, size: string, color: string): Product | undefined {
+    return this.Products.find(x => x.id === productId && x.size == size && x.color === color);
   }
 
 }
