@@ -12,9 +12,26 @@
                     <p class="card-text">Price: ₹{{ product.price }}</p>
                     <p class="card-text">Size: {{ product.size }}</p>
                     <button routerLink="/payment" class="btn btn-primary">Make Payment</button>
-                    <button [routerLink]="['/product-detail']" [queryParams]="{id: product.id}" class="btn btn-primary"
-                        (click)="toggleAvailability()">Is Available</button>
+                    <button class="btn btn-primary" (click)="toggleAvailability()">Is Available</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="container" *ngIf="product2">
+    <h3 class="text-center mb-4">Product Details</h3>
+    <div class="row">
+        <div class="col-md-3 mt-5 mb-5">
+            <div class="card h-100">
+                <img [src]="product2.imgUrl" class="card-img card-img-top" alt="ProductImage">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product2.name }}</h5>
+                    <p class="card-text">{{ product2.description }}</p>
+                    <p class="card-text">Price: ₹{{ product2.price }}</p>
+                    <p class="card-text">Size: {{ product2.size }}</p>
+                    <button routerLink="/payment" class="btn btn-primary">Make Payment</button>
+                    <button class="btn btn-primary" (click)="toggleAvailability()">Is Available</button>
                 </div>
             </div>
         </div>
