@@ -6,7 +6,7 @@ import { Product } from '../interface/product.interface';
 })
 export class ProductService {
 
-  public featuresProducts: Product[] = [
+  private featuresProducts: Product[] = [
     {
       id: 0, name: 'Nike Red Shoes', description: 'Nike Shoes With Red Color ',
       price: 10000,
@@ -29,7 +29,7 @@ export class ProductService {
     }
   ];
 
-  public Products: Product[] = [
+  private Products: Product[] = [
     {
       id: 0, name: 'Nike Red Shoes', description: 'Nike Shoes With Red Color ',
       price: 10000,
@@ -96,5 +96,13 @@ export class ProductService {
 
   public getProduct(productId: number): Product | undefined {
     return this.Products.find(x => x.id === productId);
+  }
+
+  public getAllProduct(): Product[] {
+    return this.Products;
+  }
+
+  public getFeaturesProduct(): Product[] {
+    return this.featuresProducts;
   }
 }
