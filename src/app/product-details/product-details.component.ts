@@ -19,9 +19,6 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.productId = +this.activeRoutes.snapshot.params['id'];
     this.product = this.productService.getProduct(this.productId);
-    if (!this.product) {
-      this.router.navigate(['notfound'])
-    }
   }
 
   public goBack(): void {

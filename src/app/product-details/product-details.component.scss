@@ -2,3 +2,17 @@
     margin-top: 10px;
     margin-left: 10px;
 }
+
+.alert {
+    margin-top: 20px;
+    margin-left: 35%;
+    padding: 30px;
+    width: 400px;
+    height: 500px;
+    text-align: center;
+    font-weight: bolder;
+
+    .back-btn {
+        margin-bottom: 10px;
+    }
+}

@@ -16,7 +16,6 @@ const routes: Routes = [
   { path: 'product-list', component: ProductListComponent, pathMatch: "full" },
   { path: 'product-detail/:id', component: ProductDetailsComponent, pathMatch: "full" },
   { path: 'contact', component: ContactComponent, pathMatch: "full" },
-  { path: 'notfound', component: NotFoundComponent, pathMatch: "full" },
   { path: '**', component: NotFoundComponent, pathMatch: "full" }
 
 ];

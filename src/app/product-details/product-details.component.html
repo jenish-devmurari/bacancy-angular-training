@@ -1,6 +1,6 @@
 <button class="btn btn-primary" (click)="goBack()"> &larr; Go To Product Page</button>
 
-<div class="container" *ngIf="product">
+<div class="container" *ngIf="product; else notFound">
     <h3 class="text-center mb-4">Product Details</h3>
     <div class="row">
         <div class="col-md-3 mt-5 mb-5">
@@ -16,3 +16,9 @@
     </div>
 </div>
 
+<ng-template #notFound>
+    <div class="alert alert-danger">
+        Your search product was not found. You can go to the Product Page for more products.
+        <button class="back-btn btn btn-primary" (click)="goBack()"> Go To Product Page </button>
+    </div>
+</ng-template>
