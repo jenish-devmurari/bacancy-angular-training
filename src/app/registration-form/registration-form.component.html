@@ -1,78 +1,109 @@
 <div class="container mt-5">
     <div class=" text mb-5 text-center">Registration Form</div>
     <form (ngSubmit)="submitForm(formData)" #formData="ngForm">
+
         <div class="form-group mt-3">
             <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" ngModel #firstName="ngModel" name="firstName"
-                required>
+            <input type="text" class="form-control" id="firstName" [(ngModel)]="userData.firstName" #firstName="ngModel"
+                name="firstName" required minlength="5">
+            <span *ngIf="firstName.errors?.['required'] && (firstName.touched || firstName.dirty)" class="text-danger">
+                First Name is
+                Required</span>
+            <span *ngIf="firstName.errors?.['minlength'] && firstName.touched" class="text-danger">First Name is at
+                least 5 character</span>
         </div>
-
 
         <div class="form-group mt-3">
             <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" ngModel #lastName="ngModel" required>
-
+            <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="userData.lastName"
+                #lastName="ngModel" required>
+            <span *ngIf="lastName.errors?.['required'] && (lastName.touched || lastName.dirty)" class="text-danger">
+                Last Name is
+                Required</span>
         </div>
 
         <div class="form-group">
             <label for="email">Email ID</label>
-            <input type="email" class="form-control" id="email" name="email" ngModel #email="ngModel" required email>
-
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="userData.email"
+                #email="ngModel" required placeholder="abc123@gmail.com"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+            <span *ngIf="email.errors?.['required'] && (email.touched || email.dirty)" class="text-danger"> Email is
+                Required</span>
+            <span *ngIf="email.errors?.['pattern'] && email.touched" class="text-danger">Please Enter Valid Email
+                Format</span>
         </div>
-
 
         <div class="form-group mt-3">
             <label for="phone">Phone Number</label>
-            <input type="tel" class="form-control" id="phone" name="phone" ngModel #phone="ngModel" required
-                minlength="10" minlength="10" pattern="[0-9]{10}">
-        </div>
+            <input type="number" class="form-control" id="phone" name="phone" [(ngModel)]="userData.phone"
+                #phone="ngModel" required pattern="[0-9]{10}">
+            <span *ngIf="phone.errors?.['required'] && (phone.touched || phone.dirty)" class="text-danger"> Phone Number
+                is
+                Required</span>
+            <span *ngIf="phone.errors?.['pattern'] && phone.touched" class="text-danger">Please Enter 10 digit Phone
+                number</span>
 
+        </div>
 
         <div class="form-group mt-3">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" ngModel #password="ngModel"
-                required pattern="">
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="userData.password"
+                #password="ngModel" required minlength="8"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}">
+            <span *ngIf="password.errors?.['required'] && (password.touched || password.dirty)" class="text-danger">
+                Password
+                is
+                Required</span>
+            <span *ngIf="password.errors?.['pattern'] && password.errors?.['minlength'] && password.touched"
+                class="text-danger">Password must be 8
+                Character to 16 that contains At least one Capital Alphabets.one small Alphabets,one digit and one
+                special
+                character </span>
         </div>
-
 
         <div class="form-group mt-3">
             <label>Gender</label><br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="male" name="gender" value="male" ngModel
-                    #male="ngModel">
-                <label class="form-check-label" for="male">Male</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="female" name="gender" value="female" ngModel
-                    #female="ngModel">
-                <label class="form-check-label" for="female">Female</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="other" name="gender" value="othere" ngModel
-                    #other="ngModel">
-                <label class="form-check-label" for="other">Other</label>
+            <div *ngFor="let gender of Gender">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" [id]="gender" name="gender" [value]="gender"
+                        [(ngModel)]="userData.gender" #gender="ngModel" required="">
+                    <label class="form-check-label" [for]="gender">{{gender}}</label>
+                </div>
             </div>
         </div>
 
         <div class="form-group mt-3">
             <label for="city">City Location</label>
-            <select class="form-control" id="city" name="city" required>
+            <select class="form-control" id="city" name="city" [(ngModel)]="userData.city" #city="ngModel" required>
                 <option value="">Select City</option>
-                <option value="Ahmadabad">Ahmadabad</option>
-                <option value="Surat">Surat</option>
-                <option value="Rajkot">Rajkot</option>
-                <option value="Vadodara">Vadodara</option>
+                <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
             </select>
+            <span *ngIf="city.errors?.['required'] && city.touched" class="text-danger"> City Required</span>
         </div>
 
         <div class="form-group form-check mt-3">
-            <input type="checkbox" class="form-check-input " id="rememberMe" name="rememberMe">
+            <input type="checkbox" class="form-check-input " id="rememberMe" name="rememberMe"
+                [(ngModel)]="userData.remember" #remember="ngModel">
             <label class="form-check-label" for="rememberMe">Remember Me</label>
         </div>
 
         <button type="submit" class="btn btn-primary" [disabled]="formData.invalid">Submit</button>
-        <button type="button" class="btn btn-secondary">Reset</button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+        <button type="submit" class="btn btn-primary" (click)="setValue()">SetValue</button>
+        <button type="button" class="btn btn-secondary" (click)="patchValue()">PatchValue</button>
 
     </form>
 
+
+    <div class="container mt-5">
+        <h1>Your Entered Data</h1>
+        <p>First Name : {{userData.firstName}}</p>
+        <p>Last Name : {{userData.lastName}}</p>
+        <p>Email : {{userData.email}}</p>
+        <p>Phone : {{userData.phone}}</p>
+        <p>Password : {{userData.password}}</p>
+        <p>Gender: {{userData.gender}}</p>
+        <p>City : {{userData.city}}</p>
+        <p>Remember : {{userData.remember}}</p>
+    </div>
 </div>
