@@ -11,9 +11,9 @@ import { ProductService } from '../../services/product.service';
 export class ProductDetailsComponent implements OnInit {
 
   public productId: number = -1;
-  public productId2: number = -1;
+
   public product: Product | undefined;
-  public product2: Product | undefined;
+
   public size: string = "";
   public color: string = '';
   public isAvailable!: boolean;
@@ -26,12 +26,6 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    const params = this.activeRoutes.snapshot.params;
-    this.productId2 = +params['id'];
-    this.color = params['size'];
-    this.color = params['color'];
-
     const queryParams = this.activeRoutes.snapshot.queryParams;
     this.productId = +queryParams['id'];
     this.size = queryParams['size'];
@@ -42,8 +36,19 @@ export class ProductDetailsComponent implements OnInit {
     });
 
     this.product = this.productService.getProduct(this.productId);
-    this.product2 = this.productService.getProduct(this.productId2);
 
+    if (this.product == undefined) {
+      const Params = this.activeRoutes.snapshot.params;
+      this.productId = +Params['id'];
+      this.size = Params['size'];
+      this.color = Params['color'];
+    }
+
+    this.product = this.productService.getProduct(this.productId);
+
+    if (!this.product) {
+      this.router.navigate(['**'])
+    }
   }
 
 

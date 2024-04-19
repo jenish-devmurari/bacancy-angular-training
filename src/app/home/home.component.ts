@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  products!: Product[];
+  public products!: Product[];
 
   constructor(private productService: ProductService, private route: Router) { }
 
@@ -18,17 +18,10 @@ export class HomeComponent implements OnInit {
     this.products = this.productService.featuresProducts;
   }
 
-  // navigate(id: number, size: string, color: string) {
-  //   this.route.navigate(['/product-list/product-detail/'])
-  //   //  {
-  //   //   queryParams: {
-  //   //     id: id
-  //   //   }
-  //   // });
-  // }
-
-  navigate(id: number, size: string, color: string) {
+  navigate(id: number, size: string, color: string): void {
     this.route.navigate(['/product-list/product-detail', id, size, color]);
   }
+
+
 
 }

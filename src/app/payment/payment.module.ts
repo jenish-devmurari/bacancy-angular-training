@@ -25,10 +25,7 @@ import { PaymentComponent } from './payment.component';
 })
 export class PaymentModule {
 
-  constructor(
-  ) {
-    console.log("payment module loaded");
-
+  constructor() {
   }
 
 }

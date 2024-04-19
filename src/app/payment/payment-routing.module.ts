@@ -6,6 +6,7 @@ import { WithdrawMoneyComponent } from './withdraw-money/withdraw-money.componen
 import { DepositCoinsComponent } from './deposit-money/deposit-coins/deposit-coins.component';
 import { DepositNotesComponent } from './deposit-money/deposit-notes/deposit-notes.component';
 import { PaymentComponent } from './payment.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -20,8 +21,7 @@ const routes: Routes = [
         ]
       },
       { path: 'withdraw-money', component: WithdrawMoneyComponent }
-    ]
-
+    ],
   }
 ];
 

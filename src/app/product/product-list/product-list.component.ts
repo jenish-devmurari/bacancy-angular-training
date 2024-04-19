@@ -10,17 +10,10 @@ import { Router } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
 
-  products!: Product[];
+  public products!: Product[];
   constructor(private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.products = this.productService.Products;
   }
-
-  public goToProductDetailWithMultiParameter(productId: number, size: string, color: string): void {
-    this.router.navigateByUrl(`product-list/product-detail/${productId}/${size}/${color}`);
-  }
-
-
-
 }
