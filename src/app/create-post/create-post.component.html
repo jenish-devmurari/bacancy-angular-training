@@ -1,0 +1,13 @@
+<button class="btn btn-primary" (click)="goBack()"> &larr; Go To Post</button>
+<div class="container">
+    <h2>Create New Post</h2>
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" [(ngModel)]="post.title" name="title" required>
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control" id="content" [(ngModel)]="post.content" name="content" required></textarea>
+    </div>
+    <button class="btn btn-primary" (click)="createPost()">Create</button>
+</div>
