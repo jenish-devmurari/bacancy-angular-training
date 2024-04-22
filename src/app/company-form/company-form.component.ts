@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AsyncValidator, AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidator, AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -37,8 +37,7 @@ export class CompanyFormComponent implements OnInit {
     const projectFormGroup = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required],
-        asyncValidators: [this.projectNameValidator as AsyncValidatorFn],
-        updateOn: 'blur',
+        asyncValidators: [this.projectNameValidator.bind(this)],
       }),
       description: new FormControl(null, [Validators.required]),
       startDate: new FormControl(null, [Validators.required]),
@@ -76,27 +75,22 @@ export class CompanyFormComponent implements OnInit {
     }
   }
 
-  private projectNameValidator(control: FormControl): Observable<ValidationErrors | null> {
 
+  public projectNameValidator(control: AbstractControl): Observable<ValidationErrors | null> {
+    const projectName = control.value;
+    const projects = this.companyForm.get('projects')?.value;
+    const isProjectNameExist = projects.some((project: any) => project.name === projectName);
+    debugger
     return new Observable<ValidationErrors | null>(observer => {
       setTimeout(() => {
-        const value = control.value;
-        let projectNameExists = false;
-        for (const project of this.existingProjects) {
-          if (project === value) {
-            projectNameExists = true;
-            break;
-          }
-        }
-        if (projectNameExists) {
-          observer.next({ projectNameExists: true });
+        if (isProjectNameExist) {
+          observer.next({ projectNameExist: true });
         } else {
           observer.next(null);
         }
         observer.complete();
-      }, 1000);
+      }, 3000);
     });
-
   }
 
 }
