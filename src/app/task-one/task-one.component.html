@@ -1,16 +1,18 @@
-<div appTaskTwo>
-    <h1>Task 1 : ngSwitch</h1>
-    <label for="options">Choose a Option:</label> <br>
-    <select [(ngModel)]="selectedOption" id="options">
-        <option *ngFor="let option of genders" [value]="option">{{ option }}</option>
-    </select>
-</div>
-<div appTaskTwo>
-    <p>You Select: </p>
-    <ng-container [ngSwitch]="selectedOption">
-        <p *ngSwitchCase="'Male'"> Male</p>
-        <p *ngSwitchCase="'Female'"> Female</p>
-        <p *ngSwitchCase="'Other'"> Other</p>
-        <p *ngSwitchDefault=""> Please Select </p>
-    </ng-container>
+<div class="cointainer">
+    <div>
+        <h3>Task 1 : ngSwitch</h3>
+        <label for="options">Choose a Option:</label> <br>
+        <select [(ngModel)]="selectedOption" id="options">
+            <option *ngFor="let option of genders" [value]="option">{{ option }}</option>
+        </select>
+    </div>
+    <div>
+        <p>You Select: </p>
+        <ng-container [ngSwitch]="selectedOption">
+            <p *ngSwitchCase="'Male'"> Male</p>
+            <p *ngSwitchCase="'Female'"> Female</p>
+            <p *ngSwitchCase="'Other'"> Other</p>
+            <p *ngSwitchDefault=""> Please Select </p>
+        </ng-container>
+    </div>
 </div>
