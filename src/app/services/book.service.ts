@@ -4,36 +4,29 @@ import { Book } from '../interfaces/book-interface';
 @Injectable()
 export class BookService {
 
-  private books: { [storeId: number]: Book[] } = {
-    0: [
-      { title: 'Book 1', description: 'Description for Book 1', price: 10, author: 'Author A' },
-      { title: 'Book 2', description: 'Description for Book 2', price: 15, author: 'Author B' }
-    ],
-    1: [
-      { title: 'Book 3', description: 'Description for Book 3', price: 20, author: 'Author C' },
-      { title: 'Book 4', description: 'Description for Book 4', price: 25, author: 'Author D' }
-    ],
-    2: [
-      { title: 'Book 5', description: 'Description for Book 3', price: 20, author: 'Author C' },
-      { title: 'Book 6', description: 'Description for Book 4', price: 25, author: 'Author D' }
-    ],
-
-  };
-
-  constructor() { }
-
-  public addBook(storeId: number, book: Book): void {
-    if (!this.books[storeId]) {
-      this.books[storeId] = [];
+  private bookList: Book[] = [
+    {
+      title: 'Book 1', description: 'Description for Book 1', price: 10, author: 'Author A',
+      id: 0
+    },
+    {
+      title: 'Book 2', description: 'Description for Book 2', price: 15, author: 'Author B',
+      id: 1
     }
-    this.books[storeId].push(book);
+  ];
+
+  public getBook(): Book[] {
+    return this.bookList;
   }
 
-  public addBooksStore(storeId: number): void {
-    this.books[storeId] = []; // Initialize an empty array for the new store
+  public addBook(newBook: Book): void {
+    newBook.id = this.generateUniqueId();
+    this.bookList.push(newBook);
+    alert("Book Added");
   }
 
-  public getBooks(storeId: number) {
-    return this.books[storeId] || [];
+  private generateUniqueId(): number {
+    const lastBook = this.bookList[this.bookList.length - 1];
+    return lastBook ? lastBook.id + 1 : 1;
   }
 }

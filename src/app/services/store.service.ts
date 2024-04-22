@@ -5,7 +5,7 @@ import { BookService } from './book.service';
 @Injectable()
 export class StoreService {
 
-  public stores: Store[] = [
+  private storeList: Store[] = [
     {
       id: 0,
       name: 'Store 1',
@@ -23,19 +23,19 @@ export class StoreService {
     },
   ];
 
-
-  constructor(private bookService: BookService) { }
+  public getStore(): Store[] {
+    return this.storeList;
+  }
 
   public addStore(newStore: Store): void {
-    newStore.id = this.stores.length;
-    this.stores.push(newStore);
-    this.bookService.addBooksStore(newStore.id); // Update BookService with the new store ID
-  }
-  public getStores() {
-    return this.stores;
+    newStore.id = this.generateUniqueId();
+    this.storeList.push(newStore);
+    alert("Store Added")
   }
 
-
-
+  private generateUniqueId(): number {
+    const lastBook = this.storeList[this.storeList.length - 1];
+    return lastBook ? lastBook.id + 1 : 1;
+  }
 
 }

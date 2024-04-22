@@ -1,9 +1,0 @@
-<div class="stores">
-    <div *ngFor="let store of stores; let i = index" class="store">
-        <p>store.id: {{store.id}}</p>
-        <h3>{{ store.name }}</h3>
-        <p>Owner: {{ store.owner }}</p>
-        <app-book-form [index]="i" (addBook)="addBook($event)"></app-book-form>
-        <app-book-list [storeId]="store.id"></app-book-list>
-    </div>
-</div>

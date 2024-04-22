@@ -1,8 +1,9 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" [attr.data-bs-target]="'#exampleModal1-' + index">
+<!-- Button trigger Add Book  modal -->
+<button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal"
+    [attr.data-bs-target]="'#exampleModal1-' + index">
     Add Book
 </button>
-<!-- Modal -->
+<!-- Add Book Modal -->
 <div class="modal fade" [id]="'exampleModal1-'+ index " tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -32,6 +33,19 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" (click)="onAddBook()">Add Book</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div *ngFor="let book of books" class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ book.author }}</h6>
+                <p class="card-text">{{ book.description }}</p>
+                <p class="card-text">{{ book.price }}</p>
             </div>
         </div>
     </div>
