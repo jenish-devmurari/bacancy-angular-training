@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidator, AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { CompanyFormData } from '../interface/company-data-interface';
 
 @Component({
   selector: 'app-company-form',
@@ -9,21 +10,22 @@ import { Observable } from 'rxjs';
 })
 export class CompanyFormComponent implements OnInit {
 
-
   public companyForm !: FormGroup;
-
-  public existingProjects = ['Project1', 'Project2', 'Project3'];
+  public isSubmitted: boolean = false;
+  public formData !: CompanyFormData;
 
   ngOnInit(): void {
     this.initializeForm();
   }
 
-  public onSubmit() {
-    console.log(this.companyForm.value);
+  public onSubmit(): void {
+    this.isSubmitted = true;
+    this.formData = this.companyForm.value;
+
     this.companyForm.reset();
   }
 
-  public initializeForm() {
+  public initializeForm(): void {
     this.companyForm = new FormGroup({
       name: new FormControl('Bacancy Technology LLP', [Validators.required]),
       email: new FormControl('bacancy@bacancy.com', [Validators.required, Validators.email]),
@@ -33,7 +35,7 @@ export class CompanyFormComponent implements OnInit {
     });
   }
 
-  public addProject() {
+  public addProject(): void {
     const projectFormGroup = new FormGroup({
       name: new FormControl(null, {
         validators: [Validators.required],
@@ -46,18 +48,18 @@ export class CompanyFormComponent implements OnInit {
     (<FormArray>this.companyForm.get('projects')).push(projectFormGroup);
   }
 
-  public removeProject(index: number) {
+  public removeProject(index: number): void {
     (<FormArray>this.companyForm.get('projects')).removeAt(index);
   }
 
-  public getProjectControl() {
+  public getProjectControl(): AbstractControl[] {
     return (<FormArray>this.companyForm.get('projects')).controls;
   }
 
   private phoneValidator(control: FormControl): ValidationErrors | null {
     const validPhoneNumberRegex: RegExp = /^\+91-\d{10}$/;
-    const value: string = control.value;
-    if (!value || validPhoneNumberRegex.test(value)) {
+    const phoneNumber: string = control.value;
+    if (!phoneNumber || validPhoneNumberRegex.test(phoneNumber)) {
       return null;
     } else {
       return { invalidPhoneNumberFormat: true };
@@ -66,21 +68,20 @@ export class CompanyFormComponent implements OnInit {
 
   private websiteValidator(control: FormControl): ValidationErrors | null {
     const validWebsiteRegex: RegExp = /^www\.[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
-    const value: string = control.value;
+    const websiteValue: string = control.value;
 
-    if (!value || validWebsiteRegex.test(value)) {
+    if (!websiteValue || validWebsiteRegex.test(websiteValue)) {
       return null;
     } else {
       return { invalidWebsiteFormat: true };
     }
   }
 
-
   public projectNameValidator(control: AbstractControl): Observable<ValidationErrors | null> {
     const projectName = control.value;
     const projects = this.companyForm.get('projects')?.value;
     const isProjectNameExist = projects.some((project: any) => project.name === projectName);
-    debugger
+
     return new Observable<ValidationErrors | null>(observer => {
       setTimeout(() => {
         if (isProjectNameExist) {
@@ -89,7 +90,7 @@ export class CompanyFormComponent implements OnInit {
           observer.next(null);
         }
         observer.complete();
-      }, 3000);
+      }, 1000);
     });
   }
 

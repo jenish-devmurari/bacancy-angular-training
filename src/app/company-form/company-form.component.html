@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-5">
     <div class="row justify-content-center">
         <h1 class="text-center">Bacancy Technology</h1>
         <div class="col-md-6">
@@ -102,6 +102,29 @@
 
                 <button type="submit" [disabled]="companyForm.invalid" class="submit btn btn-primary">Submit</button>
             </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt-3" *ngIf="isSubmitted">
+    <div class="row">
+        <div class="offset-md-3 col-md-6 border p-3">
+            <h4 class="text-center">Company Details</h4>
+            <p>Name: {{ formData.name }}</p>
+            <p>Email: {{ formData.email }}</p>
+            <p>Phone: {{ formData.phone }}</p>
+            <p>Website: {{ formData.website }}</p>
+            <p>Projects:</p>
+            <ul>
+                <li class="mt-2" *ngFor="let project of formData.projects; let i = index">
+                    <h4>Project {{ i + 1 }}</h4>
+                    <p>ProjectName: {{ project.name }}</p>
+                    <p>description:{{ project.description }}</p>
+                    <p>Start: {{ project.startDate }}</p>
+                    <p>End: {{ project.endDate }}</p>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
