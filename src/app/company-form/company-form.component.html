@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <h1 class="text-center">Bacancy Technology</h1>
+        <div class="col-md-6">
+            <form [formGroup]="companyForm" (ngSubmit)="onSubmit()" class="mt-5">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" formControlName="name" class="form-control">
+                    <span
+                        *ngIf="companyForm.get('name')?.invalid && (companyForm.get('name')?.dirty || companyForm.get('name')?.touched)"
+                        class="text-danger">
+                        Name is required.
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" formControlName="email" class="form-control">
+                    <span
+                        *ngIf="companyForm.get('email')?.errors?.['required'] && (companyForm.get('email')?.dirty || companyForm.get('email')?.touched)"
+                        class="text-danger"> Email is
+                        Required</span>
+                    <span *ngIf="companyForm.get('email')?.errors?.['email']" class="text-danger">Please
+                        Enter Valid Email
+                        Format</span>
+                </div>
+                <div class="form-group">
+                    <label for="website">Website:</label>
+                    <input type="text" id="website" formControlName="website" class="form-control">
+                    <span
+                        *ngIf="companyForm.get('website')?.errors?.['required'] && (companyForm.get('website')?.dirty || companyForm.get('website')?.touched)"
+                        class="text-danger">
+                        Website is
+                        required.
+                    </span>
+                    <span *ngIf="companyForm.get('website')?.errors?.['invalidWebsiteFormat']"
+                        class="text-danger">Please Enter Valid Website(Like www.bacancy.com)</span>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" id="phone" formControlName="phone" class="form-control">
+                    <span
+                        *ngIf="companyForm.get('phone')?.errors?.['required'] && (companyForm.get('phone')?.dirty || companyForm.get('phone')?.touched)"
+                        class="text-danger">
+                        Phone number is
+                        required.
+                    </span>
+                    <span *ngIf="companyForm.get('phone')?.errors?.['invalidPhoneNumberFormat']"
+                        class="text-danger">Please Enter Valid Phone Number(Like +91-1234567890)</span>
+                </div>
+
+                <div *ngIf="companyForm.get('projects')">
+                    <div class="project form-group">
+                        <div formArrayName="projects">
+                            <div *ngFor="let project of getProjectControl(); let i = index">
+                                <h3>Project {{i+1}}</h3>
+                                <div [formGroupName]="i">
+                                    <div class="form-group">
+                                        <label for="projectName">Project Name:</label>
+                                        <input type="text" id="projectName" formControlName="name" class="form-control">
+                                        <span *ngIf="project.get('name')?.errors?.['projectNameExists']"
+                                            class="text-danger">This Project Name is Already Exist</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectDescription">Project Description:</label>
+                                        <input type="text" id="projectDescription" formControlName="description"
+                                            class="form-control">
+                                        <span
+                                            *ngIf="project.get('description')?.errors?.['required'] && (project.get('description')?.dirty || project.get('description')?.touched)"
+                                            class="text-danger"> Project Description is
+                                            Required</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="startDate">Start Date:</label>
+                                        <input type="date" id="startDate" formControlName="startDate"
+                                            class="form-control">
+                                        <span
+                                            *ngIf="project.get('startDate')?.errors?.['required'] && (project.get('startDate')?.dirty || project.get('startDate')?.touched)"
+                                            class="text-danger"> Project StartDate is
+                                            Required</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="endDate">End Date:</label>
+                                        <input type="date" id="endDate" formControlName="endDate" class="form-control">
+                                        <span
+                                            *ngIf="project.get('endDate')?.errors?.['required'] && (project.get('endDate')?.dirty || project.get('endDate')?.touched)"
+                                            class="text-danger"> Project EndDate is
+                                            Required
+                                        </span>
+                                    </div>
+                                    <button type="button" (click)="removeProject(i)" class="btn btn-danger mt-3">Remove
+                                        Project</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" (click)="addProject()" class="btn btn-primary">Add Project</button>
+                </div>
+
+                <button type="submit" [disabled]="companyForm.invalid" class="submit btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
