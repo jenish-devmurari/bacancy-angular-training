@@ -16,8 +16,17 @@ export class PostService {
   ];
 
 
-  public getAllPost(): Observable<Post[]> {
-    return of(this.posts); // Convert array to observable
+  public getAllPost(): Post[] {
+    return this.posts;
+  }
+
+  public getAllPostAsync(): Observable<Post[]> {
+    return new Observable((sub) => {
+      setTimeout(() => {
+        sub.next(this.posts)
+      }, 2000)
+    })
+
   }
 
   public createPost(post: Post): void {

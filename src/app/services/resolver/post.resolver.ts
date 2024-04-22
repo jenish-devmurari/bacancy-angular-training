@@ -11,6 +11,6 @@ export class PostsResolver implements Resolve<any> {
   constructor(private postService: PostService) { }
 
   resolve(): Observable<any> {
-    return this.postService.getAllPost();
+    return this.postService.getAllPostAsync();
   }
 }

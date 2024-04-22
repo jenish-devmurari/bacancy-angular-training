@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Post } from '../interfaces/post-interface';
-import { AuthService } from '../services/auth.service';
-import { PostService } from '../services/post.service';
 import { Router } from '@angular/router';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-create-post',
@@ -12,7 +11,6 @@ import { Router } from '@angular/router';
 export class CreatePostComponent {
 
   constructor(private postService: PostService, private router: Router) {
-
   }
 
   public post: Post = {
