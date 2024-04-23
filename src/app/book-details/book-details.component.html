@@ -27,8 +27,11 @@
                             <p>{{ selectedBook.price }}</p>
                         </div>
                         <div class="form-group">
-                            <label for="rating">Rating:</label>
+                            <label for="rating">Rating</label>
+                            <br>
                             <div class="rating-stars">
+                                <span class="star" *ngFor="let star of getStarArray(selectedBook.rating)"
+                                    [ngStyle]="getStarStyle(selectedBook.rating)">&#9733;</span>
                             </div>
                         </div>
                         <div class="form-group">

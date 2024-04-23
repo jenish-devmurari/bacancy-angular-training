@@ -1,0 +1,22 @@
+button {
+   
+    margin: 10px;
+}
+
+.rating-stars {
+    display: inline-block;
+}
+
+.star {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.star.filled {
+    color: gold; 
+}
+
+.star.empty {
+    color: #ccc; 
+}

@@ -48,7 +48,7 @@ export class BookActionComponent implements OnChanges {
       review: '',
       rating: 0, stock: 0
     };
-    this.isEditMode = false;
+    // this.isEditMode = false;
   }
 
 

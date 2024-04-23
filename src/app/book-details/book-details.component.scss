@@ -1,0 +1,17 @@
+.rating-stars {
+    display: inline-block;
+}
+
+.star {
+    color: #ccc;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.star.filled {
+    color: gold; /* Change color for filled stars */
+}
+
+.star.empty {
+    color: #ccc; /* Change color for empty stars */
+}

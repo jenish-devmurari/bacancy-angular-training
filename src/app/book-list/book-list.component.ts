@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterContentChecked, Component, ElementRef, Input, OnChanges, ViewChild, AfterViewChecked } from '@angular/core';
 import { Book } from '../interface/book-details';
-import { BookActionComponent } from './book-action/book-action.component';
+import { BookActionComponent } from '../book-action/book-action.component';
 
 @Component({
   selector: 'app-book-list',
@@ -45,11 +45,11 @@ export class BookListComponent {
   public selectedBook: Book | undefined;
   public isEditMode: boolean = false;
   public editBookIndex: number = -1;
+  public confirm !: boolean;
 
-  public onBookAdded(book: Book) {
+  public onBookAdded(book: Book): void {
     book.id = this.books.length;
     this.books.push(book);
-
   }
 
 
@@ -60,8 +60,7 @@ export class BookListComponent {
       // Clicked the same card again, reset edit mode and selected book
       this.editBookIndex = -1;
       this.selectedBook = undefined;
-      this.isEditMode = true;
-
+      // this.isEditMode = true;
     } else {
       // Clicked a different card, update edit mode and selected book
       this.editBookIndex = currentIndex;
@@ -73,10 +72,11 @@ export class BookListComponent {
 
   public deleteBook(bookId: number): void {
     const index = this.books.findIndex(book => book.id === bookId);
-    const confirmation = confirm("Are you sure you want to delete this book?");
-    if (confirmation) {
-      this.books.splice(index, 1);
-    }
+    this.books.splice(index, 1);
+    // const confirmation = confirm("Are you sure you want to delete this book?");
+    // if (confirmation) {
+    //   this.books.splice(index, 1);
+    // }
 
   }
 
