@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Book } from '../interfaces/book-interface';
+import { Book } from '../interfaces/book.interface';
 
 @Injectable()
 export class BookService {
@@ -22,7 +22,7 @@ export class BookService {
   public addBook(newBook: Book): void {
     newBook.id = this.generateUniqueId();
     this.bookList.push(newBook);
-    alert("Book Added");
+    alert("Book Added At Your Store");
   }
 
   private generateUniqueId(): number {

@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Store } from '../interfaces/store-interface';
-import { BookService } from './book.service';
+import { Store } from '../interfaces/store.interface';
 
-@Injectable()
+@Injectable(
+  {
+    providedIn: 'root'
+  }
+)
 export class StoreService {
 
   private storeList: Store[] = [

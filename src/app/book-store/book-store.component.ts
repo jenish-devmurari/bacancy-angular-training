@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { Store } from '../interfaces/store-interface';
+import { Store } from '../interfaces/store.interface';
 import { StoreService } from '../services/store.service';
 
 @Component({
   selector: 'app-book-store',
   templateUrl: './book-store.component.html',
   styleUrls: ['./book-store.component.scss'],
-  providers: [StoreService]
 })
 export class BookStoreComponent {
 
