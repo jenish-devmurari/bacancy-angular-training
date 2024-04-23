@@ -51,3 +51,10 @@
         </div>
     </div>
 </div>
+
+<div *ngIf="stockCount > 0" class="alert alert-success" role="alert">
+    Stocks: {{ stockCount }}
+</div>
+<div *ngIf="stockCount === 0" class="alert alert-warning" role="alert">
+    Stock not available.
+</div>

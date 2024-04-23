@@ -1,5 +1,5 @@
 import { AfterContentInit, AfterContentChecked, Component, ElementRef, Input, OnChanges, ViewChild, AfterViewChecked } from '@angular/core';
-import { Book } from '../interface/book-details';
+import { Book } from '../interface/book-details.interface';
 import { BookActionComponent } from '../book-action/book-action.component';
 
 @Component({
@@ -8,8 +8,6 @@ import { BookActionComponent } from '../book-action/book-action.component';
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent {
-
-
   public books: Book[] = [
     {
       id: 0, imgUrl: "assets/book1.jpeg", title: "Book 1", description: "Description for Book 1", price: 20,
@@ -37,48 +35,32 @@ export class BookListComponent {
       review: 'D',
       rating: 3,
       stock: 25
-    },
+    }
   ];
 
 
   public selectedBookInfo: Book | any;
   public selectedBook: Book | undefined;
+  public selectedBookCount: number = 0
   public isEditMode: boolean = false;
   public editBookIndex: number = -1;
-  public confirm !: boolean;
+  public bookToDeleteId: number | undefined;
 
   public onBookAdded(book: Book): void {
     book.id = this.books.length;
+    book.imgUrl = "assets/book1.jpeg"
     this.books.push(book);
   }
 
-
-
   public editBook(bookId: number): void {
     const currentIndex = this.books.findIndex(book => book.id === bookId);
-    if (currentIndex === this.editBookIndex) {
-      // Clicked the same card again, reset edit mode and selected book
-      this.editBookIndex = -1;
-      this.selectedBook = undefined;
-      // this.isEditMode = true;
-    } else {
-      // Clicked a different card, update edit mode and selected book
+    if (currentIndex !== -1) {
       this.editBookIndex = currentIndex;
       this.selectedBook = { ...this.books[this.editBookIndex] };
       this.isEditMode = true;
-
     }
   }
 
-  public deleteBook(bookId: number): void {
-    const index = this.books.findIndex(book => book.id === bookId);
-    this.books.splice(index, 1);
-    // const confirmation = confirm("Are you sure you want to delete this book?");
-    // if (confirmation) {
-    //   this.books.splice(index, 1);
-    // }
-
-  }
 
   public viewBook(bookId: number): void {
     this.selectedBookInfo = this.books.find(book => book.id === bookId);
@@ -95,10 +77,25 @@ export class BookListComponent {
 
   public updateBook(book: Book): void {
     this.books[this.editBookIndex] = book;
-    console.log(this.books[this.editBookIndex]);
     this.editBookIndex = -1;
     this.selectedBook = undefined;
     this.isEditMode = false;
   }
+
+
+  public deleteConfirmation(bookId: number): void {
+    this.bookToDeleteId = bookId;
+  }
+
+  public onDeleteConfirmed(confirm: boolean): void {
+    if (confirm && this.bookToDeleteId !== undefined) {
+      const index = this.books.findIndex(book => book.id === this.bookToDeleteId);
+      if (index !== -1) {
+        this.books.splice(index, 1);
+      }
+    }
+    this.bookToDeleteId = undefined;
+  }
+
 
 }

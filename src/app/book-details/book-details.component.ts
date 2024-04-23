@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Book } from 'src/app/interface/book-details';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Book } from 'src/app/interface/book-details.interface';
 
 @Component({
   selector: 'app-book-details',
@@ -9,6 +9,7 @@ import { Book } from 'src/app/interface/book-details';
 export class BookDetailsComponent {
 
   @Input() selectedBook !: Book;
+  @Input() stockCount !: number;
 
 
   getStarArray(rating: number): number[] {

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Book } from './interface/book-details';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +7,4 @@ import { Book } from './interface/book-details';
 })
 export class AppComponent {
   title = 'bacancy-angular-training';
-
-  
 }

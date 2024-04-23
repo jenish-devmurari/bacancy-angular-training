@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Book } from 'src/app/interface/book-details';
+import { Book } from 'src/app/interface/book-details.interface';
 
 @Component({
   selector: 'app-book-action',
@@ -38,7 +38,6 @@ export class BookActionComponent implements OnChanges {
   public updateBook(): void {
     this.bookEdited.emit(this.newBook);
     this.resetForm();
-
   }
 
   public resetForm(): void {
@@ -48,7 +47,7 @@ export class BookActionComponent implements OnChanges {
       review: '',
       rating: 0, stock: 0
     };
-    // this.isEditMode = false;
+    this.isEditMode = false;
   }
 
 

@@ -9,7 +9,6 @@ export class ConfirmationDialogBoxComponent {
   @Output() confirmed = new EventEmitter<boolean>();
 
   confirmAction(confirm: boolean): void {
-    console.log(confirm)
     this.confirmed.emit(confirm);
   }
 }

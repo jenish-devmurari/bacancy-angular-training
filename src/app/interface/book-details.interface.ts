@@ -7,5 +7,4 @@ export interface Book {
     review: string,
     rating: number,
     stock: number
-
 }
