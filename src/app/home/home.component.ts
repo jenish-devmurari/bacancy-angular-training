@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit {
   navigate(id: number, size: string, color: string): void {
     this.route.navigate(['/product-list/product-detail', id, size, color]);
   }
-
+  
+ 
 
 
 }

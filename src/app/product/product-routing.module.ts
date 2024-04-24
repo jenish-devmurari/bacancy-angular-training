@@ -10,7 +10,6 @@ const productRoutes = [
     { path: 'product-detail/:id', component: ProductDetailsComponent },
     { path: 'product-detail/:id/:size/:color', component: ProductDetailsComponent },
     { path: 'product-detail/:id/:size/:color/:isAvailable', component: ProductDetailsComponent },
-
 ];
 
 

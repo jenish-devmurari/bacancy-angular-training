@@ -11,8 +11,7 @@
                     </a>
                     <p class="card-text">{{ product.description }}</p>
                     <p class="card-text">Price: ₹{{ product.price }}</p>
-                    <a [routerLink]="['./product-detail']"
-                        [queryParams]="{ id:product.id,size:product.size,color:product.color}"> <button
+                    <a [routerLink]="['./product-detail',product.id,product.size,product.color]"> <button
                             class="btn btn-primary">View
                             Details</button></a>
                 </div>

@@ -56,13 +56,6 @@ export class ProductDetailsComponent implements OnInit {
     if (this.product) {
       this.product.size = this.size;
     }
-
-    this.router.navigate(['/product-list/product-detail'], {
-      queryParams: {
-        id: this.productId,
-        size: this.size,
-        color: this.color,
-      }
-    });
+    this.router.navigate(['/product-list/product-detail', this.productId, this.size, this.color]);
   }
 }
