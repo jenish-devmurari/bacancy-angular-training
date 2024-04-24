@@ -17,6 +17,7 @@ export class CreatePostComponent {
     id: 0,
     title: "",
     content: "",
+    likes: 0
   }
 
   public createPost(): void {
@@ -27,6 +28,7 @@ export class CreatePostComponent {
         id: 0,
         title: "",
         content: "",
+        likes: 0
       }
     } else {
       alert("Please Enter Your Post Data ")

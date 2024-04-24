@@ -18,7 +18,6 @@ export class HeaderComponent {
 
 
   logout(): void {
-    debugger
     if (confirm("Are you Sure You Want to Logout")) {
       this.authService.logout();
       this.route.navigate(['login']);

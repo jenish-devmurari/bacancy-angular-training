@@ -1,5 +1,6 @@
 export interface Post {
     id : number,
     title : string,
-    content: string
+    content: string,
+    likes: number
 }

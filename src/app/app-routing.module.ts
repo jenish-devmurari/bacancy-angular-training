@@ -14,9 +14,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   {
-    path: 'post', pathMatch: 'prefix', component: PostComponent, canActivate: [AuthGuard], canActivateChild: [AuthChildGuard], resolve: {
-      data: PostsResolver,
-    },
+    path: 'post', pathMatch: 'prefix', component: PostComponent, canActivate: [AuthGuard], canActivateChild: [AuthChildGuard],
     children: [
       {
         path: "detail/:id",
