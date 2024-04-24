@@ -11,16 +11,12 @@ import { ProductService } from '../../services/product.service';
 export class ProductDetailsComponent implements OnInit {
 
   public productId: number = -1;
-
   public product: Product | undefined;
-
   public size: string = "";
   public color: string = '';
   public isAvailable!: boolean;
   public availability: string = "";
   public showAvailability: boolean = false;
-
-
 
   constructor(private activeRoutes: ActivatedRoute, private productService: ProductService, private router: Router) {
   }
@@ -51,20 +47,22 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
-
   public goBack(): void {
     this.router.navigateByUrl("/product-list");
   }
 
-  public toggleAvailability(): void {
+  public checkSize(): void {
+    this.size = (parseInt(this.size) + 1).toString();
+    if (this.product) {
+      this.product.size = this.size;
+    }
+
     this.router.navigate(['/product-list/product-detail'], {
       queryParams: {
         id: this.productId,
         size: this.size,
         color: this.color,
-        isAvailable: this.isAvailable.toString()
       }
     });
-    this.showAvailability = !this.showAvailability;
   }
 }
