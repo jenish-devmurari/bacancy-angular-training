@@ -1,8 +1,16 @@
 .submit {
-    margin-bottom: 10%;
-    margin-top: 10%;
+    margin-bottom: 5%;
+    margin-top: 2%;
 }
 
 .project {
-    margin: 50px;
+    margin: 30px;
+}
+
+.error {
+    border: 1px solid red;
+}
+
+.success {
+    border: 1px solid green;
 }

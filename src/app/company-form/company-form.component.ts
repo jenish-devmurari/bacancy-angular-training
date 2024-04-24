@@ -10,9 +10,9 @@ import { CompanyFormData } from '../interface/company-data-interface';
 })
 export class CompanyFormComponent implements OnInit {
 
-  public companyForm !: FormGroup;
+  public companyForm!: FormGroup;
   public isSubmitted: boolean = false;
-  public formData !: CompanyFormData;
+  public formData!: CompanyFormData;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -21,16 +21,16 @@ export class CompanyFormComponent implements OnInit {
   public onSubmit(): void {
     this.isSubmitted = true;
     this.formData = this.companyForm.value;
-
     this.companyForm.reset();
+    (this.companyForm.get('projects') as FormArray).clear();
   }
 
   public initializeForm(): void {
     this.companyForm = new FormGroup({
       name: new FormControl('Bacancy Technology LLP', [Validators.required]),
-      email: new FormControl('bacancy@bacancy.com', [Validators.required, Validators.email]),
+      email: new FormControl('bacancy@bacancy.com', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")]),
       website: new FormControl('www.bacancy.com', [Validators.required, this.websiteValidator]),
-      phone: new FormControl('+91-1234567890', [Validators.required, this.phoneValidator]),
+      phone: new FormControl('+916789012345', [Validators.required, this.phoneValidator]),
       projects: new FormArray([])
     });
   }
@@ -38,12 +38,12 @@ export class CompanyFormComponent implements OnInit {
   public addProject(): void {
     const projectFormGroup = new FormGroup({
       name: new FormControl(null, {
-        validators: [Validators.required],
+        validators: [Validators.required, this.whiteSpaceValidator],
         asyncValidators: [this.projectNameValidator.bind(this)],
       }),
       description: new FormControl(null, [Validators.required]),
-      startDate: new FormControl(null, [Validators.required]),
-      endDate: new FormControl(null, [Validators.required])
+      startDate: new FormControl(null, [Validators.required, this.startDateValidator]),
+      endDate: new FormControl(null, [Validators.required, this.endDateValidator])
     });
     (<FormArray>this.companyForm.get('projects')).push(projectFormGroup);
   }
@@ -56,8 +56,23 @@ export class CompanyFormComponent implements OnInit {
     return (<FormArray>this.companyForm.get('projects')).controls;
   }
 
-  private phoneValidator(control: FormControl): ValidationErrors | null {
-    const validPhoneNumberRegex: RegExp = /^\+91-\d{10}$/;
+  public projectNameValidator(control: AbstractControl): Observable<ValidationErrors | null> {
+    const projectName = control.value;
+    const projects = this.companyForm.get('projects')?.value;
+    const isProjectNameExist = projects.some((project: any) => project.name === projectName);
+
+    return new Observable<ValidationErrors | null>(observer => {
+      if (isProjectNameExist) {
+        observer.next({ projectNameExist: true });
+      } else {
+        observer.next(null);
+      }
+      observer.complete();
+    });
+  }
+
+  private phoneValidator(control: FormControl): { [key: string]: boolean } | null {
+    const validPhoneNumberRegex: RegExp = /^\+91[6-9]\d{9}$/;
     const phoneNumber: string = control.value;
     if (!phoneNumber || validPhoneNumberRegex.test(phoneNumber)) {
       return null;
@@ -66,10 +81,9 @@ export class CompanyFormComponent implements OnInit {
     }
   }
 
-  private websiteValidator(control: FormControl): ValidationErrors | null {
+  private websiteValidator(control: FormControl): { [key: string]: boolean } | null {
     const validWebsiteRegex: RegExp = /^www\.[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
     const websiteValue: string = control.value;
-
     if (!websiteValue || validWebsiteRegex.test(websiteValue)) {
       return null;
     } else {
@@ -77,21 +91,38 @@ export class CompanyFormComponent implements OnInit {
     }
   }
 
-  public projectNameValidator(control: AbstractControl): Observable<ValidationErrors | null> {
-    const projectName = control.value;
-    const projects = this.companyForm.get('projects')?.value;
-    const isProjectNameExist = projects.some((project: any) => project.name === projectName);
+  private whiteSpaceValidator(control: FormControl): { [key: string]: boolean } | null {
+    const value = control.value;
+    if (value && value.trim() !== value) {
+      return { isWhiteSpace: true };
+    }
+    return null;
+  }
 
-    return new Observable<ValidationErrors | null>(observer => {
-      setTimeout(() => {
-        if (isProjectNameExist) {
-          observer.next({ projectNameExist: true });
-        } else {
-          observer.next(null);
-        }
-        observer.complete();
-      }, 1000);
-    });
+  private endDateValidator(control: FormControl): { [key: string]: boolean } | null {
+    const startDateControl = control.parent?.get('startDate');
+    if (!startDateControl || !startDateControl.touched) {
+      return null;
+    }
+    const startDate = new Date(startDateControl.value);
+    const endDate = new Date(control.value);
+    if (startDate > endDate) {
+      return { isDateValid: true };
+    }
+    return null;
+  }
+
+  private startDateValidator(control: FormControl): { [key: string]: boolean } | null {
+    const endDateControl = control.parent?.get('endDate');
+    if (!endDateControl || !endDateControl.touched) {
+      return null;
+    }
+    const endDate = new Date(endDateControl.value);
+    const startDate = new Date(control.value);
+    if (startDate > endDate) {
+      return { isStartDateValid: true };
+    }
+    return null;
   }
 
 }
