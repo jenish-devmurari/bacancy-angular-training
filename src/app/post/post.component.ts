@@ -11,25 +11,24 @@ import { Subscription } from 'rxjs';
 })
 export class PostComponent implements OnInit {
 
-
-  public posts!: Post[];
+  public posts: Post[] = [];
   private postSubscription!: Subscription;
 
-  constructor(private postService: PostService, private route: ActivatedRoute) {
-  }
+  constructor(private postService: PostService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.postSubscription = this.postService.getAllPostAsync().subscribe(posts => {
-      console.log('Posts:', posts);
+    this.postService.getAllPost().subscribe(posts => {
       this.posts = posts;
-      console.log(this.posts);
+    })
+    this.postSubscription = this.postService.posts$.subscribe(posts => {
+      this.posts = posts;
     });
   }
 
   public likePost(id: string): void {
     const post = this.posts.find(post => post.id === id);
     if (post) {
-      this.postService.likePost(id, ++post.likes);
+      this.postService.likePost(id, post.likes);
     }
   }
 

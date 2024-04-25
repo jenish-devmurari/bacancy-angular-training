@@ -10,7 +10,7 @@ import { PostService } from '../post.service';
 export class PostsResolver implements Resolve<any> {
   constructor(private postService: PostService) { }
 
-  resolve(): Observable<any> {
-    return this.postService.getAllPostAsync();
+  resolve() {
+    // return this.postService.getAllPostAsync();
   }
 }
