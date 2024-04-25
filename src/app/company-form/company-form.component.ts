@@ -117,14 +117,13 @@ export class CompanyFormComponent implements OnInit {
     if (!endDateControl || !endDateControl.touched) {
       return null;
     }
-    const endDate = new Date(endDateControl.value);
+    const endDate = endDateControl.value ? new Date(endDateControl.value) : new Date();
     const startDate = new Date(control.value);
     if (startDate > endDate) {
       return { isStartDateValid: true };
     }
     return null;
   }
-
 }
 
 
