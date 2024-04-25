@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
 import { Post } from '../interfaces/post-interface';
-import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,40 +10,10 @@ export class PostService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private posts: Post[] = [
-    // {
-    //   id: 0, title: 'First Post', content: 'This is the first post content.',
-    //   likes: 0
-    // },
-    // {
-    //   id: 1, title: 'Second Post', content: 'This is the second post content.',
-    //   likes: 0
-    // },
-    // {
-    //   id: 2, title: 'Third Post', content: 'This is the third post content.',
-    //   likes: 0
-    // }
-  ];
-
   private apiUrl: string = "https://mypost-64d44-default-rtdb.firebaseio.com/posts.json"
 
-
-  public getAllPost(): Post[] {
-    return this.posts;
-  }
-
-  public getAllPostAsync(): Observable<Post[]> {
-    return new Observable((sub) => {
-      setTimeout(() => {
-        sub.next(this.posts)
-      }, 1000)
-    })
-
-  }
-
   public createPost(post: Post): void {
-    debugger
-    this.httpClient.post(this.apiUrl + "posts.json", post).subscribe(
+    this.httpClient.post<{ name: String }>(this.apiUrl, post).subscribe(
       (response) => {
         console.log("Post created successfully:", response);
       },
@@ -53,10 +23,50 @@ export class PostService {
     );
   }
 
-  public getPosts(): Observable<Post[]> {
-    debugger
-    return this.httpClient.get<Post[]>(this.apiUrl + "posts.json");
+  public getAllPostAsync(): Observable<Post[]> {
+    return this.httpClient.get<{ [key: string]: Post }>(this.apiUrl).pipe(
+      map(response => {
+        console.log("Response From Backend: ", response)
+        let postsArray: Post[] = [];
+        for (let key in response) {
+          debugger
+          if (response.hasOwnProperty(key)) {
+            postsArray.push({ ...response[key], id: key });
+          }
+        }
+        return postsArray;
+      })
+    );
   }
 
 
+
+  public deletePost(id: string) {
+    debugger
+    const apiUrl = "https://mypost-64d44-default-rtdb.firebaseio.com/posts/" + id + ".json"
+    this.httpClient.delete(apiUrl)
+      .subscribe(
+        (response) => {
+          console.log("Post deleted successfully:", response);
+        },
+        (error) => {
+          console.error("Error while deleting post:", error);
+        }
+      )
+  }
+
+  public likePost(id: string, likes: number) {
+    const apiUrl = "https://mypost-64d44-default-rtdb.firebaseio.com/posts/" + id + ".json"
+    const updatedLikes = { likes: likes };
+    console.log(likes);
+    this.httpClient.patch(apiUrl, updatedLikes)
+      .subscribe(
+        (response) => {
+          console.log("Post like Updated successfully:", response);
+        },
+        (error) => {
+          console.error("Error while Update Like:", error);
+        }
+      )
+  }
 }

@@ -1,6 +1,6 @@
 export interface Post {
-    id : number,
-    title : string,
+    id: string,
+    title: string,
     content: string,
     likes: number
 }

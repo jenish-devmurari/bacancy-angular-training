@@ -14,7 +14,7 @@ export class CreatePostComponent {
   }
 
   public post: Post = {
-    id: 0,
+    id: "",
     title: "",
     content: "",
     likes: 0
@@ -25,7 +25,7 @@ export class CreatePostComponent {
       this.postService.createPost(this.post);
       alert("New Post Created")
       this.post = {
-        id: 0,
+        id: "",
         title: "",
         content: "",
         likes: 0

@@ -6,8 +6,8 @@
                 <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text">{{ post.content }}</p>
                 <div class="post-actions">
-                    <button class="btn btn-link" (click)="likePost()">
-                        <i class="fa-regular fa-heart" ></i>
+                    <button class="btn btn-link" (click)="likePost(post.id)">
+                        <i class="fa-regular fa-heart"></i>
                     </button>
                     <button class="btn btn-link">
                         <i class="fa-regular fa-comment m-3"></i>
@@ -16,7 +16,10 @@
                         <i class="fa-brands fa-telegram m-1"></i>
                     </button>
                 </div>
-                <a [routerLink]="'detail/' + post.id">Read More</a>
+                <p class="text-b">{{post.likes}} likes</p>
+                <button class="btn btn-link" (click)="deletePost(post.id)">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
             </div>
         </div>
         <a [routerLink]="'/create-post'" routerLinkActive="active"><button class="w-1 btn btn-primary mb-5">New
