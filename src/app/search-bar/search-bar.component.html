@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <input type="text" class="form-control" [(ngModel)]="query" placeholder="Search by title">
+    </div>
+    <div class="col-md-2 mb-3">
+        <select class="form-select" [(ngModel)]="category">
+            <option value="">All Categories</option>
+            <option value="Friction">Friction</option>
+            <option value="Non-friction">Non-friction</option>
+        </select>
+    </div>
+    <div class="col-md-2 mb-3">
+        <select class="form-select" [(ngModel)]="priceRange">
+            <option value="">All Prices</option>
+            <option value="99-199">99-199</option>
+            <option value="199-299">199-299</option>
+            <option value="299-499">299-499</option>
+            <option value="499+">499 and more</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary" (click)="search()">Search</button>
+    </div>
+</div>

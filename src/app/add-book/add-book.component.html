@@ -1,0 +1,26 @@
+<div class="container mt-1 border border-2 w-50 h-100">
+    <div class="row justify-content-center">
+        <div *ngIf="errorMessage">{{errorMessage}}</div>
+        <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+            <h3 class="text-center mb-3">Add Book</h3>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" formControlName="title">
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" class="form-control" id="category" formControlName="category">
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" class="form-control" id="price" formControlName="price">
+            </div>
+            <div class="form-group">
+                <label for="file">File: </label>
+                <input type="file" class="form-control-file" id="file" accept=".pdf,.epub,.mobi"
+                    (change)="onFileSelected($event)">
+            </div>
+            <button type="submit" class="btn btn-primary mb-3 mt-3">Add Book</button>
+        </form>
+    </div>
+</div>
