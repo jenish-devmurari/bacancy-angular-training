@@ -12,7 +12,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class RegisterComponent implements OnInit {
 
-
   public registrationForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService) { }

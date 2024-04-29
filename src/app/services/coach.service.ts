@@ -10,11 +10,11 @@ export class CoachService {
 
   constructor(private http: HttpClient) { }
 
-  getAllPlayers(): Observable<string[]> {
+  public getAllPlayers(): Observable<string[]> {
     return this.http.get<string[]>(this.apiUrl);
   }
 
-  appointCaptain(playerEmail: string): Observable<any> {
+  public appointCaptain(playerEmail: string): Observable<any> {
     return this.http.post('https://localhost:7127/api/Coach/AddCaptain', playerEmail);
   }
 }

@@ -33,7 +33,6 @@ export class UserService {
       );
   }
 
-
   public logout(): void {
     this.isAuthenticate = false;
     localStorage.removeItem('authToken');
