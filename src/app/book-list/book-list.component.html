@@ -1,0 +1,44 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="bookId">Enter Book ID:</label>
+                <input type="number" class="form-control" id="bookId" [(ngModel)]="searchBookId"
+                    placeholder="Enter Book ID" (keyup)="searchBookById()">
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="searchBook" class="mt-4">
+        <h3>Book Details:</h3>
+        <div class="card">
+            <div class="card-body">
+                <p>Book ID: {{ searchBook.id }}</p>
+                <p>Book Name: {{ searchBook.name }}</p>
+                <p>Author: {{ searchBook.author }}</p>
+                <p>Price: {{ searchBook.price }}</p>
+                <p>Publishing Year: {{ searchBook.publish_year | date:'yyyy' }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!searchBook && searchBookId !== undefined" class="mt-4">
+        <p>No record found.</p>
+    </div>
+
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let book of bookList">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.name }}</h5>
+                        <p class="card-text">Author: {{ book.author }}</p>
+                        <p class="card-text">Price: {{ book.price | currency:'INR'}}</p>
+                        <p class="card-text">Publishing Year: {{ book.publish_year | date:'yyyy' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
