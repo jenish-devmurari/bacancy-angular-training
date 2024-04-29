@@ -1,0 +1,19 @@
+.navbar {
+    background-color: rgb(246, 220, 118);
+}
+
+.nav-item {
+    a {
+        text-decoration: none;
+        color: black;
+        margin: 10px;
+    }
+}
+
+a.active {
+    font-size: 18px;
+    font-weight: bolder;
+}
+a.logout {
+    cursor: pointer;
+}
