@@ -1,9 +1,11 @@
-<h1>List of Players</h1>
-
-<div *ngIf="players.length > 0">
-    <ul>
-        <li *ngFor="let player of players">
-            {{ player }}
-        </li>
-    </ul>
+<div class="container mt-4">
+    <button class="btn btn-primary" (click)="getPlayers()">Get Players</button>
+    <h1 *ngIf="players.length > 0" class="mt-4">List of Players</h1>
+    <div *ngIf="players.length > 0">
+        <ul class="list-group mt-3">
+            <li class="list-group-item" *ngFor="let player of players">
+                {{ player }}
+            </li>
+        </ul>
+    </div>
 </div>

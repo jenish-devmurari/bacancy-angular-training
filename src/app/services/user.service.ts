@@ -1,8 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, tap, throwError } from 'rxjs';
-import { Registration } from '../interface/registration.interface';
 import { Router } from '@angular/router';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +24,14 @@ export class UserService {
     };
     return this.httpClient.post<{ token: string }>("https://localhost:7127/api/Login", loginData, httpOptions)
       .pipe(
-        tap((response: any) => {
+        tap((response) => {
           this.authToken = response.token;
           localStorage.setItem('authToken', this.authToken);
           this.isAuthenticate = true;
         }),
+        catchError((error) => {
+          return throwError(error);
+        })
       );
   }
 

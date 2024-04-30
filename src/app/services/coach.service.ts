@@ -14,7 +14,4 @@ export class CoachService {
     return this.http.get<string[]>(this.apiUrl);
   }
 
-  public appointCaptain(playerEmail: string): Observable<any> {
-    return this.http.post('https://localhost:7127/api/Coach/AddCaptain', playerEmail);
-  }
 }

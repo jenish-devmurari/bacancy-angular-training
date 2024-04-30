@@ -18,7 +18,6 @@ export class LoginComponent {
     this.initializeForm()
   }
 
-
   public initializeForm(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")]],
@@ -27,16 +26,17 @@ export class LoginComponent {
   }
 
   public onSubmit(): void {
-    this.userService.loginUser(this.loginForm.value).subscribe((res) => {
-      this.toastr.success('Login successful', 'Success', {
-      });
-      this.route.navigate(['/dashboard'])
-    },
+    this.userService.loginUser(this.loginForm.value).subscribe(
+      (res) => {
+        this.toastr.success('Login successful', 'Success', {
+        });
+        this.route.navigate(['/dashboard'])
+      },
       (error) => {
         if (error.status === 401) {
           this.toastr.error(error.error.message, 'Error');
-        } else if (error.status === 400) {
-          this.toastr.error('Invalid input data. Please check your input and try again.', 'Error');
+        } else if (error.status === 0) {
+          this.toastr.error('Something went wrong please try later', 'Error');
         } else if (error.status === 500) {
           this.toastr.error('An unexpected error occurred. Please try again later.', 'Error');
         } else {
@@ -46,6 +46,5 @@ export class LoginComponent {
     );
     this.loginForm.reset();
   }
-
 
 }

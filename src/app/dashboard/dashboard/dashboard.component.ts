@@ -15,24 +15,25 @@ export class DashboardComponent implements OnInit {
   constructor(private coachService: CoachService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+  }
+
+  public getPlayers(): void {
     this.coachService.getAllPlayers().subscribe(
-      (players: string[]) => {
-        this.players = players;
+      (res) => {
+        this.players = res;
       },
       (error) => {
-        this.toastr.error(error, "Error fetching players");
+        if (error.status === 404) {
+          this.toastr.error("Something went wrong");
+        } else if (error.status === 401 || error.status === 403) {
+          this.toastr.error("You have't Authorize for this service")
+        } else {
+          this.toastr.error("Something went wrong please try later")
+        }
       }
     );
   }
 
-  appointCaptain(playerEmail: string): void {
-    this.coachService.appointCaptain(playerEmail).subscribe((res) => {
-      this.toastr.success(res, 'Success', {
-      });
-    }, (error) => {
-      this.toastr.error(error, 'error', {
-      });
-    });
-  }
+
 
 }
