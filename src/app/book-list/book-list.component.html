@@ -2,14 +2,16 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="bookId">Enter Book ID:</label>
-                <input type="number" class="form-control" id="bookId" [(ngModel)]="searchBookId"
-                    placeholder="Enter Book ID" (keyup)="searchBookById()">
+                <form [formGroup]="bookIdForm">
+                    <label for="bookId">Enter Book ID:</label>
+                    <input type="number" class="form-control" id="bookId" placeholder="Enter Book ID"
+                        formControlName="id">
+                </form>
             </div>
         </div>
     </div>
 
-    <div *ngIf="searchBook" class="mt-4">
+    <div *ngIf="searchBook; else noFound" class="mt-4">
         <h3>Book Details:</h3>
         <div class="card">
             <div class="card-body">
@@ -22,11 +24,11 @@
         </div>
     </div>
 
-    <div *ngIf="!searchBook && searchBookId !== undefined" class="mt-4">
-        <p>No record found.</p>
-    </div>
-
-
+    <ng-template #noFound>
+        <div *ngIf="!searchBook && (bookIdForm.controls['id'].dirty)" class="mt-4">
+            <p>No record found.</p>
+        </div>
+    </ng-template>
 
     <div class="container mt-5">
         <div class="row">

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subscription, concatMap, debounceTime, distinctUntilChanged, forkJoin, from, switchMap } from 'rxjs';
 import { Book } from '../interface/book.interface';
 import { BookService } from '../services/book.service';
-import { Subject, Subscription, concatMap, debounceTime, from, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-book-list',
@@ -10,26 +11,33 @@ import { Subject, Subscription, concatMap, debounceTime, from, of, switchMap } f
 })
 export class BookListComponent implements OnInit {
 
-  public bookList !: Book[];
+  public bookIdForm!: FormGroup
+  public bookList!: Book[];
   public searchBook: Book | undefined;
-  public searchBookId!: number;
   public observables: Subscription[] = [];
-  public  bookId: number[] = [0, 1, 2];
-  public searchInput$: Subject<number> = new Subject<number>();
+  public bookIds: number[] = [0, 1, 2, 3, 4, 5];
 
-
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BookService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.getBooks()
+    this.initializeForm();
+    this.getBooks();
     this.searchBooks();
+    this.getBooksUsingForkJoin();
+    this.getBookByIdUsingConcatMap();
   }
 
+  public initializeForm(): void {
+    this.bookIdForm = this.formBuilder.group({
+      id: [null]
+    });
+  }
+
+  // Task-2 get books from mock data
   public getBooks(): void {
     const subscription = this.bookService.getBooks().subscribe(
       (res) => {
-        console.log(res);
         this.bookList = res;
       },
       (error) => {
@@ -39,10 +47,26 @@ export class BookListComponent implements OnInit {
     this.observables.push(subscription);
   }
 
+  // Task-3 Get Book details using concatMap
+  public getBookByIdUsingConcatMap(): void {
+    const subscription = from(this.bookIds).pipe(
+      concatMap(id => this.bookService.getBookById(id)),
+    ).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (error) => {
+        console.error('Error fetching book:', error);
+      }
+    );
+    this.observables.push(subscription);
+  }
 
-  public searchBooks() {
-    const subscription = this.searchInput$.pipe(
+  // Task-4 Get search book 
+  public searchBooks(): void {
+    const subscription = this.bookIdForm.controls['id'].valueChanges.pipe(
       debounceTime(1000),
+      distinctUntilChanged(),
       switchMap((bookId: number) => this.bookService.getBookById(bookId))
     ).subscribe((book: Book | undefined) => {
       this.searchBook = book;
@@ -50,8 +74,15 @@ export class BookListComponent implements OnInit {
     this.observables.push(subscription);
   }
 
-  public searchBookById(): void {
-    this.searchInput$.next(this.searchBookId);
+  // Task -6 for forkJoin
+  public getBooksUsingForkJoin(): void {
+    const obs1$ = this.bookService.getBookByIdWithFakApi(1);
+    const obs2$ = this.bookService.getBookByIdWithFakApi(2);
+    const obs3$ = this.bookService.getBookByIdWithFakApi(0);
+    forkJoin([obs1$, obs2$, obs3$]).subscribe(
+      (res) => console.log(res),
+      (err) => console.log(err)
+    )
   }
 
   ngOnDestroy(): void {
