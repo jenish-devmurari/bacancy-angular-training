@@ -2,7 +2,7 @@
     <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
     <div class="col-lg-4 col-md-6 mb-4" *ngFor="let book of books">
         <div class="card h-100">
-            <!-- <img class="card-img-top" src="assets/book1.jpeg" alt="Book Image"> -->
+            <!-- <img class="card-img-top" src="assets/{{book.file}}" alt="Book Image"> -->
             <div class="card-body">
                 <h5 class="card-title">{{ book.title }}</h5>
                 <p class="card-text">Category: {{ book.category }}</p>

@@ -11,6 +11,7 @@ import { ErrorService } from '../services/error.service';
 })
 export class AddBookComponent {
   bookForm!: FormGroup;
+  book: Book[] = []
   selectedFile!: File;
   public errorMessage: string = "";
 
@@ -30,7 +31,14 @@ export class AddBookComponent {
   }
 
   public onSubmit(): void {
-    this.bookService.addBook(this.bookForm.value).subscribe(
+    debugger
+    const formData: any = new FormData();
+    formData.append('title', this.bookForm.get('title')?.value);
+    formData.append('category', this.bookForm.get('category')?.value);
+    formData.append('price', this.bookForm.get('price')?.value);
+    formData.append('file', this.selectedFile.name);
+
+    this.bookService.addBook(formData).subscribe(
       (response) => {
         this.bookForm.reset();
       },

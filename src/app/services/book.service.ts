@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Book } from '../interface/book.interface';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +11,19 @@ export class BookService {
 
   private apiUrl: string = "https://bookstore-6ce7e-default-rtdb.firebaseio.com/books.json"
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private errorService: ErrorService) { }
 
   public addBook(data: FormData): Observable<any> {
-    const apiUrl = "https://bookstore-6ce7-default-rtdb.firebaseio.com/books.json"
+    debugger
+    const apiUrl = "https://bookstore-6ce7e-default-rtdb.firebaseio.com/books.json"
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
     });
-
-    return this.httpClient.post<{ name: String }>(this.apiUrl, data, { headers })
-
+    const jsonObject: any = {};
+    data.forEach((value, key) => {
+      jsonObject[key] = value;
+    });
+    return this.httpClient.post<any>(this.apiUrl, jsonObject, { headers })
   }
 
   public getAllBooks(): Observable<Book[]> {
@@ -38,7 +41,14 @@ export class BookService {
           }
         }
         return bookArray;
-      })
+      },
+        catchError(error => {
+          console.log(error)
+          this.errorService.emitError('Error occurred while fetching data: ' + error.message);
+          return throwError(error);
+        }
+        )
+      )
     )
   }
 

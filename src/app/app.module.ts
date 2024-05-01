@@ -5,7 +5,6 @@ import { BookListComponent } from './book-list/book-list.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NotifierModule } from 'angular-notifier';
 import { ErrorInterceptor } from './interceptor/error.interceptor';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 
@@ -22,7 +21,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NotifierModule,
+
 
   ],
   providers: [
