@@ -1,16 +1,45 @@
-<div class="row">
-    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+<div class="container mt-3">
+    <form [formGroup]="filterForm">
+        <div class="row">
+            <div class="form-group col-md-4 mb-3">
+                <input formControlName="title" class="form-control" type="search" placeholder="Search Book"
+                    aria-label="Search">
+            </div>
+            <div class="form-group col-md-2 mb-3 ">
+                <select formControlName="category" class="form-select" aria-label="Category">
+                    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4 mb-3">
+                <select formControlName="priceRange" class="form-select" aria-label="Price Range">
+                    <option *ngFor="let range of priceRanges" [value]="range.label">{{ range.label }}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <button class="btn btn-primary" type="submit" (click)="onSubmit()">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="row" *ngIf="books.length > 0; else noBooksFound">
     <div class="col-lg-4 col-md-6 mb-4" *ngFor="let book of books">
-        <div class="card h-100">
-            <!-- <img class="card-img-top" src="assets/{{book.file}}" alt="Book Image"> -->
+        <div class="card">
+            <!-- <img class="img" src="assets/{{book.file}}" alt="Book Image"> -->
             <div class="card-body">
                 <h5 class="card-title">{{ book.title }}</h5>
                 <p class="card-text">Category: {{ book.category }}</p>
                 <p class="card-text">Price: {{ book.price }}</p>
             </div>
-            <div class="card-footer">
-                <i class="fa-solid fa-download"></i>
-            </div>
         </div>
     </div>
 </div>
+
+<ng-template #noBooksFound>
+    <div class="container mt-3">
+        <div class="alert alert-danger" role="alert">
+            No books found.
+        </div>
+    </div>
+</ng-template>

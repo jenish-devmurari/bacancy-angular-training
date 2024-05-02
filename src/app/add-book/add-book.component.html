@@ -1,47 +1,56 @@
-<div class="container mt-1 border border-2 w-50 h-100">
-    <div class="row justify-content-center">
-        <div *ngIf="errorMessage">{{errorMessage}}</div>
-        <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
-            <h3 class="text-center mb-3">Add Book</h3>
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" formControlName="title">
-                <span
-                    *ngIf="bookForm.get('title')?.invalid && (bookForm.get('title')?.dirty || bookForm.get('title')?.touched)"
-                    class="text-danger">
-                    Title is required.
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="category">Category</label>
-                <input type="text" class="form-control" id="category" formControlName="category">
-                <span
-                    *ngIf="bookForm.get('category')?.invalid && (bookForm.get('category')?.dirty || bookForm.get('category')?.touched)"
-                    class="text-danger">
-                    Category is required.
-                </span>
-
-            </div>
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="number" class="form-control" id="price" formControlName="price">
-                <span
-                    *ngIf="bookForm.get('price')?.invalid && (bookForm.get('price')?.dirty || bookForm.get('price')?.touched)"
-                    class="text-danger">
-                    Price is required.
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="file">File: </label>
-                <input type="file" class="form-control-file" id="file" (change)="onFileSelected($event)"
-                    formControlName="file">
-                <span
-                    *ngIf="bookForm.get('file')?.invalid && (bookForm.get('file')?.dirty || bookForm.get('file')?.touched)"
-                    class="text-danger">
-                    This Field is required.
-                </span>
-            </div>
-            <button type="submit" class="btn btn-primary mb-3 mt-3" [disabled]="bookForm.invalid">Add Book</button>
-        </form>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="bookForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Book</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="form-group m-3">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" formControlName="title">
+                    <span
+                        *ngIf="bookForm.get('title')?.invalid && (bookForm.get('title')?.dirty || bookForm.get('title')?.touched)"
+                        class="text-danger">
+                        Title is required.
+                    </span>
+                </div>
+                <div class="form-group m-3">
+                    <label for="category">Category</label>
+                    <select formControlName="category" class="form-select" aria-label="Category">
+                        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                    </select>
+                    <span
+                        *ngIf="bookForm.get('category')?.invalid && (bookForm.get('category')?.dirty || bookForm.get('category')?.touched)"
+                        class="text-danger">
+                        Category is required.
+                    </span>
+                </div>
+                <div class="form-group m-3">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" id="price" formControlName="price">
+                    <span
+                        *ngIf="bookForm.get('price')?.invalid && (bookForm.get('price')?.dirty || bookForm.get('price')?.touched)"
+                        class="text-danger">
+                        Price is required.
+                    </span>
+                </div>
+                <div class="form-group m-3">
+                    <label for="file">File: </label>
+                    <input type="file" class="form-control-file" id="file" (change)="onFileSelected($event)"
+                        formControlName="file">
+                    <span
+                        *ngIf="bookForm.get('file')?.invalid && (bookForm.get('file')?.dirty || bookForm.get('file')?.touched)"
+                        class="text-danger">
+                        This Field is required.
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="bookForm.invalid"
+                        (click)="onSubmit()">Add Book</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
