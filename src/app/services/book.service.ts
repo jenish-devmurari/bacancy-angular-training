@@ -43,7 +43,7 @@ export class BookService {
       ),
       catchError(error => {
         this.errorService.emitError(error);
-        return throwError(error);
+        return throwError(() => error);
       })
     )
   }
@@ -61,7 +61,7 @@ export class BookService {
       }),
       catchError(error => {
         this.errorService.emitError(error);
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }

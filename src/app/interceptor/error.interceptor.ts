@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           case 404: errorMessage = "Resource not found"; break;
           default: errorMessage = "Something went wrong please try later"; break;
         }
-        return throwError(errorMessage);
+        return throwError(() => errorMessage);
       })
     );
   }

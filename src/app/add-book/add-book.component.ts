@@ -12,12 +12,12 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-book.component.scss']
 })
 export class AddBookComponent implements OnInit, OnDestroy {
-  bookForm!: FormGroup;
-  book: Book[] = []
-  selectedFile!: File;
+  public bookForm!: FormGroup;
+  public book: Book[] = []
+  public selectedFile!: File;
   public categories: string[] = ['Friction', 'Non-Friction', 'Sci-fi'];
-  public errorMessage: string = "";
   public subscriptions: Subscription[] = [];
+  public url: string = "";
 
   constructor(private formBuilder: FormBuilder, private bookService: BookService, private errorService: ErrorService, private toastr: ToastrService) { }
 
@@ -41,21 +41,32 @@ export class AddBookComponent implements OnInit, OnDestroy {
     formData.append('price', this.bookForm.get('price')?.value);
     formData.append('file', this.selectedFile);
 
-    const addBookSubscription = this.bookService.addBook(formData).subscribe(
-      (response) => {
+    const addBookSubscription = this.bookService.addBook(formData).subscribe({
+      next: () => {
         this.toastr.success('Book Added Successfully');
         this.bookForm.reset();
       },
-      (error) => {
-        this.errorMessage = error.message;
-        this.toastr.error("Book addition is unsuccessfully", 'Error');
+      error: (error: any) => {
+        this.toastr.error("Book addition is unsuccessful", 'Error');
       }
-    );
+    });
     this.subscriptions.push(addBookSubscription);
   }
 
   public onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
+    debugger
+    const files: FileList = event.target.files;
+    if (files.length === 0) {
+      this.url = '';
+      return;
+    }
+
+    const file: File = files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.url = reader.result as string;
+    };
   }
 
   ngOnDestroy() {

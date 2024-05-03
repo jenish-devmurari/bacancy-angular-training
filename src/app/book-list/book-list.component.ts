@@ -15,7 +15,6 @@ export class BookListComponent implements OnInit, OnDestroy {
   public filterForm  !: FormGroup
   public categories: string[] = ['All', 'Friction', 'Non-Friction', 'Sci-fi'];
   public books: Book[] = []
-  public errorMessage: string = "";
   public errorSubscription!: Subscription;
   public subscriptions: Subscription[] = [];
   public priceRanges: { label: string }[] = [
@@ -31,8 +30,7 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.errorSubscription = this.errorService.getErrorObservable().subscribe(error => {
-      this.errorMessage = error.message;
-      this.toastr.error(this.errorMessage, 'Error');
+      this.toastr.error(error, 'Error');
     });
     this.subscriptions.push(this.errorSubscription);
     this.initializeForm();
@@ -48,13 +46,14 @@ export class BookListComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    const filterSubscription = this.bookService.getFilterBooks(this.filterForm.value).subscribe(
-      (books: Book[]) => {
+    const filterSubscription = this.bookService.getFilterBooks(this.filterForm.value).subscribe({
+      next: (books: Book[]) => {
         this.books = books;
       },
-      (error: any) => {
+      error: (error: any) => {
         this.toastr.error(error, 'Error');
-      })
+      }
+    });
     this.subscriptions.push(filterSubscription);
   }
 
@@ -64,8 +63,7 @@ export class BookListComponent implements OnInit, OnDestroy {
         this.books = books
       },
       error: (err) => {
-        this.errorMessage = err
-        this.toastr.error(this.errorMessage, 'Error');
+        this.toastr.error(err, 'Error');
       }
     });
     this.subscriptions.push(fetchSubscription);
