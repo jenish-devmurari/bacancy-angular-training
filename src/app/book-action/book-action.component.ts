@@ -11,7 +11,6 @@ export class BookActionComponent implements OnChanges {
   @Input() book: Book | undefined;
   @Input() isEditMode: boolean | undefined;
 
-
   newBook: Book = {
     imgUrl: '', title: '', description: '', price: 0,
     id: 0,
@@ -32,7 +31,6 @@ export class BookActionComponent implements OnChanges {
   public addBook(): void {
     this.bookAdded.emit(this.newBook);
     this.resetForm();
-
   }
 
   public updateBook(): void {
@@ -49,6 +47,4 @@ export class BookActionComponent implements OnChanges {
     };
     this.isEditMode = false;
   }
-
-
 }

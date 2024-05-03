@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Book } from 'src/app/interface/book-details.interface';
 
 @Component({
@@ -7,16 +7,13 @@ import { Book } from 'src/app/interface/book-details.interface';
   styleUrls: ['./book.component.scss']
 })
 export class BookComponent {
-
   @Input() books !: Book[];
-  @Output() deleteConfirmation = new EventEmitter<number>();
-
+  @Input() stockCount !: number
 
   @Output() edit = new EventEmitter<number>();
-  @Output() delete = new EventEmitter<number>();
+  @Output() deleteConfirmation = new EventEmitter<number>();
   @Output() viewClick = new EventEmitter<number>();
   @Output() viewStock = new EventEmitter<number>();
-
 
   public editBook(bookId: number): void {
     this.edit.emit(bookId);

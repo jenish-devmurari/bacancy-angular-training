@@ -15,14 +15,33 @@
                         data-bs-target="#confirmationDialog" (click)="deleteBook(book.id)">
                         Delete
                     </button>
-                    <button type="button" class="btn btn-primary" (click)="getStock(book.id)">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#stockNotificationModal" (click)="getStock(book.id)">
                         Stock
                     </button>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                        (click)="viewBook(book.id)" #bookViewRef>
+                        (click)="viewBook(book.id)">
                         View
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="stockNotificationModal" tabindex="-1" aria-labelledby="stockNotificationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="stockNotificationModalLabel">Stock Notification</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ stockCount }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

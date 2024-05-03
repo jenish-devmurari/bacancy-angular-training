@@ -13,15 +13,16 @@ export class BookDetailsComponent {
 
 
   getStarArray(rating: number): number[] {
+    const ratingRound = Math.round(rating);
     const stars: number[] = [];
-    for (let i = 1; i <= rating; i++) {
+    for (let i = 1; i <= ratingRound; i++) {
       stars.push(i);
     }
     return stars;
   }
 
   getStarStyle(rating: number): any {
-    if (rating >= 4) {
+    if (rating > 4) {
       return { color: 'green' };
     } else if (rating >= 3) {
       return { color: 'yellow' };

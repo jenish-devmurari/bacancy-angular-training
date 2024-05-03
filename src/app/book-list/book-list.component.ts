@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterContentChecked, Component, ElementRef, Input, OnChanges, ViewChild, AfterViewChecked } from '@angular/core';
+import { AfterContentInit, AfterContentChecked, Component, ElementRef, Input, OnChanges, ViewChild, AfterViewChecked, OnInit } from '@angular/core';
 import { Book } from '../interface/book-details.interface';
 import { BookActionComponent } from '../book-action/book-action.component';
 
@@ -7,7 +7,8 @@ import { BookActionComponent } from '../book-action/book-action.component';
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.scss']
 })
-export class BookListComponent {
+export class BookListComponent implements OnInit {
+  
   public books: Book[] = [
     {
       id: 0, imgUrl: "assets/book1.jpeg", title: "Book 1", description: "Description for Book 1", price: 20,
@@ -37,19 +38,28 @@ export class BookListComponent {
       stock: 25
     }
   ];
-
-
   public selectedBookInfo: Book | any;
   public selectedBook: Book | undefined;
   public selectedBookCount: number = 0
   public isEditMode: boolean = false;
   public editBookIndex: number = -1;
   public bookToDeleteId: number | undefined;
+  public stockCount!: number;
+
+  ngOnInit(): void {
+    
+  }
 
   public onBookAdded(book: Book): void {
     book.id = this.books.length;
+    console.log(book.imgUrl)
     book.imgUrl = "assets/book1.jpeg"
+    console.log(book.imgUrl)
+    if (book.rating > 5) {
+      book.rating = 5
+    }
     this.books.push(book);
+    this.isEditMode = false;
   }
 
   public editBook(bookId: number): void {
@@ -61,7 +71,6 @@ export class BookListComponent {
     }
   }
 
-
   public viewBook(bookId: number): void {
     this.selectedBookInfo = this.books.find(book => book.id === bookId);
   }
@@ -69,13 +78,16 @@ export class BookListComponent {
   public viewStock(bookId: number): void {
     const selectedBook = this.books.find(book => book.id === bookId);
     if (selectedBook) {
-      alert(`Stocks: ${selectedBook.stock}`);
+      this.stockCount = selectedBook.stock;
     } else {
       alert('Stock information not available.');
     }
   }
 
   public updateBook(book: Book): void {
+    if (book.imgUrl == "") {
+      book.imgUrl = "assets/book1.jpeg";
+    }
     this.books[this.editBookIndex] = book;
     this.editBookIndex = -1;
     this.selectedBook = undefined;
