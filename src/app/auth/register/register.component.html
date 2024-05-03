@@ -77,6 +77,11 @@
                             class="text-danger">
                             Date of birth is required.
                         </span>
+                        <span
+                            *ngIf="registrationForm.get('dateOfBirth')?.hasError('futureDate') && (registrationForm.get('dateOfBirth')?.dirty || registrationForm.get('dateOfBirth')?.touched)"
+                            class="text-danger">
+                            Date of birth cannot be a future date.
+                        </span>
                     </div>
                     <div class="form-group">
                         <label for="totalMatchesPlayed">Total Match Played</label>

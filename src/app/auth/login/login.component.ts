@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,7 @@ export class LoginComponent {
   }
 
   public onSubmit(): void {
-    this.userService.loginUser(this.loginForm.value).subscribe(
+    this.userService.loginUser(this.loginForm.value).pipe(take(1)).subscribe(
       (res) => {
         this.toastr.success('Login successful', 'Success', {
         });

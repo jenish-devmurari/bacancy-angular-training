@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -26,15 +27,24 @@ export class RegisterComponent implements OnInit {
       contactNumber: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
       email: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")]],
       password: ['', [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')]],
-      dateOfBirth: ['', Validators.required],
+      dateOfBirth: ['', [Validators.required, this.notFutureDateValidator.bind(this)]],
       totalMatchesPlayed: [null],
       height: [null],
       weight: [null]
     });
   }
 
+  public notFutureDateValidator(control: FormControl): { [key: string]: boolean } | null {
+    const selectedDate = new Date(control.value);
+    const currentDate = new Date();
+    if (selectedDate > currentDate) {
+      return { futureDate: true };
+    }
+    return null;
+  };
+
   public onSubmit(): void {
-    this.userService.registerUser(this.registrationForm.value).subscribe(
+    this.userService.registerUser(this.registrationForm.value).pipe(take(1)).subscribe(
       (res) => {
         if (res === "Email is Already  Register") {
           this.toastr.error(res);
