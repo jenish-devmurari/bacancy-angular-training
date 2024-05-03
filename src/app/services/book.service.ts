@@ -13,16 +13,10 @@ export class BookService {
 
   constructor(private httpClient: HttpClient, private errorService: ErrorService) { }
 
-  public addBook(data: FormData): Observable<[key: string]> {
+  public addBook(book: Book, imageData: string): Observable<[key: string]> {
     // const apiUrl = "https://bookstore-6ce-default-rtdb.firebaseio.com/books.json"
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    const jsonData: any = {};
-    data.forEach((value, key) => {
-      jsonData[key] = value;
-    });
-    return this.httpClient.post<[key: string]>(this.apiUrl, jsonData, { headers });
+    book.File = imageData
+    return this.httpClient.post<[key: string]>(this.apiUrl, book);
   }
 
   public getAllBooks(): Observable<Book[]> {

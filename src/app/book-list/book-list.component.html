@@ -26,7 +26,7 @@
 <div class="row" *ngIf="books.length > 0; else noBooksFound">
     <div class="col-lg-4 col-md-6 mb-4" *ngFor="let book of books">
         <div class="card">
-            <!-- <img class="img" src="assets/{{book.file}}" alt="Book Image"> -->
+            <img [src]="book.File" class="img-book" alt="Uploaded Image">
             <div class="card-body">
                 <h5 class="card-title">{{ book.title }}</h5>
                 <p class="card-text">Category: {{ book.category }}</p>

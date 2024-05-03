@@ -3,5 +3,5 @@ export interface Book {
     title: string,
     category: string,
     price: number,
-    imgUrl: string
+    File: FormDataEntryValue | null
 }

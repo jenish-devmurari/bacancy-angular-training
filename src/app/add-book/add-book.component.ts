@@ -35,13 +35,8 @@ export class AddBookComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    const formData: any = new FormData();
-    formData.append('title', this.bookForm.get('title')?.value);
-    formData.append('category', this.bookForm.get('category')?.value);
-    formData.append('price', this.bookForm.get('price')?.value);
-    formData.append('file', this.selectedFile);
-
-    const addBookSubscription = this.bookService.addBook(formData).subscribe({
+    const bookData: Book = this.bookForm.getRawValue()
+    const addBookSubscription = this.bookService.addBook(bookData, this.url).subscribe({
       next: () => {
         this.toastr.success('Book Added Successfully');
         this.bookForm.reset();
@@ -54,13 +49,11 @@ export class AddBookComponent implements OnInit, OnDestroy {
   }
 
   public onFileSelected(event: any): void {
-    debugger
     const files: FileList = event.target.files;
     if (files.length === 0) {
       this.url = '';
       return;
     }
-
     const file: File = files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
