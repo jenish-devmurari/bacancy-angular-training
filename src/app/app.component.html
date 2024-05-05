@@ -1,1 +1,35 @@
 <app-book-list></app-book-list>
+
+<!-- 
+List out which lifecycle hooks are called when actions occur.
+
+1.ngOnChanges():
+Called when an input property changes.
+2.ngOnInit():
+Called once, after the first ngOnChanges().
+3.ngDoCheck():
+Called during every change detection run, immediately after ngOnChanges() and ngOnInit().
+4.ngAfterContentInit():
+Called after the component's content has been initialized.
+5.ngAfterContentChecked():
+Called after the component's content has been checked.
+6.ngAfterViewInit():
+Called after the component's view and its children's views has been initialized.
+7.ngAfterViewChecked():
+Called after the component's view and its children's views has been checked.
+8.ngOnDestroy():
+Called just before the component is destroyed. -->
+
+
+<!-- When multiple ng-content tags are present in a single template file, we can use select attribute
+     to specify which content goes where. -->
+<!-- 
+<app-content-projection>
+    <span slot="jenish">Jenish</span>
+    <span slot="devmurari"> Devmurari</span>
+</app-content-projection>
+
+<app-content-projection>
+    <div class="jenish">Jenish</div>
+    <div class="devmurari">Devmurari</div>
+</app-content-projection> -->

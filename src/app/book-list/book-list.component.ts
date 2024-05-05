@@ -1,6 +1,5 @@
-import { AfterContentInit, AfterContentChecked, Component, ElementRef, Input, OnChanges, ViewChild, AfterViewChecked, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Book } from '../interface/book-details.interface';
-import { BookActionComponent } from '../book-action/book-action.component';
 
 @Component({
   selector: 'app-book-list',
@@ -8,7 +7,7 @@ import { BookActionComponent } from '../book-action/book-action.component';
   styleUrls: ['./book-list.component.scss']
 })
 export class BookListComponent implements OnInit {
-  
+
   public books: Book[] = [
     {
       id: 0, imgUrl: "assets/book1.jpeg", title: "Book 1", description: "Description for Book 1", price: 20,
@@ -47,14 +46,12 @@ export class BookListComponent implements OnInit {
   public stockCount!: number;
 
   ngOnInit(): void {
-    
   }
 
   public onBookAdded(book: Book): void {
     book.id = this.books.length;
-    console.log(book.imgUrl)
-    book.imgUrl = "assets/book1.jpeg"
-    console.log(book.imgUrl)
+    book.imgUrl = "assets/book1.jpeg";
+    book.stock = Math.round(book.stock);
     if (book.rating > 5) {
       book.rating = 5
     }
@@ -85,6 +82,10 @@ export class BookListComponent implements OnInit {
   }
 
   public updateBook(book: Book): void {
+    book.stock = Math.round(book.stock);
+    if (book.rating > 5) {
+      book.rating = 5
+    }
     if (book.imgUrl == "") {
       book.imgUrl = "assets/book1.jpeg";
     }
@@ -93,7 +94,6 @@ export class BookListComponent implements OnInit {
     this.selectedBook = undefined;
     this.isEditMode = false;
   }
-
 
   public deleteConfirmation(bookId: number): void {
     this.bookToDeleteId = bookId;
@@ -108,6 +108,5 @@ export class BookListComponent implements OnInit {
     }
     this.bookToDeleteId = undefined;
   }
-
 
 }

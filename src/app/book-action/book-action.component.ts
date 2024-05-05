@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Book } from 'src/app/interface/book-details.interface';
 
 @Component({
@@ -29,13 +29,28 @@ export class BookActionComponent implements OnChanges {
   }
 
   public addBook(): void {
-    this.bookAdded.emit(this.newBook);
-    this.resetForm();
+    if (this.validForm()) {
+      this.bookAdded.emit(this.newBook);
+      this.resetForm();
+    }
+    else {
+      alert("Please fill up all field ");
+    }
   }
 
   public updateBook(): void {
     this.bookEdited.emit(this.newBook);
     this.resetForm();
+  }
+
+  private validForm(): boolean {
+    return this.newBook.title.trim() !== '' &&
+      this.newBook.description.trim() !== '' &&
+      this.newBook.imgUrl.trim() !== '' &&
+      this.newBook.price !== null &&
+      this.newBook.review.trim() !== '' &&
+      this.newBook.rating !== null &&
+      this.newBook.stock !== null;
   }
 
   public resetForm(): void {

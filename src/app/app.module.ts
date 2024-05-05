@@ -7,6 +7,7 @@ import { BookActionComponent } from './book-action/book-action.component';
 import { BookComponent } from './book/book.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { CoreModule } from './core/core.module';
+import { ContentProjectionComponent } from './content-projection/content-projection.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { CoreModule } from './core/core.module';
     BookActionComponent,
     BookComponent,
     BookDetailsComponent,
+    ContentProjectionComponent,
 
 
 
