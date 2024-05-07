@@ -6,6 +6,8 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { AddMemberComponent } from './add-member/add-member.component';
 import { HttpComponent } from './http/http.component';
 import { UserFooterComponent } from './user-footer/user-footer.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserComponent } from './user.component';
 
 
 @NgModule({
@@ -14,10 +16,12 @@ import { UserFooterComponent } from './user-footer/user-footer.component';
     UserDashboardComponent,
     AddMemberComponent,
     HttpComponent,
-    UserFooterComponent
+    UserFooterComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     UserRoutingModule
   ]
 })

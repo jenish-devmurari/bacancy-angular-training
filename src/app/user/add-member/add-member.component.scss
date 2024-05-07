@@ -1,0 +1,18 @@
+$error-color: red;
+$success-color: green;
+.error {
+    border: 1px solid $error-color;
+}
+.success {
+    border: 1px solid $success-color;
+}
+
+.radio-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.radio-button {
+    margin-right: 10px;
+}
+

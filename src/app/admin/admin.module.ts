@@ -5,6 +5,8 @@ import { AdminHeaderComponent } from './admin-header/admin-header.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AdminFooterComponent } from './admin-footer/admin-footer.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AdminComponent } from './admin.component';
 
 
 @NgModule({
@@ -12,10 +14,12 @@ import { AdminFooterComponent } from './admin-footer/admin-footer.component';
     AdminHeaderComponent,
     AdminDashboardComponent,
     AddUserComponent,
-    AdminFooterComponent
+    AdminFooterComponent,
+    AdminComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     AdminRoutingModule
   ]
 })

@@ -1,1 +1,38 @@
-<p>login works!</p>
+<div class="container w-50 h-100 mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center mb-4">Login</h2>
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+                <div class="form-group mt-2">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="loginData.email"
+                        #email="ngModel" required placeholder="Enter your email here"
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+                    <span *ngIf="email.errors?.['required'] && (email.touched || email.dirty)" class="text-danger">
+                        Email is required
+                    </span>
+                    <span *ngIf="email.errors?.['pattern'] && email.touched" class="text-danger">Please enter
+                        valid email
+                    </span>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control"
+                        [(ngModel)]="loginData.password" #password="ngModel" required
+                        placeholder="Enter your password here" minlength="6" maxlength="12">
+                    <span *ngIf="password.errors?.['required'] && (password.touched || password.dirty)"
+                        class="text-danger">
+                        Password is required
+                    </span>
+                    <span *ngIf="password.errors?.['minlength'] && (password.touched || password.dirty)"
+                        class="text-danger">
+                        Password is at least 6 character
+                    </span>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+                <p class="mt-2 text-center">Don't have an account? <a class="link-text"
+                        [routerLink]="['/register']">Register</a></p>
+            </form>
+        </div>
+    </div>
+</div>
