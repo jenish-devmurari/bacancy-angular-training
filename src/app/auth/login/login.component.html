@@ -11,7 +11,8 @@
                     <span *ngIf="email.errors?.['required'] && (email.touched || email.dirty)" class="text-danger">
                         Email is required
                     </span>
-                    <span *ngIf="email.errors?.['pattern'] && email.touched" class="text-danger">Please enter
+                    <span *ngIf="email.errors?.['pattern'] && (email.touched || email.dirty)" class="text-danger">Please
+                        enter
                         valid email
                     </span>
                 </div>

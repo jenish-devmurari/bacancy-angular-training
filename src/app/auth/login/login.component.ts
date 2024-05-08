@@ -20,7 +20,6 @@ export class LoginComponent {
   }
 
   public onSubmit(loginData: NgForm): void {
-    debugger
     this.loginService.login(loginData.form.value);
     this.resetForm();
   }

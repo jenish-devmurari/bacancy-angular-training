@@ -1,5 +1,6 @@
-export interface Registration {
-    id: number;
+import { Member } from "./member.interface";
+
+export interface User {
     firstName: string;
     lastName: string;
     email: string;
@@ -8,6 +9,6 @@ export interface Registration {
     gender: string;
     hobbies: string;
     role: string;
-    admin?: string;
     isActive: boolean;
+    members: Member[]
 }

@@ -11,8 +11,6 @@ import { AuthModule } from './auth/auth.module';
 @NgModule({
   declarations: [
     AppComponent,
-
-
   ],
   imports: [
     BrowserModule,
@@ -25,6 +23,7 @@ import { AuthModule } from './auth/auth.module';
       timeOut: 2000,
       closeButton: true,
       progressBar: true,
+      positionClass: 'toast-top-right',
     })
 
   ],

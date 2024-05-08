@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription, take } from 'rxjs';
 import { GENDERS, HOBBIES } from 'src/app/constants/constants';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-add-user',
@@ -12,6 +14,9 @@ export class AddUserComponent implements OnInit {
   public addUserForm!: FormGroup
   public genders: string[] = GENDERS
   public hobbies: string[] = HOBBIES
+
+  constructor(private registerService: RegisterService, private toaster: ToastrService) {
+  }
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -27,18 +32,25 @@ export class AddUserComponent implements OnInit {
       gender: new FormControl('', [Validators.required]),
       hobbies: new FormControl('', [Validators.required]),
       role: new FormControl('User'),
-      admin: new FormControl('admin@123')
+      adminList: new FormControl(this.getAdminEmail())
     });
   }
 
   public onSubmit() {
-    console.log(this.addUserForm.value);
+    if (this.registerService.setRegistrationData(this.addUserForm.value)) {
+      this.toaster.success("User Added Successfully")
+      this.addUserForm.reset();
+    }
+  }
+
+  private getAdminEmail(): string {
+    return localStorage.getItem('loggedIn') as string;
   }
 
   public confirmPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const confirmPassword: string = control.value;
     const password: string = this.addUserForm?.get('password')?.value
-    const passwordSubscription = this.addUserForm?.get('password')?.valueChanges.pipe(take(1)).subscribe((newValue) => {
+    this.addUserForm?.get('password')?.valueChanges.subscribe((newValue) => {
       if (newValue !== confirmPassword) {
         control.setErrors({ passwordMatch: true });
       } else {
@@ -50,6 +62,5 @@ export class AddUserComponent implements OnInit {
     }
     return null
   }
-
-
 }
+

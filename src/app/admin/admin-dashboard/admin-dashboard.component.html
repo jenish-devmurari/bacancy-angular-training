@@ -1,1 +1,35 @@
+<ng-container *ngIf="usersData && usersData.length > 0; else noData">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let user of usersData">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
+                        <p class="card-text">Email: {{ user.email }}</p>
+                        <p class="card-text">Gender: {{ user.gender }}</p>
+                        <p class="card-text">Hobbies: {{ user.hobbies }}</p>
+                        <button class="btn btn-danger" (click)="deleteUser(user.email)">Delete</button>
+                        <button class="btn btn-primary" (click)="activeToggle(user.email)">{{ user.isActive ?
+                            'Deactivate' :
+                            'Activate' }}</button>
+                        <!-- <i class="fa fa-trash text-danger" style="cursor: pointer;"></i>
+                    <i class="fa"
+                        [ngClass]="!user.isActive ? 'fa-toggle-on text-success' : 'fa-toggle-off text-secondary'"
+                        style="cursor: pointer;"></i> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
 
+
+<ng-template #noData>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>No Users available.</p>
+            </div>
+        </div>
+    </div>
+</ng-template>

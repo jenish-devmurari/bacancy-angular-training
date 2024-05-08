@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { GENDERS, HOBBIES, ROLESOFMEMBERS } from 'src/app/constants/constants';
+import { Admin } from 'src/app/interfaces/admin.interface';
+import { Member } from 'src/app/interfaces/member.interface';
 
 @Component({
   selector: 'app-add-member',
@@ -12,9 +15,12 @@ export class AddMemberComponent {
   public genders: string[] = GENDERS
   public hobbies: string[] = HOBBIES
   public roleOfMember: string[] = ROLESOFMEMBERS
-  public adminList: string[] = []
+  private loggedEmail: string | null = "";
 
+  constructor(private toaster: ToastrService) {
+  }
   public ngOnInit(): void {
+    this.loggedEmail = localStorage.getItem('loggedIn');
     this.initializeForm();
   }
 
@@ -51,6 +57,8 @@ export class AddMemberComponent {
   }
 
   public onSubmit(): void {
+    debugger
+    this.addMemberToUser(this.loggedEmail, this.memberForm.value)
     this.memberForm.reset();
     (this.memberForm.get('members') as FormArray).clear();
   }
@@ -77,4 +85,25 @@ export class AddMemberComponent {
     const membersArray = (<FormArray>this.memberForm.get('members'));
     return membersArray.length === 0 || this.memberForm.invalid;
   }
+
+  public addMemberToUser(userEmail: string | null, member: Member): void {
+    debugger
+    const userDataString = localStorage.getItem('Users');
+    if (userDataString) {
+      const userData: Admin[] = JSON.parse(userDataString);
+      for (const admin of userData) {
+        const user = admin.users.find(user => user.email === userEmail);
+        if (user) {
+          user.members.push(member);
+          localStorage.setItem('Users', JSON.stringify(userData));
+          return;
+        }
+      }
+      console.error(`User with email ${userEmail} not found.`);
+    } else {
+      console.error('No user data found in localStorage.');
+    }
+  }
+
+
 }
