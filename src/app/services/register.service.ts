@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class RegisterService {
-
   private readonly registrationKey = 'Users';
   constructor(private router: Router, private toaster: ToastrService) { }
 
@@ -33,6 +32,7 @@ export class RegisterService {
     return dataString ? JSON.parse(dataString) : null;
   }
 
+  // get admin list to show user for which admin present inside system
   public getAdminList(): string[] {
     const existingData: Admin[] = this.getRegistrationData() || [];
     const adminUsers: Admin[] = existingData.filter((user) => user.role === 'Admin');
@@ -40,6 +40,7 @@ export class RegisterService {
     return adminEmails;
   }
 
+  // add admin
   private addAdmin(data: Admin): void {
     let admin: Admin = {
       firstName: data.firstName,
@@ -53,9 +54,7 @@ export class RegisterService {
       isActive: true,
       users: [],
     };
-
     let adminData: Admin[] = [];
-
     const localStorageData = localStorage.getItem(this.registrationKey);
     if (localStorageData !== null) {
       adminData = JSON.parse(localStorageData);
@@ -64,6 +63,7 @@ export class RegisterService {
     localStorage.setItem(this.registrationKey, JSON.stringify(adminData));
   }
 
+  // add user 
   private addUser(data: any): void {
     const adminEmail: string | null = data.adminList;
     if (!adminEmail) {
@@ -81,9 +81,7 @@ export class RegisterService {
       isActive: true,
       members: []
     };
-
     let adminData: Admin[] = [];
-
     const localStorageData = localStorage.getItem(this.registrationKey);
     if (localStorageData !== null) {
       adminData = JSON.parse(localStorageData);
@@ -97,6 +95,7 @@ export class RegisterService {
     }
   }
 
+  // check is email is register or not for admin and user registration
   private isEmailRegister(email: string): boolean {
     const localStorageData = localStorage.getItem(this.registrationKey);
     if (localStorageData) {

@@ -1,5 +1,8 @@
 $error-color: red;
 $success-color: green;
+$background-color: rgb(210, 200, 200);
+$box-shadow-color: rgba(0, 0, 0, 0.5);
+
 .error {
     border: 1px solid $error-color;
 }
@@ -19,4 +22,12 @@ $success-color: green;
 .btn {
     margin: 3% 0 0 13%;
     width: 75%;
+}
+
+.row {
+    width: 70%;
+    box-shadow: 0px 0px 10px 0px $box-shadow-color;
+    border-radius: 10px;
+    border: 3px solid $background-color;
+    margin: 2% 0 2% 15%;
 }

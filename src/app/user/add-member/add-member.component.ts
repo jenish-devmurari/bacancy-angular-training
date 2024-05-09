@@ -18,13 +18,14 @@ export class AddMemberComponent {
   public roleOfMember: string[] = ROLESOFMEMBERS
   private loggedEmail: string | null = "";
 
-  constructor(private toaster: ToastrService) {
-  }
+  constructor(private toaster: ToastrService) { }
+
   public ngOnInit(): void {
     this.loggedEmail = localStorage.getItem('loggedIn');
     this.initializeForm();
   }
 
+  //initialize form of member 
   public initializeForm(): void {
     this.memberForm = new FormGroup({
       members: new FormArray([])
@@ -32,10 +33,12 @@ export class AddMemberComponent {
     this.addMember()
   }
 
+  // add whole form of members with control inside member form
   public addMember(): void {
     (<FormArray>this.memberForm.get('members')).push(this.createMember());
   }
 
+  // create form control
   public createMember(): FormGroup {
     return new FormGroup({
       firstName: new FormControl('', [Validators.required, this.whiteSpaceValidator]),
@@ -49,10 +52,12 @@ export class AddMemberComponent {
     });
   }
 
+  // get all controls of members of member form
   public getMemberControl(): AbstractControl[] {
     return (<FormArray>this.memberForm.get('members')).controls;
   }
 
+  // remove member form control
   public removeMember(index: number): void {
     (<FormArray>this.memberForm.get('members')).removeAt(index);
   }
@@ -78,6 +83,12 @@ export class AddMemberComponent {
     (this.memberForm.get('members') as FormArray).clear();
   }
 
+  public isSubmitDisabled(): boolean {
+    const membersArray = (<FormArray>this.memberForm.get('members'));
+    return membersArray.length === 0 || this.memberForm.invalid;
+  }
+
+  // email exist validator for member
   private emailExistsValidator(control: FormControl): { [key: string]: boolean } | null {
     const email = control.value;
     const exists = this.checkEmailExists(email);
@@ -107,6 +118,7 @@ export class AddMemberComponent {
     return false;
   }
 
+  // white space validator
   private whiteSpaceValidator(control: FormControl): { [key: string]: boolean } | null {
     const value = control.value;
     if (value && value.trim() !== value) {
@@ -115,6 +127,7 @@ export class AddMemberComponent {
     return null;
   }
 
+  // contact number validator
   private contactNumberValidator(control: FormControl): { [key: string]: boolean } | null {
     const validPhoneNumberRegex: RegExp = /^[6-9]\d{9}$/;
     const contactNumber: string = control.value;
@@ -125,11 +138,7 @@ export class AddMemberComponent {
     }
   }
 
-  public isSubmitDisabled(): boolean {
-    const membersArray = (<FormArray>this.memberForm.get('members'));
-    return membersArray.length === 0 || this.memberForm.invalid;
-  }
-
+  // add member at particular user
   private addMemberToUser(userEmail: string | null, member: Member[]): void {
     const userDataString = localStorage.getItem('Users');
     if (userDataString) {

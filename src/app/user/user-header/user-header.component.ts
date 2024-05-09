@@ -9,8 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UserHeaderComponent {
 
-  constructor(private router: Router, private toaster: ToastrService) {
-  }
+  constructor(private router: Router, private toaster: ToastrService) { }
+
   public logout() {
     localStorage.removeItem('loggedIn');
     this.toaster.success("Logout Successfully");

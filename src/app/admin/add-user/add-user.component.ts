@@ -15,14 +15,20 @@ export class AddUserComponent implements OnInit {
   public genders: string[] = GENDERS
   public hobbies: string[] = HOBBIES
 
-  constructor(private registerService: RegisterService, private toaster: ToastrService) {
-  }
+  constructor(private registerService: RegisterService, private toaster: ToastrService) { }
 
   public ngOnInit(): void {
     this.initializeForm();
   }
 
-  public initializeForm(): void {
+  public onSubmit(): void {
+    if (this.registerService.setRegistrationData(this.addUserForm.value)) {
+      this.toaster.success("User Added Successfully")
+      this.addUserForm.reset();
+    }
+  }
+
+  private initializeForm(): void {
     this.addUserForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
@@ -36,18 +42,13 @@ export class AddUserComponent implements OnInit {
     });
   }
 
-  public onSubmit() {
-    if (this.registerService.setRegistrationData(this.addUserForm.value)) {
-      this.toaster.success("User Added Successfully")
-      this.addUserForm.reset();
-    }
-  }
-
+  //get admin email who is loggedIn
   private getAdminEmail(): string {
     return localStorage.getItem('loggedIn') as string;
   }
 
-  public confirmPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  // confirm password validator
+  private confirmPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const confirmPassword: string = control.value;
     const password: string = this.addUserForm?.get('password')?.value
     this.addUserForm?.get('password')?.valueChanges.subscribe((newValue) => {

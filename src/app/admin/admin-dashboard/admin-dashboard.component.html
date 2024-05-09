@@ -2,8 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4" *ngFor="let user of usersData">
-                <div class="card mt-3">
+                <div class="card mt-3  mb-3 text-center">
                     <div class="card-body">
+                        <div class="gender-img-container">
+                            <img [src]="getGenderImage(user.gender)" class="gender-img" alt="Gender Image">
+                        </div>
                         <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
                         <p class="card-text">Email: {{ user.email }}</p>
                         <p class="card-text">Gender: {{ user.gender }}</p>
@@ -20,7 +23,6 @@
         </div>
     </div>
 </ng-container>
-
 
 <ng-template #noData>
     <div class="container">

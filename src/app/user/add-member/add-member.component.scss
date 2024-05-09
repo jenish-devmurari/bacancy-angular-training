@@ -1,5 +1,13 @@
 $error-color: red;
 $success-color: green;
+$background-color: rgb(210, 200, 200);
+$box-shadow-color: rgba(0, 0, 0, 0.5);
+
+@mixin bordered-element {
+    box-shadow: 0px 0px 10px 0px $box-shadow-color;
+    border-radius: 10px;
+    border: 3px solid $background-color;
+}
 .error {
     border: 1px solid $error-color;
 }
@@ -16,3 +24,16 @@ $success-color: green;
     margin-right: 10px;
 }
 
+.row {
+    width: 70%;
+    @include bordered-element;
+    margin: 2% 0 2% 15%;
+}
+
+.inside {
+    margin: 10px;
+    margin-left: -5%;
+    padding: 20px;
+    width: 120%;
+    @include bordered-element;
+}

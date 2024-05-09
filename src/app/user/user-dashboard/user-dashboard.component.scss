@@ -3,4 +3,14 @@
     justify-content: center;
     align-items: center;
 }
+.gender-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}
 
+.gender-img {
+    max-width: 100%;
+    max-height: 100%;
+}

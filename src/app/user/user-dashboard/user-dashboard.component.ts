@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { femaleImageUrl, getGenderImageUrl, maleImageUrl, thirdGenderImageUrl } from 'src/app/constants/constants';
 import { Admin } from 'src/app/interfaces/admin.interface';
 import { Member } from 'src/app/interfaces/member.interface';
 import { User } from 'src/app/interfaces/user.interface';
@@ -9,15 +10,19 @@ import { User } from 'src/app/interfaces/user.interface';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent {
-
   public memberData: Member[] | null = [];
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getUserData();
   }
+  // Get image based on gender to show in card
+  public getGenderImage(gender: string): string {
+    return getGenderImageUrl(gender);
+  }
 
+  // Get member data from local storage based on particular user
   private getUserData(): void {
     const dataString = localStorage.getItem('Users');
     if (dataString) {
@@ -33,3 +38,4 @@ export class UserDashboardComponent {
     }
   }
 }
+

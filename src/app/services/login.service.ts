@@ -10,17 +10,12 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginService {
   public userFound: boolean = false;
   private readonly registrationKey = 'Users';
-  constructor(private route: Router, private toaster: ToastrService) { }
 
-  private getRegistrationData(): Admin[] | null {
-    const dataString = localStorage.getItem(this.registrationKey);
-    return dataString ? JSON.parse(dataString) : null;
-  }
+  constructor(private route: Router, private toaster: ToastrService) { }
 
   public login(loginData: Login): void {
     const existingData: Admin[] = this.getRegistrationData() || [];
     const foundAdmin = existingData.find((user) => user.email === loginData.email);
-
     if (foundAdmin) {
       if (foundAdmin && loginData.password === foundAdmin.password) {
         localStorage.setItem('loggedIn', foundAdmin.email);
@@ -28,11 +23,10 @@ export class LoginService {
         this.toaster.success(`Welcome ${loginData.email}`);
         return;
       } else {
-        this.toaster.error("Invalid Admin Credentials");
+        this.toaster.error("Invalid credentials. Please try again.");
         return;
       }
     }
-
     for (const admin of existingData) {
       const foundUser = admin.users.find((user) => user.email === loginData.email);
       if (foundUser && foundUser.password === loginData.password) {
@@ -54,5 +48,10 @@ export class LoginService {
     } else {
       this.toaster.error("User not registered. Please register.");
     }
+  }
+
+  private getRegistrationData(): Admin[] | null {
+    const dataString = localStorage.getItem(this.registrationKey);
+    return dataString ? JSON.parse(dataString) : null;
   }
 }

@@ -10,7 +10,6 @@ import { HttpService } from 'src/app/services/http.service';
   styleUrls: ['./http.component.scss']
 })
 export class HttpComponent implements OnInit, OnDestroy {
-
   public posts: Post[] = [];
   public searchId !: number;
   public searchPost: Post[] = [];
@@ -25,7 +24,8 @@ export class HttpComponent implements OnInit, OnDestroy {
 
   constructor(private httpService: HttpService, private toaster: ToastrService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    // initial post 
     const postSubscription = this.httpService.getPosts().subscribe({
       next: (res) => { this.posts = res; },
       error: () => { this.toaster.error("Error while fetching post ") }
@@ -34,7 +34,7 @@ export class HttpComponent implements OnInit, OnDestroy {
     this.subscription.push(postSubscription);
   }
 
-
+  // get post by id 
   public getPostById(id: number): void {
     const postSubscriptionById = this.httpService.getPostsById(id).subscribe({
       next: () => {
@@ -53,6 +53,7 @@ export class HttpComponent implements OnInit, OnDestroy {
     this.subscription.push(postSubscriptionById);
   }
 
+  // delete post delete request
   public deletePost(id: number): void {
     const deletePostSubscription = this.httpService.deletePost(id).subscribe(
       {
@@ -66,6 +67,7 @@ export class HttpComponent implements OnInit, OnDestroy {
     this.subscription.push(deletePostSubscription);
   }
 
+  // create post post request
   public createPost(): void {
     const createPostSubscription = this.httpService.createPost(this.newPost).subscribe({
       next: (res) => {
@@ -87,6 +89,7 @@ export class HttpComponent implements OnInit, OnDestroy {
     this.selectedPost = { ...post };
   }
 
+  // edit post put request
   public editPost(): void {
     const editPostSubscription = this.httpService.editPost(this.selectedPost, this.selectedPost.id).subscribe({
       next: (res) => {
@@ -102,7 +105,8 @@ export class HttpComponent implements OnInit, OnDestroy {
     this.subscription.push(editPostSubscription);
   }
 
-  ngOnDestroy(): void {
+  // unsubscribe all observables
+  public ngOnDestroy(): void {
     this.subscription.forEach(sub => sub.unsubscribe())
   }
 }

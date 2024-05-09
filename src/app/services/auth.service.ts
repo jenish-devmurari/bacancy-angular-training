@@ -16,6 +16,7 @@ export class AuthService {
     return false;
   }
 
+  // get loggedIn role based on email
   public getUserRole(email: string): string {
     const localStorageData = localStorage.getItem('Users');
     if (localStorageData) {

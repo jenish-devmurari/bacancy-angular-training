@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-footer.component.scss']
 })
 export class UserFooterComponent {
-
 }

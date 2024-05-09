@@ -4,7 +4,7 @@
         <div class="col-md-6">
             <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
                 <div formArrayName="members">
-                    <div *ngFor="let member of getMemberControl(); let i = index">
+                    <div *ngFor="let member of getMemberControl(); let i = index" class="inside">
                         <div [formGroupName]="i">
                             <h4>Member {{ i + 1 }}</h4>
                             <div class="form-group m-2">
