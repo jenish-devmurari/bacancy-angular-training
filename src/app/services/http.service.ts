@@ -12,34 +12,22 @@ export class HttpService {
   constructor(private http: HttpClient, private toaster: ToastrService) { }
 
   public getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/posts`).pipe(
-      catchError(error => {
-        return throwError(() => error)
-      }
-      ));
+    return this.http.get<Post[]>(`${this.apiUrl}/posts`)
   }
 
   public getPostsById(id: number): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/posts/${id}`).pipe(
-      catchError(error => {
-        return throwError(() => error)
-      }
-      ));
+    return this.http.get<Post[]>(`${this.apiUrl}/posts/${id}`);
   }
 
-  public deletePost(id: number): Observable<{}> {
-    return this.http.delete(`${this.apiUrl}/posts/${id}`).pipe(
-      catchError(error => {
-        return throwError(() => error)
-      }
-      ))
+  public deletePost(id: number): Observable<Post> {
+    return this.http.delete<Post>(`${this.apiUrl}/posts/${id}`);
   }
 
   public createPost(post: Post): Observable<Post> {
-    return this.http.post<Post>(`${this.apiUrl}/posts`, post).pipe(
-      catchError(error => {
-        return throwError(() => error);
-      })
-    );
+    return this.http.post<Post>(`${this.apiUrl}/posts`, post);
+  }
+
+  public editPost(post: Post, id: number): Observable<Post> {
+    return this.http.put<Post>(`${this.apiUrl}/posts/${id}`, post)
   }
 }

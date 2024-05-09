@@ -1,7 +1,8 @@
-<button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Create Post
+<button type="button" class="create btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Post
 </button>
 
+<!-- search input with search button -->
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -13,6 +14,7 @@
     </div>
 </div>
 
+<!-- Add post modal  -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -39,15 +41,76 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4" *ngFor="let post of posts">
-            <div class="card mt-2">
-                <div class="card-body">
-                    <h5 class="card-title">{{ post.title }}</h5>
-                    <p class="card-text">{{ post.body }}</p>
-                    <i class="fa fa-trash" aria-hidden="true" (click)="deletePost(post.id)"></i>
+<!-- All post  -->
+<ng-container *ngIf="searchPost.length === 0; else searchResult">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let post of posts">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.body }}</p>
+                        <div class="icons">
+                            <i class="fa fa-trash" aria-hidden="true"
+                                [ngStyle]="{ 'font-size': '25px', 'margin-left': '10px','cursor':'pointer' }"
+                                (click)="deletePost(post.id)"></i>
+                            <i class="fas fa-edit" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#editModal"
+                                [ngStyle]="{ 'font-size': '25px', 'margin-left': '10px','cursor':'pointer' }"
+                                (click)="openEditModal(post)"></i>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<!-- get post by id-->
+<ng-template #searchResult>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let post of searchPost">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.body }}</p>
+                        <div class="icons">
+                            <i class="fa fa-trash" aria-hidden="true"
+                                [ngStyle]="{ 'font-size': '25px', 'margin-left': '10px','cursor':'pointer' }"
+                                (click)="deletePost(post.id)"></i>
+                            <i class="fas fa-edit" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#editModal"
+                                [ngStyle]="{ 'font-size': '25px', 'margin-left': '10px','cursor':'pointer' }"
+                                (click)="openEditModal(post)"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- edit post modal with selected post data -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" [(ngModel)]="selectedPost.title">
+                </div>
+                <div class="form-group">
+                    <label for="body">Body</label>
+                    <textarea class="form-control" id="body" [(ngModel)]="selectedPost.body"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="editPost()">Update</button>
             </div>
         </div>
     </div>

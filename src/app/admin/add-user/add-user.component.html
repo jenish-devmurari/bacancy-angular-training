@@ -55,8 +55,8 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="text" class="form-control" id="confirmPassword"
-                        placeholder="Enter Confirm Password" formControlName="confirmPassword" [ngClass]="{'error': addUserForm.get('confirmPassword')?.invalid && (addUserForm.get('confirmPassword')?.dirty || addUserForm.get('confirmPassword')?.touched),
+                    <input type="text" class="form-control" id="confirmPassword" placeholder="Enter Confirm Password"
+                        formControlName="confirmPassword" [ngClass]="{'error': addUserForm.get('confirmPassword')?.invalid && (addUserForm.get('confirmPassword')?.dirty || addUserForm.get('confirmPassword')?.touched),
                         'success': addUserForm.get('confirmPassword')?.valid}">
                     <span
                         *ngIf="addUserForm.get('confirmPassword')?.errors?.['required'] && (addUserForm.get('confirmPassword')?.dirty || addUserForm.get('confirmPassword')?.touched)"
@@ -95,7 +95,7 @@
                         class="text-danger">Hobbies are required.
                     </span>
                 </div>
-                <button type="submit" class="btn btn-primary" [disabled]="addUserForm.invalid">Add User</button>
+                <button type="submit" class="btn btn-primary mb-5" [disabled]="addUserForm.invalid">Add User</button>
             </form>
         </div>
     </div>

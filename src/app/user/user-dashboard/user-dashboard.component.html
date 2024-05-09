@@ -9,8 +9,8 @@
                         <p class="card-text">Gender: {{ member.gender }}</p>
                         <p class="card-text">Hobbies: {{ member.hobbies }}</p>
                         <p class="card-text">Role: {{ member.role }}</p>
-                        <p class="card-text">Salary: {{ member.salary | currency:'INR':'symbol':'1.0-0' }}</p>
-                        <p class="card-text">Contact: {{ member.contactNumber }}</p>
+                        <p class="card-text">Salary: {{ member.salary | currency:'INR':'symbol' }}</p>
+                        <p class="card-text">Contact Number: {{ member.contactNumber }}</p>
                     </div>
                 </div>
             </div>
@@ -19,10 +19,10 @@
 </ng-container>
 
 <ng-template #noData>
-    <div class="container">
+    <div class="container-not-available">
         <div class="row">
             <div class="col-md-12">
-                <p>No members available.</p>
+                <p class="text-danger">No members available.</p>
             </div>
         </div>
     </div>

@@ -12,7 +12,9 @@ import { HttpService } from 'src/app/services/http.service';
 export class HttpComponent implements OnInit, OnDestroy {
 
   public posts: Post[] = [];
-  public searchId !: number
+  public searchId !: number;
+  public searchPost: Post[] = [];
+  public selectedPost: Post = { userId: 0, id: 0, title: '', body: '' };
   public newPost: Post = {
     userId: 0,
     id: 0,
@@ -21,8 +23,7 @@ export class HttpComponent implements OnInit, OnDestroy {
   }
   private subscription: Subscription[] = [];
 
-  constructor(private httpService: HttpService, private toaster: ToastrService) {
-  }
+  constructor(private httpService: HttpService, private toaster: ToastrService) { }
 
   ngOnInit(): void {
     const postSubscription = this.httpService.getPosts().subscribe({
@@ -36,7 +37,9 @@ export class HttpComponent implements OnInit, OnDestroy {
 
   public getPostById(id: number): void {
     const postSubscriptionById = this.httpService.getPostsById(id).subscribe({
-      next: (res) => { console.log(res) },
+      next: () => {
+        this.searchPost = this.posts.filter(p => p.id == id)
+      },
       error: (err) => {
         let errorMessage = 'An error occurred';
         if (err.error && err.error.message) {
@@ -53,7 +56,10 @@ export class HttpComponent implements OnInit, OnDestroy {
   public deletePost(id: number): void {
     const deletePostSubscription = this.httpService.deletePost(id).subscribe(
       {
-        next: (res) => { console.log(res) },
+        next: () => {
+          this.posts = this.posts.filter(p => p.id !== id);
+          this.toaster.success("Post deleted")
+        },
         error: () => { this.toaster.error("Error while deleting post ") }
       }
     )
@@ -61,8 +67,11 @@ export class HttpComponent implements OnInit, OnDestroy {
   }
 
   public createPost(): void {
-    this.httpService.createPost(this.newPost).subscribe({
-      next: (res) => { console.log(res) },
+    const createPostSubscription = this.httpService.createPost(this.newPost).subscribe({
+      next: (res) => {
+        this.posts.push(res);
+        this.toaster.success("New Post Added")
+      },
       error: () => { this.toaster.error("Error while creating post ") }
     })
     this.newPost = {
@@ -71,6 +80,26 @@ export class HttpComponent implements OnInit, OnDestroy {
       title: '',
       body: ''
     }
+    this.subscription.push(createPostSubscription);
+  }
+
+  public openEditModal(post: Post): void {
+    this.selectedPost = { ...post };
+  }
+
+  public editPost(): void {
+    const editPostSubscription = this.httpService.editPost(this.selectedPost, this.selectedPost.id).subscribe({
+      next: (res) => {
+        const index = this.posts.findIndex(p => p.id === this.selectedPost.id);
+        if (index !== -1) {
+          this.posts[index] = { ...this.selectedPost };
+          this.toaster.success("Post edited")
+        }
+      },
+      error: () => { this.toaster.error("Error while editing post ") }
+    }
+    )
+    this.subscription.push(editPostSubscription);
   }
 
   ngOnDestroy(): void {
