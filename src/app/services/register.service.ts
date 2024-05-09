@@ -14,16 +14,15 @@ export class RegisterService {
   constructor(private router: Router, private toaster: ToastrService) { }
 
   public setRegistrationData(data: any): boolean {
-    debugger
     if (this.isEmailRegister(data.email)) {
-      this.toaster.error('This email already register');
+      this.toaster.error('This email is already register');
       return false
     } else {
       if (data.role === 'Admin') {
         this.addAdmin(data);
         return true
       } else {
-        this.addUser(data,);
+        this.addUser(data);
         return true
       }
     }
@@ -66,10 +65,8 @@ export class RegisterService {
   }
 
   private addUser(data: any): void {
-    debugger
     const adminEmail: string | null = data.adminList;
     if (!adminEmail) {
-
       return;
     }
     let user: User = {

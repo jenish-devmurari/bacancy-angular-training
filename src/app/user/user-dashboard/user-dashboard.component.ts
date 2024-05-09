@@ -27,8 +27,7 @@ export class UserDashboardComponent {
         const user = admin.users.find(user => user.email === loggedInEmail);
         if (user) {
           this.memberData = user.members;
-          console.log(this.memberData)
-          return
+          break;
         }
       }
     }

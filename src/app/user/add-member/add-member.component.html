@@ -46,6 +46,9 @@
                                     *ngIf="member.get('email')?.errors?.['pattern'] && (member.get('email')?.dirty || member.get('email')?.touched)"
                                     class="text-danger"> Enter a valid email address.
                                 </span>
+                                <span
+                                    *ngIf="member.get('email')?.errors?.['emailExists'] && (member.get('email')?.dirty || member.get('email')?.touched)"
+                                    class="text-danger">Email is already register</span>
                             </div>
                             <div class="form-group m-2">
                                 <label>Gender</label>
