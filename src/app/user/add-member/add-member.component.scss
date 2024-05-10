@@ -23,17 +23,6 @@ $box-shadow-color: rgba(0, 0, 0, 0.5);
 .radio-button {
     margin-right: 10px;
 }
-
-.row {
-    width: 70%;
-    @include bordered-element;
-    margin: 2% 0 2% 15%;
-}
-
-.inside {
-    margin: 10px;
-    margin-left: -5%;
-    padding: 20px;
-    width: 120%;
+.main {
     @include bordered-element;
 }

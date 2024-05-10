@@ -28,7 +28,7 @@ export class HttpComponent implements OnInit, OnDestroy {
     // initial post 
     const postSubscription = this.httpService.getPosts().subscribe({
       next: (res) => { this.posts = res; },
-      error: () => { this.toaster.error("Error while fetching post ") }
+      error: (err) => { this.toaster.error(err) } // global interceptor error 
     }
     )
     this.subscription.push(postSubscription);
