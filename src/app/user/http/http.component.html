@@ -14,6 +14,19 @@
     </div>
 </div>
 
+<!-- spinner -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <div *ngIf="loadingPosts">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Add post modal  -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

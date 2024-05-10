@@ -1,5 +1,6 @@
-$background-color: rgb(210, 200, 200);
-$box-shadow-color: rgba(0, 0, 0, 0.6);
+$first-color: #ccecf6;
+$second-color: #ffebb2;
+
 .btn {
     margin: 3% 0 0 13%;
     width: 75%;
@@ -7,10 +8,7 @@ $box-shadow-color: rgba(0, 0, 0, 0.6);
 .link-text {
     text-decoration: none;
 }
-
-.row {
-    box-shadow: 0px 0px 10px 0px $box-shadow-color;
-    border: 3px solid $background-color;
-    border-radius: 10px;
-    margin-top: 20%;
+.container {
+    margin-top: 10%;
+    background-image: linear-gradient($first-color, $second-color);
 }

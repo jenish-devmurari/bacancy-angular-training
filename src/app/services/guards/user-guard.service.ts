@@ -19,7 +19,7 @@ export class UserGuardService implements CanActivate {
         } else {
           this.toaster.error("Are you trying to access Admin but are you not Admin.");
           this.route.navigate(['/login']);
-          localStorage.removeItem('loggedIn')
+          localStorage.removeItem('loggedIn');
           return false;
         }
       } else {

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ROLES,GENDERS,HOBBIES } from 'src/app/constants/constants';
+import { GENDERS, HOBBIES, ROLES } from 'src/app/constants/constants';
 import { Admin } from 'src/app/interfaces/admin.interface';
 import { RegisterService } from 'src/app/services/register.service';
 
@@ -13,11 +13,11 @@ import { RegisterService } from 'src/app/services/register.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  public registrationForm !: FormGroup
-  public genders: string[] = GENDERS
+  public registrationForm !: FormGroup;
+  public genders: string[] = GENDERS;
   public hobbies: string[] = HOBBIES
-  public role: string[] = ROLES
-  public adminList: string[] = []
+  public role: string[] = ROLES;
+  public adminList: string[] = [];
 
   constructor(private registerService: RegisterService, private router: Router, private toaster: ToastrService) { }
 
@@ -26,9 +26,9 @@ export class RegisterComponent implements OnInit {
     this.seedAdminData();
   }
 
-  public onSubmit() {
+  public onSubmit(): void {
     if (this.registerService.setRegistrationData(this.registrationForm.value)) {
-      this.toaster.success("Successfully register")
+      this.toaster.success("Successfully register");
       this.router.navigate(['/login']);
       this.registrationForm.reset();
     }
@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
 
   // on role change of user generate dynamic admin control
   public onRoleChange(): void {
-    const selectedRole: string = this.registrationForm.get('role')?.value
+    const selectedRole: string = this.registrationForm.get('role')?.value;
     if (selectedRole === 'User') {
       this.registrationForm.addControl('adminList', new FormControl('', [Validators.required]));
       this.adminList = this.registerService.getAdminList();
@@ -57,7 +57,6 @@ export class RegisterComponent implements OnInit {
       role: new FormControl('', [Validators.required]),
     });
   }
-
 
   // seed admin data when application run
   private seedAdminData(): void {
@@ -82,7 +81,7 @@ export class RegisterComponent implements OnInit {
   // confirm password validator
   private confirmPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const confirmPassword: string = control.value;
-    const password: string = this.registrationForm?.get('password')?.value
+    const password: string = this.registrationForm?.get('password')?.value;
     this.registrationForm?.get('password')?.valueChanges.subscribe((newValue) => {
       if (newValue !== confirmPassword) {
         control.setErrors({ passwordMatch: true });

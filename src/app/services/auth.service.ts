@@ -23,7 +23,7 @@ export class AuthService {
       const adminData: Admin[] = JSON.parse(localStorageData);
       const foundAdminData = adminData.find((admin) => admin.email === email);
       if (foundAdminData) {
-        return foundAdminData.role
+        return foundAdminData.role;
       }
       for (const admin of adminData) {
         const foundUserData = admin.users.find((user) => user.email === email);

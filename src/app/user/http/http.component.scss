@@ -1,5 +1,10 @@
+$first-color: #ccecf6;
+$second-color: #ffebb2;
+
 .card {
     height: 250px;
+    border-radius: 10px;
+    background-image: linear-gradient($first-color, $second-color);
 }
 .icons {
     position: absolute;

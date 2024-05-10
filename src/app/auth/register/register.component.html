@@ -1,7 +1,7 @@
-<div class="container mt-1">
+<div class="container w-50 h-100 bg-light mt-3 p-5 rounded shadow-lg">
     <div class="row justify-content-center">
-        <h1 class="text-center">Registration</h1>
-        <div class="col-md-6">
+        <h1 class="text-center">Register</h1>
+        <div class="col-md-10">
             <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="mt-2">
                 <div class="form-group mt-2">
                     <label for="firstName">First Name</label>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name"
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter your last Name here"
                         formControlName="lastName" [ngClass]="{'error': registrationForm.get('lastName')?.invalid && (registrationForm.get('lastName')?.dirty || registrationForm.get('lastName')?.touched),
                         'success': registrationForm.get('lastName')?.valid}">
                     <span
@@ -99,6 +99,7 @@
                     <label for="role">Roles</label>
                     <select id="role" formControlName="role" class="form-control" [ngClass]="{'error': registrationForm.get('role')?.invalid && (registrationForm.get('role')?.dirty || registrationForm.get('role')?.touched),
                     'success': registrationForm.get('role')?.valid}" (change)="onRoleChange()">
+                        <option value="" selected>Select your Role</option>
                         <option *ngFor="let role of role" [value]="role">{{ role }}</option>
                     </select>
                     <span

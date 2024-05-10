@@ -9,9 +9,9 @@ export const ROLESOFMEMBERS: string[] = [
     'Safety Officer',
     'Supply Chain Manager'
 ];
-export const maleImageUrl: string = "assets/male.png"
-export const femaleImageUrl: string = "assets/female.png"
-export const thirdGenderImageUrl: string = "assets/default.png"
+export const maleImageUrl: string = "assets/male.png";
+export const femaleImageUrl: string = "assets/female.png";
+export const thirdGenderImageUrl: string = "assets/default.png";
 export function getGenderImageUrl(gender: string): string {
     switch (gender.toLowerCase()) {
         case 'male':

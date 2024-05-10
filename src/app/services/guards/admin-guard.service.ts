@@ -20,7 +20,7 @@ export class AdminGuardService implements CanActivate {
         } else {
           this.toaster.error("Are you trying to access User but are you not User");
           this.route.navigate(['/login']);
-          localStorage.removeItem('loggedIn')
+          localStorage.removeItem('loggedIn');
           return false;
         }
       } else {

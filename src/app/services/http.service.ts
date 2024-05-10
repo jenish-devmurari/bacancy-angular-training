@@ -13,7 +13,7 @@ export class HttpService {
 
   // get request for fetch all post data
   public getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/posts`)
+    return this.http.get<Post[]>(`${this.apiUrl}/posts`);
   }
 
   // get post by id

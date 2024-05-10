@@ -1,11 +1,11 @@
-<div class="container mt-1">
-    <div class="row justify-content-center">
-        <h1 class="text-center py-5">Add User</h1>
-        <div class="col-md-6">
+<div class="container w-50 h-100 mt-3 mb-5">
+    <div class="row">
+        <h1 class="text-center">Add User</h1>
+        <div class="box offset-md-1 col-md-10 p-4 border border-3 mb-5 rounded shadow">
             <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()" class="mt-2">
                 <div class="form-group mt-2">
                     <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="Enter your first name here"
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name here"
                         formControlName="firstName" [ngClass]="{'error': addUserForm.get('firstName')?.invalid && (addUserForm.get('firstName')?.dirty || addUserForm.get('firstName')?.touched),
                         'success': addUserForm.get('firstName')?.valid}">
                     <span
@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name"
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name here"
                         formControlName="lastName" [ngClass]="{'error': addUserForm.get('lastName')?.invalid && (addUserForm.get('lastName')?.dirty || addUserForm.get('lastName')?.touched),
                         'success': addUserForm.get('lastName')?.valid}">
                     <span
@@ -28,7 +28,7 @@
                 <div class="form-group mt-2">
                     <label for="email">Email</label>
                     <input type="email" id="email" formControlName="email" class="form-control" [ngClass]="{'error': addUserForm.get('email')?.invalid && (addUserForm.get('email')?.dirty || addUserForm.get('email')?.touched),
-                    'success': addUserForm.get('email')?.valid}" placeholder="Enter your email here" [ngClass]="{'error': addUserForm.get('email')?.invalid && (addUserForm.get('email')?.dirty || addUserForm.get('email')?.touched),
+                    'success': addUserForm.get('email')?.valid}" placeholder="Enter email here" [ngClass]="{'error': addUserForm.get('email')?.invalid && (addUserForm.get('email')?.dirty || addUserForm.get('email')?.touched),
                         'success': addUserForm.get('email')?.valid}">
                     <span
                         *ngIf="addUserForm.get('email')?.errors?.['required'] && (addUserForm.get('email')?.dirty || addUserForm.get('email')?.touched)"
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group mt-2">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter Password"
+                    <input type="password" class="form-control" id="password" placeholder="Enter password"
                         formControlName="password" [ngClass]="{'error': addUserForm.get('password')?.invalid && (addUserForm.get('password')?.dirty || addUserForm.get('password')?.touched),
                         'success': addUserForm.get('password')?.valid}">
                     <span
@@ -56,7 +56,7 @@
                 <div class="form-group mt-2">
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" class="form-control" id="confirmPassword"
-                        placeholder="Enter Confirm Password" formControlName="confirmPassword" [ngClass]="{'error': addUserForm.get('confirmPassword')?.invalid && (addUserForm.get('confirmPassword')?.dirty || addUserForm.get('confirmPassword')?.touched),
+                        placeholder="Enter confirm password" formControlName="confirmPassword" [ngClass]="{'error': addUserForm.get('confirmPassword')?.invalid && (addUserForm.get('confirmPassword')?.dirty || addUserForm.get('confirmPassword')?.touched),
                         'success': addUserForm.get('confirmPassword')?.valid}">
                     <span
                         *ngIf="addUserForm.get('confirmPassword')?.errors?.['required'] && (addUserForm.get('confirmPassword')?.dirty || addUserForm.get('confirmPassword')?.touched)"

@@ -10,5 +10,5 @@ export interface Admin {
     hobbies: string;
     role: string;
     isActive: boolean;
-    users: User[]
+    users: User[];
 }

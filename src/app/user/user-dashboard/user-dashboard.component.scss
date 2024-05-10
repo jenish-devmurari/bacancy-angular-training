@@ -1,7 +1,12 @@
+$first-color: #ccecf6;
+$second-color: #ffebb2;
+
 .container-not-available {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5%;
+    font-size: 30px;
 }
 .gender-img-container {
     display: flex;
@@ -9,12 +14,11 @@
     align-items: center;
     height: 150px;
 }
-
 .gender-img {
+    border-radius: 100%;
     max-width: 100%;
     max-height: 100%;
 }
-
 .card {
-    border-radius: 50px;
+    background-image: linear-gradient($first-color, $second-color);
 }

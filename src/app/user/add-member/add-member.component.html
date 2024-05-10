@@ -1,127 +1,124 @@
-<div class="container mt-1">
-    <div class="row my-5">
-        <div class="offset-md-2 col-md-8 main">
-            <h1 class="text-center my-5">Add Members</h1>
-            <div class="row">
-                <div class="offset-md-1 col-md-10 p-4 border border-3 mb-5">
-                    <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
-                        <div formArrayName="members">
-                            <div *ngFor="let member of getMemberControl(); let i = index" class="inside">
-                                <div [formGroupName]="i">
-                                    <h4>Member {{ i + 1 }}</h4>
-                                    <div class="form-group m-2">
-                                        <label for="firstName">First Name</label>
-                                        <input type="text" id="firstName" formControlName="firstName"
-                                            class="form-control" [ngClass]="{'error': member.get('firstName')?.invalid && (member.get('firstName')?.dirty || member.get('firstName')?.touched),
+<div class="container w-50 h-100 mt-3 mb-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center my-2">Add Members</h1>
+            <div class="box offset-md-1 col-md-10 p-4 mb-5 rounded shadow">
+                <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+                    <div formArrayName="members">
+                        <div *ngFor="let member of getMemberControl(); let i = index" class="inside">
+                            <div [formGroupName]="i">
+                                <h4>Member {{ i + 1 }}</h4>
+                                <div class="form-group m-2">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" formControlName="firstName"
+                                        placeholder="Enter first name here" class="form-control" [ngClass]="{'error': member.get('firstName')?.invalid && (member.get('firstName')?.dirty || member.get('firstName')?.touched),
                                 'success': member.get('firstName')?.valid}">
-                                        <span
-                                            *ngIf="member.get('firstName')?.errors?.['required'] && (member.get('firstName')?.dirty || member.get('firstName')?.touched)"
-                                            class="text-danger"> First name is
-                                            required.
-                                        </span>
-                                        <span *ngIf="member.get('firstName')?.errors?.['isWhiteSpace']"
-                                            class="text-danger">First name is not start or end with space.</span>
-                                    </div>
-                                    <div class="form-group m-2">
-                                        <label for="lastName">Last Name</label>
-                                        <input type="text" id="lastName" formControlName="lastName" class="form-control"
-                                            [ngClass]="{'error': member.get('lastName')?.invalid && (member.get('lastName')?.dirty || member.get('lastName')?.touched),
-                                'success': member.get('lastName')?.valid}">
-                                        <span
-                                            *ngIf="member.get('lastName')?.errors?.['required'] && (member.get('lastName')?.dirty || member.get('lastName')?.touched)"
-                                            class="text-danger"> Last name is
-                                            required.
-                                        </span>
-                                        <span *ngIf="member.get('lastName')?.errors?.['isWhiteSpace']"
-                                            class="text-danger">Last
-                                            name is not start or end with space.</span>
-                                    </div>
-                                    <div class="form-group m-2">
-                                        <label for="email">Email</label>
-                                        <input type="email" id="email" formControlName="email" class="form-control"
-                                            [ngClass]="{'error': member.get('email')?.invalid && (member.get('email')?.dirty || member.get('email')?.touched),
-                                'success': member.get('email')?.valid}">
-                                        <span
-                                            *ngIf="member.get('email')?.errors?.['required'] && (member.get('email')?.dirty || member.get('email')?.touched)"
-                                            class="text-danger"> Email is
-                                            required.
-                                        </span>
-                                        <span
-                                            *ngIf="member.get('email')?.errors?.['pattern'] && (member.get('email')?.dirty || member.get('email')?.touched)"
-                                            class="text-danger"> Enter a valid email address.
-                                        </span>
-                                        <span
-                                            *ngIf="member.get('email')?.errors?.['emailExists'] && (member.get('email')?.dirty || member.get('email')?.touched)"
-                                            class="text-danger">Email is already register</span>
-                                    </div>
-                                    <div class="form-group m-2">
-                                        <label>Gender</label>
-                                        <div class="radio-buttons">
-                                            <div *ngFor="let gender of genders" class="radio-button">
-                                                <input type="radio" formControlName="gender" [value]="gender" [ngClass]="{'error': member.get('gender')?.invalid && (member.get('gender')?.dirty || member.get('gender')?.touched),
-                                        'success': member.get('gender')?.valid}"> {{ gender }}
-                                            </div>
-                                            <span
-                                                *ngIf="member.get('gender')?.errors?.['required'] && (member.get('gender')?.dirty || member.get('gender')?.touched)"
-                                                class="text-danger">
-                                                Gender is required.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group m-2">
-                                        <label for="hobbies">Hobbies</label>
-                                        <select id="hobbies" formControlName="hobbies" class="form-control">
-                                            <option value="" disabled selected>Select hobby</option>
-                                            <option *ngFor="let hobby of hobbies" [value]="hobby">{{ hobby }}</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group m-2">
-                                        <label for="role">Role</label>
-                                        <select id="role" formControlName="role" class="form-control" [ngClass]="{'error': member.get('role')?.invalid && (member.get('role')?.dirty || member.get('role')?.touched),
-                                'success': member.get('role')?.valid}">
-                                            <option value="" disabled selected>Select role</option>
-                                            <option *ngFor="let role of roleOfMember" [value]="role">{{ role }}</option>
-                                        </select>
-                                        <span
-                                            *ngIf="member.get('role')?.errors?.['required'] && (member.get('role')?.dirty || member.get('role')?.touched)"
-                                            class="text-danger"> Role is required.
-                                        </span>
-                                    </div>
-                                    <div class="form-group m-2">
-                                        <label for="salary">Salary</label>
-                                        <input type="number" id="salary" formControlName="salary" class="form-control"
-                                            [ngClass]="{'error': member.get('salary')?.invalid && (member.get('salary')?.dirty || member.get('salary')?.touched),
-                                'success': member.get('salary')?.valid}">
-                                        <span
-                                            *ngIf="member.get('salary')?.errors?.['required'] && (member.get('salary')?.dirty || member.get('salary')?.touched)"
-                                            class="text-danger"> Salary is required.
-                                        </span>
-                                    </div>
-                                    <div class="form-group m-2">
-                                        <label for="contactNumber">Contact Number</label>
-                                        <input type="text" id="contactNumber" formControlName="contactNumber"
-                                            class="form-control" [ngClass]="{'error': member.get('contactNumber')?.invalid && (member.get('contactNumber')?.dirty || member.get('contactNumber')?.touched),
-                                'success': member.get('contactNumber')?.valid}">
-                                        <span
-                                            *ngIf="member.get('contactNumber')?.errors?.['required'] && (member.get('contactNumber')?.dirty || member.get('contactNumber')?.touched)"
-                                            class="text-danger"> Contact number is required.
-                                        </span>
-                                        <span
-                                            *ngIf="member.get('contactNumber')?.errors?.['invalidContactNumber'] && (member.get('contactNumber')?.dirty || member.get('contactNumber')?.touched)"
-                                            class="text-danger"> Enter a valid contact number.
-                                        </span>
-                                    </div>
-                                    <button type="button" class="btn btn-danger mt-2 mb-2"
-                                        (click)="removeMember(i)">Remove
-                                        Member</button>
+                                    <span
+                                        *ngIf="member.get('firstName')?.errors?.['required'] && (member.get('firstName')?.dirty || member.get('firstName')?.touched)"
+                                        class="text-danger"> First name is
+                                        required.
+                                    </span>
+                                    <span *ngIf="member.get('firstName')?.errors?.['isWhiteSpace']"
+                                        class="text-danger">First name is not start or end with space.</span>
                                 </div>
+                                <div class="form-group m-2">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" formControlName="lastName" class="form-control"
+                                        placeholder="Enter last Name here" [ngClass]="{'error': member.get('lastName')?.invalid && (member.get('lastName')?.dirty || member.get('lastName')?.touched),
+                                'success': member.get('lastName')?.valid}">
+                                    <span
+                                        *ngIf="member.get('lastName')?.errors?.['required'] && (member.get('lastName')?.dirty || member.get('lastName')?.touched)"
+                                        class="text-danger"> Last name is
+                                        required.
+                                    </span>
+                                    <span *ngIf="member.get('lastName')?.errors?.['isWhiteSpace']"
+                                        class="text-danger">Last
+                                        name is not start or end with space.</span>
+                                </div>
+                                <div class="form-group m-2">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" formControlName="email" class="form-control"
+                                        placeholder="Enter email here" [ngClass]="{'error': member.get('email')?.invalid && (member.get('email')?.dirty || member.get('email')?.touched),
+                                'success': member.get('email')?.valid}">
+                                    <span
+                                        *ngIf="member.get('email')?.errors?.['required'] && (member.get('email')?.dirty || member.get('email')?.touched)"
+                                        class="text-danger"> Email is
+                                        required.
+                                    </span>
+                                    <span
+                                        *ngIf="member.get('email')?.errors?.['pattern'] && (member.get('email')?.dirty || member.get('email')?.touched)"
+                                        class="text-danger"> Enter a valid email address.
+                                    </span>
+                                    <span
+                                        *ngIf="member.get('email')?.errors?.['emailExists'] && (member.get('email')?.dirty || member.get('email')?.touched)"
+                                        class="text-danger">Email is already register</span>
+                                </div>
+                                <div class="form-group m-2">
+                                    <label>Gender</label>
+                                    <div class="radio-buttons">
+                                        <div *ngFor="let gender of genders" class="radio-button">
+                                            <input type="radio" formControlName="gender" [value]="gender" [ngClass]="{'error': member.get('gender')?.invalid && (member.get('gender')?.dirty || member.get('gender')?.touched),
+                                        'success': member.get('gender')?.valid}"> {{ gender }}
+                                        </div>
+                                        <span
+                                            *ngIf="member.get('gender')?.errors?.['required'] && (member.get('gender')?.dirty || member.get('gender')?.touched)"
+                                            class="text-danger">
+                                            Gender is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group m-2">
+                                    <label for="hobbies">Hobbies</label>
+                                    <select id="hobbies" formControlName="hobbies" class="form-control">
+                                        <option value="" disabled selected>Select hobby</option>
+                                        <option *ngFor="let hobby of hobbies" [value]="hobby">{{ hobby }}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group m-2">
+                                    <label for="role">Role</label>
+                                    <select id="role" formControlName="role" class="form-control" [ngClass]="{'error': member.get('role')?.invalid && (member.get('role')?.dirty || member.get('role')?.touched),
+                                'success': member.get('role')?.valid}">
+                                        <option value="" disabled selected>Select role</option>
+                                        <option *ngFor="let role of roleOfMember" [value]="role">{{ role }}</option>
+                                    </select>
+                                    <span
+                                        *ngIf="member.get('role')?.errors?.['required'] && (member.get('role')?.dirty || member.get('role')?.touched)"
+                                        class="text-danger"> Role is required.
+                                    </span>
+                                </div>
+                                <div class="form-group m-2">
+                                    <label for="salary">Salary</label>
+                                    <input type="number" id="salary" formControlName="salary" class="form-control"
+                                        placeholder="Enter salary here" [ngClass]="{'error': member.get('salary')?.invalid && (member.get('salary')?.dirty || member.get('salary')?.touched),
+                                'success': member.get('salary')?.valid}">
+                                    <span
+                                        *ngIf="member.get('salary')?.errors?.['required'] && (member.get('salary')?.dirty || member.get('salary')?.touched)"
+                                        class="text-danger"> Salary is required.
+                                    </span>
+                                </div>
+                                <div class="form-group m-2">
+                                    <label for="contactNumber">Contact Number</label>
+                                    <input type="text" id="contactNumber" formControlName="contactNumber"
+                                        placeholder="Enter contact number here" class="form-control" [ngClass]="{'error': member.get('contactNumber')?.invalid && (member.get('contactNumber')?.dirty || member.get('contactNumber')?.touched),
+                                'success': member.get('contactNumber')?.valid}">
+                                    <span
+                                        *ngIf="member.get('contactNumber')?.errors?.['required'] && (member.get('contactNumber')?.dirty || member.get('contactNumber')?.touched)"
+                                        class="text-danger"> Contact number is required.
+                                    </span>
+                                    <span
+                                        *ngIf="member.get('contactNumber')?.errors?.['invalidContactNumber'] && (member.get('contactNumber')?.dirty || member.get('contactNumber')?.touched)"
+                                        class="text-danger"> Enter a valid contact number.
+                                    </span>
+                                </div>
+                                <button type="button" class="btn btn-danger mt-2 mb-2" (click)="removeMember(i)">Remove
+                                    Member</button>
                             </div>
-                            <button type="button" (click)="addMember()" class="btn btn-primary">Add Member</button>
                         </div>
-                        <button type="submit" [disabled]="isSubmitDisabled()"
-                            class="btn btn-primary mt-2 mb-2">Submit</button>
-                    </form>
-                </div>
+                        <button type="button" (click)="addMember()" class="btn btn-primary">Add Member</button>
+                    </div>
+                    <button type="submit" [disabled]="isSubmitDisabled()"
+                        class="btn btn-primary mt-2 mb-2">Submit</button>
+                </form>
             </div>
         </div>
     </div>

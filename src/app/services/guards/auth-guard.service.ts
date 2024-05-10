@@ -18,15 +18,15 @@ export class AuthGuardService implements CanActivate {
       if (email) {
         const role = this.authService.getUserRole(email)
         if (role === 'Admin') {
-          this.toaster.error("You can not go back you need to logout")
+          this.toaster.error("You can not go back you need to logout");
           this.router.navigate(['/admin/dashboard']);
           return false;
         } else if (role === "User") {
-          this.toaster.error("You can not go back you need to logout")
+          this.toaster.error("You can not go back you need to logout");
           this.router.navigate(['/user/dashboard']);
           return false;
         } else {
-          return false
+          return false;
         }
       }
     }

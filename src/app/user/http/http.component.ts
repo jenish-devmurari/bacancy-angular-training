@@ -20,25 +20,23 @@ export class HttpComponent implements OnInit, OnDestroy {
     title: '',
     body: ''
   }
+  public loadingPosts: boolean = false;
   private subscription: Subscription[] = [];
 
   constructor(private httpService: HttpService, private toaster: ToastrService) { }
 
   public ngOnInit(): void {
     // initial post 
-    const postSubscription = this.httpService.getPosts().subscribe({
-      next: (res) => { this.posts = res; },
-      error: (err) => { this.toaster.error(err) } // global interceptor error 
-    }
-    )
-    this.subscription.push(postSubscription);
+    this.fetchPost();
   }
 
   // get post by id 
   public getPostById(id: number): void {
+    this.loadingPosts = true;
     const postSubscriptionById = this.httpService.getPostsById(id).subscribe({
       next: () => {
-        this.searchPost = this.posts.filter(p => p.id == id)
+        this.searchPost = this.posts.filter(p => p.id == id);
+        this.loadingPosts = false;
       },
       error: (err) => {
         let errorMessage = 'An error occurred';
@@ -48,6 +46,7 @@ export class HttpComponent implements OnInit, OnDestroy {
           errorMessage = 'Post not found';
         }
         this.toaster.error(errorMessage);
+        this.loadingPosts = false;
       }
     })
     this.subscription.push(postSubscriptionById);
@@ -103,6 +102,17 @@ export class HttpComponent implements OnInit, OnDestroy {
     }
     )
     this.subscription.push(editPostSubscription);
+  }
+
+  // fetch post
+  private fetchPost(): void {
+    this.loadingPosts = true;
+    const postSubscription = this.httpService.getPosts().subscribe({
+      next: (res) => { this.posts = res; this.loadingPosts = false; },
+      error: (err) => { this.toaster.error(err); this.loadingPosts = false; } // global interceptor error 
+    }
+    )
+    this.subscription.push(postSubscription);
   }
 
   // unsubscribe all observables

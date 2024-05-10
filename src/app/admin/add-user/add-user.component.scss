@@ -2,6 +2,8 @@ $error-color: red;
 $success-color: green;
 $background-color: rgb(210, 200, 200);
 $box-shadow-color: rgba(0, 0, 0, 0.5);
+$first-color: #ccecf6;
+$second-color: #ffebb2;
 
 .error {
     border: 1px solid $error-color;
@@ -9,25 +11,18 @@ $box-shadow-color: rgba(0, 0, 0, 0.5);
 .success {
     border: 1px solid $success-color;
 }
-
 .radio-buttons {
     display: flex;
     flex-direction: row;
 }
-
 .radio-button {
     margin-right: 10px;
 }
-
 .btn {
     margin: 3% 0 0 13%;
     width: 75%;
 }
-
-.row {
-    width: 70%;
-    box-shadow: 0px 0px 10px 0px $box-shadow-color;
-    border-radius: 10px;
-    border: 3px solid $background-color;
-    margin: 2% 0 2% 15%;
+.box {
+    border-radius: 50px;
+    background-image: linear-gradient($first-color, $second-color);
 }

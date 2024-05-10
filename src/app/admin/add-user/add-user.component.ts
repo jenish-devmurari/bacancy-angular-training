@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription, take } from 'rxjs';
 import { GENDERS, HOBBIES } from 'src/app/constants/constants';
 import { RegisterService } from 'src/app/services/register.service';
 
@@ -11,9 +10,9 @@ import { RegisterService } from 'src/app/services/register.service';
   styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
-  public addUserForm!: FormGroup
-  public genders: string[] = GENDERS
-  public hobbies: string[] = HOBBIES
+  public addUserForm!: FormGroup;
+  public genders: string[] = GENDERS;
+  public hobbies: string[] = HOBBIES;
 
   constructor(private registerService: RegisterService, private toaster: ToastrService) { }
 
@@ -23,7 +22,7 @@ export class AddUserComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.registerService.setRegistrationData(this.addUserForm.value)) {
-      this.toaster.success("User Added Successfully")
+      this.toaster.success("User Added Successfully");
       this.addUserForm.reset();
     }
   }
@@ -50,7 +49,7 @@ export class AddUserComponent implements OnInit {
   // confirm password validator
   private confirmPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const confirmPassword: string = control.value;
-    const password: string = this.addUserForm?.get('password')?.value
+    const password: string = this.addUserForm?.get('password')?.value;
     this.addUserForm?.get('password')?.valueChanges.subscribe((newValue) => {
       if (newValue !== confirmPassword) {
         control.setErrors({ passwordMatch: true });
@@ -59,9 +58,9 @@ export class AddUserComponent implements OnInit {
       }
     });
     if (confirmPassword !== password) {
-      return { passwordMatch: true }
+      return { passwordMatch: true };
     }
-    return null
+    return null;
   }
 }
 

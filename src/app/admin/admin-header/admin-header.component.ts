@@ -8,8 +8,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./admin-header.component.scss']
 })
 export class AdminHeaderComponent {
+
   constructor(private router: Router, private toaster: ToastrService) {
   }
+
   public logout(): void {
     const confirmLogout = confirm('Are you sure you want to log out?');
     if (confirmLogout) {
