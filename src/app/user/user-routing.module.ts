@@ -13,7 +13,8 @@ const routes: Routes = [
       { path: 'add-member', component: AddMemberComponent, pathMatch: 'full' },
       { path: 'http', component: HttpComponent, pathMatch: 'full' }
     ]
-  }
+  },
+  { path: "**", redirectTo: 'dashboard' }
 ];
 
 @NgModule({

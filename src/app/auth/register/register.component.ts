@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { take } from 'rxjs';
-import { GENDERS, HOBBIES, ROLES } from 'src/app/constants/constants';
+import { ROLES,GENDERS,HOBBIES } from 'src/app/constants/constants';
 import { Admin } from 'src/app/interfaces/admin.interface';
 import { RegisterService } from 'src/app/services/register.service';
+
 
 @Component({
   selector: 'app-register',
@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
     this.registrationForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")]),
+      email: new FormControl('', [Validators.required, Validators.pattern("^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$")]),
       password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,12}$')]),
       confirmPassword: new FormControl('', [Validators.required, this.confirmPasswordValidator.bind(this)]),
       gender: new FormControl('', [Validators.required]),

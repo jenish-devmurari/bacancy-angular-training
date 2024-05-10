@@ -11,8 +11,11 @@ export class AdminHeaderComponent {
   constructor(private router: Router, private toaster: ToastrService) {
   }
   public logout(): void {
-    localStorage.removeItem('loggedIn');
-    this.toaster.success("Logout Successfully");
-    this.router.navigate(['/login']);
+    const confirmLogout = confirm('Are you sure you want to log out?');
+    if (confirmLogout) {
+      localStorage.removeItem('loggedIn');
+      this.toaster.success('Logout Successful');
+      this.router.navigate(['/login']);
+    }
   }
 }

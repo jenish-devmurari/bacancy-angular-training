@@ -12,6 +12,7 @@ const routes: Routes = [
       { path: 'add-user', component: AddUserComponent, pathMatch: 'full' },
     ]
   },
+  { path: "**", redirectTo: 'dashboard' }
 ];
 
 @NgModule({

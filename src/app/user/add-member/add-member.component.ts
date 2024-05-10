@@ -43,7 +43,7 @@ export class AddMemberComponent {
     return new FormGroup({
       firstName: new FormControl('', [Validators.required, this.whiteSpaceValidator]),
       lastName: new FormControl('', [Validators.required, this.whiteSpaceValidator]),
-      email: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"), this.emailExistsValidator.bind(this)]),
+      email: new FormControl('', [Validators.required, Validators.pattern("^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$"), this.emailExistsValidator.bind(this)]),
       gender: new FormControl('', [Validators.required]),
       hobbies: new FormControl(''),
       role: new FormControl('', [Validators.required]),

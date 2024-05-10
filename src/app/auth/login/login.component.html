@@ -7,7 +7,7 @@
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" [(ngModel)]="loginData.email"
                         #email="ngModel" required placeholder="Enter your email here"
-                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+                        pattern="^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$">
                     <span *ngIf="email.errors?.['required'] && (email.touched || email.dirty)" class="text-danger">
                         Email is required
                     </span>
