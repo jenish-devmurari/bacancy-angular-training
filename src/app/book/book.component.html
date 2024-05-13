@@ -1,33 +1,45 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-3" *ngFor="let book of books">
-            <div class="card w-100">
-                <img [src]="book.imgUrl" class="card-img-top" alt="{{ book.title }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ book.title }}</h5>
-                    <p class="card-text">Price: ${{ book.price }}</p>
-                    <p class="card-text">{{ book.review }}</p>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        (click)="editBook(book.id)">
-                        Edit
-                    </button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#confirmationDialog" (click)="deleteBook(book.id)">
-                        Delete
-                    </button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#stockNotificationModal" (click)="getStock(book.id)">
-                        Stock
-                    </button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1"
-                        (click)="viewBook(book.id)">
-                        View
-                    </button>
+<ng-container *ngIf="books.length > 0; else noBook">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3" *ngFor="let book of books">
+                <div class="card w-100">
+                    <img [src]="book.imgUrl" class="card-img-top" alt="{{ book.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text">Price: ${{ book.price }}</p>
+                        <p class="card-text">{{ book.review }}</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal" (click)="editBook(book.id)">
+                            Edit
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#confirmationDialog" (click)="deleteBook(book.id)">
+                            Delete
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#stockNotificationModal" (click)="getStock(book.id)">
+                            Stock
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal1" (click)="viewBook(book.id)">
+                            View
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</ng-container>
+
+<ng-template #noBook>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>No books available.</p>
+            </div>
+        </div>
+    </div>
+</ng-template>
 
 <div class="modal fade" id="stockNotificationModal" tabindex="-1" aria-labelledby="stockNotificationModalLabel"
     aria-hidden="true">
@@ -38,7 +50,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{ stockCount }}
+                {{ stockCount > 0 ? stockCount : 'No Stock Available'}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

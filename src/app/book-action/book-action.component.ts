@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Book } from 'src/app/interface/book-details.interface';
 
 @Component({
@@ -6,9 +6,13 @@ import { Book } from 'src/app/interface/book-details.interface';
   templateUrl: './book-action.component.html',
   styleUrls: ['./book-action.component.scss']
 })
-export class BookActionComponent implements OnChanges {
+export class BookActionComponent {
 
-  @Input() book: Book | undefined;
+  @Input() set book(value: Book | undefined) {
+    if (value) {
+      this.newBook = { ...value };
+    }
+  }
   @Input() isEditMode: boolean | undefined;
 
   newBook: Book = {
@@ -21,12 +25,6 @@ export class BookActionComponent implements OnChanges {
 
   @Output() bookAdded = new EventEmitter<Book>();
   @Output() bookEdited = new EventEmitter<Book>();
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.book) {
-      this.newBook = { ...this.book };
-    }
-  }
 
   public addBook(): void {
     if (this.validForm()) {
@@ -46,7 +44,7 @@ export class BookActionComponent implements OnChanges {
   private validForm(): boolean {
     return this.newBook.title.trim() !== '' &&
       this.newBook.description.trim() !== '' &&
-      this.newBook.imgUrl.trim() !== '' &&
+      this.newBook.imgUrl?.trim() !== '' &&
       this.newBook.price !== null &&
       this.newBook.review.trim() !== '' &&
       this.newBook.rating !== null &&
