@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../auth.service';
+import { LocalStorageService } from '../local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminGuardService implements CanActivate {
 
-  constructor(private authService: AuthService, private route: Router, private toaster: ToastrService) { }
+  constructor(private authService: AuthService, private route: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.isLoggedIn()) {
-      const email = localStorage.getItem('loggedIn');
+      const email = this.localStorage.getLoggedUserEmail();
       if (email) {
         const userRole = this.authService.getUserRole(email);
         if (userRole === 'Admin') {
@@ -20,7 +20,7 @@ export class AdminGuardService implements CanActivate {
         } else {
           this.toaster.error("Are you trying to access User but are you not User");
           this.route.navigate(['/login']);
-          localStorage.removeItem('loggedIn');
+          this.localStorage.removeEmail();
           return false;
         }
       } else {

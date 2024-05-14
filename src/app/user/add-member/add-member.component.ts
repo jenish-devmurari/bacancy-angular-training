@@ -5,6 +5,7 @@ import { Observable, map, of } from 'rxjs';
 import { GENDERS, HOBBIES, ROLESOFMEMBERS } from 'src/app/constants/constants';
 import { Admin } from 'src/app/interfaces/admin.interface';
 import { Member } from 'src/app/interfaces/member.interface';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-add-member',
@@ -18,10 +19,10 @@ export class AddMemberComponent {
   public roleOfMember: string[] = ROLESOFMEMBERS
   private loggedEmail: string | null = "";
 
-  constructor(private toaster: ToastrService) { }
+  constructor(private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
   public ngOnInit(): void {
-    this.loggedEmail = localStorage.getItem('loggedIn');
+    this.loggedEmail = this.localStorage.getLoggedUserEmail();
     this.initializeForm();
   }
 
@@ -41,12 +42,12 @@ export class AddMemberComponent {
   // create form control
   public createMember(): FormGroup {
     return new FormGroup({
-      firstName: new FormControl('', [Validators.required, this.whiteSpaceValidator]),
-      lastName: new FormControl('', [Validators.required, this.whiteSpaceValidator]),
-      email: new FormControl('', [Validators.required, Validators.pattern("^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$"), this.emailExistsValidator.bind(this)]),
-      gender: new FormControl('', [Validators.required]),
-      hobbies: new FormControl(''),
-      role: new FormControl('', [Validators.required]),
+      firstName: new FormControl(null, [Validators.required, this.whiteSpaceValidator]),
+      lastName: new FormControl(null, [Validators.required, this.whiteSpaceValidator]),
+      email: new FormControl(null, [Validators.required, Validators.pattern("^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$"), this.emailExistsValidator.bind(this)]),
+      gender: new FormControl(null, [Validators.required]),
+      hobbies: new FormControl(null),
+      role: new FormControl(null, [Validators.required]),
       salary: new FormControl(null, [Validators.required]),
       contactNumber: new FormControl('', [Validators.required, this.contactNumberValidator.bind(this)]),
     });
@@ -63,24 +64,28 @@ export class AddMemberComponent {
   }
 
   public onSubmit(): void {
-    const members: Member[] = [];
-    this.getMemberControl().forEach((member) => {
-      const memberData: Member = {
-        firstName: member.get('firstName')?.value,
-        lastName: member.get('lastName')?.value,
-        email: member.get('email')?.value,
-        gender: member.get('gender')?.value,
-        hobbies: member.get('hobbies')?.value,
-        role: member.get('role')?.value,
-        salary: member.get('salary')?.value,
-        contactNumber: member.get('contactNumber')?.value,
-      };
-      members.push(memberData);
-    });
-    this.addMemberToUser(this.loggedEmail, members)
-    this.toaster.success("Member Added successfully")
-    this.memberForm.reset();
-    (this.memberForm.get('members') as FormArray).clear();
+    if (this.memberForm.valid) {
+      const members: Member[] = [];
+      this.getMemberControl().forEach((member) => {
+        const memberData: Member = {
+          firstName: member.get('firstName')?.value,
+          lastName: member.get('lastName')?.value,
+          email: member.get('email')?.value,
+          gender: member.get('gender')?.value,
+          hobbies: member.get('hobbies')?.value,
+          role: member.get('role')?.value,
+          salary: member.get('salary')?.value,
+          contactNumber: member.get('contactNumber')?.value,
+        };
+        members.push(memberData);
+      });
+      this.addMemberToUser(this.loggedEmail, members)
+      this.toaster.success("Member Added successfully")
+      this.memberForm.reset();
+      (this.memberForm.get('members') as FormArray).clear();
+    } else {
+      this.toaster.error("Please fill out the form correctly.");
+    }
   }
 
   public isSubmitDisabled(): boolean {
@@ -96,7 +101,7 @@ export class AddMemberComponent {
   }
 
   private checkEmailExists(email: string): boolean {
-    const userDataString = localStorage.getItem('Users');
+    const userDataString = this.localStorage.getUserData();
     if (userDataString) {
       const userData: Admin[] = JSON.parse(userDataString);
       for (const admin of userData) {
@@ -140,14 +145,14 @@ export class AddMemberComponent {
 
   // add member at particular user
   private addMemberToUser(userEmail: string | null, member: Member[]): void {
-    const userDataString = localStorage.getItem('Users');
+    const userDataString = this.localStorage.getUserData();
     if (userDataString) {
       const userData: Admin[] = JSON.parse(userDataString);
       for (const admin of userData) {
         const user = admin.users.find(user => user.email === userEmail);
         if (user) {
           user.members = user.members.concat(member);
-          localStorage.setItem('Users', JSON.stringify(userData));
+          this.localStorage.setLocalStorage(userData);
           break;
         }
       }

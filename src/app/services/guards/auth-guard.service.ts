@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../auth.service';
+import { LocalStorageService } from '../local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
 
-  constructor(private authService: AuthService, private router: Router, private toaster: ToastrService) { }
+  constructor(private authService: AuthService, private router: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const isLoggedIn = this.authService.isLoggedIn();
     if (isLoggedIn) {
-      const email = localStorage.getItem('loggedIn');
+      const email = this.localStorage.getLoggedUserEmail();
       if (email) {
         const role = this.authService.getUserRole(email)
         if (role === 'Admin') {

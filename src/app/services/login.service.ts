@@ -3,6 +3,7 @@ import { Login } from '../interfaces/login.interface';
 import { Router } from '@angular/router';
 import { Admin } from '../interfaces/admin.interface';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,14 @@ export class LoginService {
   public userFound: boolean = false;
   private readonly registrationKey = 'Users';
 
-  constructor(private route: Router, private toaster: ToastrService) { }
+  constructor(private route: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
   public login(loginData: Login): void {
     const existingData: Admin[] = this.getRegistrationData() || [];
     const foundAdmin = existingData.find((user) => user.email === loginData.email);
     if (foundAdmin) {
       if (foundAdmin && loginData.password === foundAdmin.password) {
-        localStorage.setItem('loggedIn', foundAdmin.email);
+        this.localStorage.setLoggedInUserEmail(foundAdmin.email);
         this.route.navigate(['/admin/dashboard']);
         this.toaster.success(`Welcome ${loginData.email}`);
         return;
@@ -31,7 +32,7 @@ export class LoginService {
       const foundUser = admin.users.find((user) => user.email === loginData.email);
       if (foundUser && foundUser.password === loginData.password) {
         if (foundUser.isActive) {
-          localStorage.setItem('loggedIn', foundUser.email);
+          this.localStorage.setLoggedInUserEmail(foundUser.email);
           this.route.navigate(['/user/dashboard']);
           this.toaster.success(`Welcome ${loginData.email}`);
           return;
@@ -51,7 +52,7 @@ export class LoginService {
   }
 
   private getRegistrationData(): Admin[] | null {
-    const dataString = localStorage.getItem(this.registrationKey);
+    const dataString = this.localStorage.getUserData();
     return dataString ? JSON.parse(dataString) : null;
   }
 }

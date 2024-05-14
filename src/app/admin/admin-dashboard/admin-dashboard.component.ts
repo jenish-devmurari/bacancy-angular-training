@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { getGenderImageUrl } from 'src/app/constants/constants';
 import { Admin } from 'src/app/interfaces/admin.interface';
 import { User } from 'src/app/interfaces/user.interface';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -13,7 +14,7 @@ export class AdminDashboardComponent implements OnInit {
   public loggedAdminData: Admin | null = null;
   public usersData: User[] | null = [];
 
-  constructor(private toaster: ToastrService) { }
+  constructor(private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
   public ngOnInit(): void {
     this.getUserData();
@@ -34,11 +35,11 @@ export class AdminDashboardComponent implements OnInit {
 
   // update data based on changes
   public updateData(admin: Admin): void {
-    const allAdmins: Admin[] = JSON.parse(localStorage.getItem('Users') || '[]');
+    const allAdmins: Admin[] = JSON.parse(this.localStorage.getUserData() || '[]');
     const index = allAdmins.findIndex(a => a.email === admin.email);
     if (index !== -1) {
       allAdmins[index] = admin;
-      localStorage.setItem('Users', JSON.stringify(allAdmins));
+      this.localStorage.setLocalStorage(allAdmins);
     }
   }
 
@@ -62,10 +63,10 @@ export class AdminDashboardComponent implements OnInit {
 
   // get user data of admin
   private getUserData(): void {
-    const dataString = localStorage.getItem('Users');
+    const dataString = this.localStorage.getUserData();
     if (dataString) {
       const allAdmins: Admin[] = JSON.parse(dataString);
-      const loggedInEmail = localStorage.getItem('loggedIn');
+      const loggedInEmail = this.localStorage.getLoggedUserEmail();
       if (loggedInEmail) {
         this.loggedAdminData = allAdmins.find(admin => admin.email === loggedInEmail) || null;
         if (this.loggedAdminData) {

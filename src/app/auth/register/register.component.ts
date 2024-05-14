@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GENDERS, HOBBIES, ROLES } from 'src/app/constants/constants';
 import { Admin } from 'src/app/interfaces/admin.interface';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
 
 
@@ -19,7 +20,7 @@ export class RegisterComponent implements OnInit {
   public role: string[] = ROLES;
   public adminList: string[] = [];
 
-  constructor(private registerService: RegisterService, private router: Router, private toaster: ToastrService) { }
+  constructor(private registerService: RegisterService, private router: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -27,10 +28,14 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    if (this.registerService.setRegistrationData(this.registrationForm.value)) {
-      this.toaster.success("Successfully register");
-      this.router.navigate(['/login']);
-      this.registrationForm.reset();
+    if (this.registrationForm.valid) {
+      if (this.registerService.setRegistrationData(this.registrationForm.value)) {
+        this.toaster.success("Successfully register");
+        this.router.navigate(['/login']);
+        this.registrationForm.reset();
+      }
+    } else {
+      this.toaster.error("Please fill out the form correctly.");
     }
   }
 
@@ -38,7 +43,7 @@ export class RegisterComponent implements OnInit {
   public onRoleChange(): void {
     const selectedRole: string = this.registrationForm.get('role')?.value;
     if (selectedRole === 'User') {
-      this.registrationForm.addControl('adminList', new FormControl('', [Validators.required]));
+      this.registrationForm.addControl('adminList', new FormControl(null, [Validators.required]));
       this.adminList = this.registerService.getAdminList();
     } else {
       this.registrationForm.removeControl('adminList');
@@ -47,20 +52,20 @@ export class RegisterComponent implements OnInit {
 
   private initializeForm(): void {
     this.registrationForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.pattern("^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$")]),
-      password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,12}$')]),
-      confirmPassword: new FormControl('', [Validators.required, this.confirmPasswordValidator.bind(this)]),
-      gender: new FormControl('', [Validators.required]),
-      hobbies: new FormControl('', [Validators.required]),
-      role: new FormControl('', [Validators.required]),
+      firstName: new FormControl(null, [Validators.required]),
+      lastName: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required, Validators.pattern("^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$")]),
+      password: new FormControl(null, [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,12}$')]),
+      confirmPassword: new FormControl(null, [Validators.required, this.confirmPasswordValidator.bind(this)]),
+      gender: new FormControl(null, [Validators.required]),
+      hobbies: new FormControl(null, [Validators.required]),
+      role: new FormControl(null, [Validators.required]),
     });
   }
 
   // seed admin data when application run
   private seedAdminData(): void {
-    const localStorageData = localStorage.getItem('Users');
+    const localStorageData = this.localStorage.getUserData();
     if (!localStorageData || localStorageData.trim() === '') {
       const admin: Admin = {
         firstName: 'Admin',
@@ -74,7 +79,7 @@ export class RegisterComponent implements OnInit {
         isActive: true,
         users: [],
       };
-      localStorage.setItem('Users', JSON.stringify([admin]));
+      this.localStorage.setLocalStorage([admin]);
     }
   }
 

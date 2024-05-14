@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { User } from '../interfaces/user.interface';
 import { Member } from '../interfaces/member.interface';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
   private readonly registrationKey = 'Users';
-  constructor(private router: Router, private toaster: ToastrService) { }
+  constructor(private router: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
   public setRegistrationData(data: any): boolean {
     if (this.isEmailRegister(data.email)) {
@@ -28,7 +29,7 @@ export class RegisterService {
   }
 
   public getRegistrationData(): Admin[] | null {
-    const dataString = localStorage.getItem(this.registrationKey);
+    const dataString = this.localStorage.getUserData();
     return dataString ? JSON.parse(dataString) : null;
   }
 
@@ -36,7 +37,7 @@ export class RegisterService {
   public getAdminList(): string[] {
     const existingData: Admin[] = this.getRegistrationData() || [];
     const adminUsers: Admin[] = existingData.filter((user) => user.role === 'Admin');
-    const adminEmails: string[] = adminUsers.map(user => `${user.email}`);
+    const adminEmails: string[] = adminUsers.map(user => user.email);
     return adminEmails;
   }
 
@@ -55,12 +56,12 @@ export class RegisterService {
       users: [],
     };
     let adminData: Admin[] = [];
-    const localStorageData = localStorage.getItem(this.registrationKey);
+    const localStorageData = this.localStorage.getUserData();
     if (localStorageData !== null) {
       adminData = JSON.parse(localStorageData);
     }
     adminData.push(admin);
-    localStorage.setItem(this.registrationKey, JSON.stringify(adminData));
+    this.localStorage.setLocalStorage(adminData);
   }
 
   // add user 
@@ -82,7 +83,7 @@ export class RegisterService {
       members: []
     };
     let adminData: Admin[] = [];
-    const localStorageData = localStorage.getItem(this.registrationKey);
+    const localStorageData = this.localStorage.getUserData();
     if (localStorageData !== null) {
       adminData = JSON.parse(localStorageData);
     }
@@ -91,13 +92,13 @@ export class RegisterService {
     );
     if (adminIndex !== -1) {
       adminData[adminIndex].users.push(user);
-      localStorage.setItem(this.registrationKey, JSON.stringify(adminData));
+      this.localStorage.setLocalStorage(adminData);
     }
   }
 
   // check is email is register or not for admin and user registration
   private isEmailRegister(email: string): boolean {
-    const localStorageData = localStorage.getItem(this.registrationKey);
+    const localStorageData = this.localStorage.getUserData();
     if (localStorageData) {
       const adminData: Admin[] = JSON.parse(localStorageData);
       const adminWithEmail = adminData.some((admin) => admin.email === email);

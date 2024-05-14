@@ -89,11 +89,15 @@
                                 <div class="form-group m-2">
                                     <label for="salary">Salary</label>
                                     <input type="number" id="salary" formControlName="salary" class="form-control"
-                                        placeholder="Enter salary here" [ngClass]="{'error': member.get('salary')?.invalid && (member.get('salary')?.dirty || member.get('salary')?.touched),
+                                        min="0" placeholder="Enter salary here" [ngClass]="{'error': member.get('salary')?.invalid && (member.get('salary')?.dirty || member.get('salary')?.touched),
                                 'success': member.get('salary')?.valid}">
                                     <span
                                         *ngIf="member.get('salary')?.errors?.['required'] && (member.get('salary')?.dirty || member.get('salary')?.touched)"
                                         class="text-danger"> Salary is required.
+                                    </span>
+                                    <span
+                                        *ngIf="member.get('salary')?.errors?.['min'] && (member.get('salary')?.dirty || member.get('salary')?.touched)"
+                                        class="text-danger"> Salary is not negative number
                                     </span>
                                 </div>
                                 <div class="form-group m-2">

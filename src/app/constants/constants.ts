@@ -24,3 +24,5 @@ export function getGenderImageUrl(gender: string): string {
             return thirdGenderImageUrl;
     }
 }
+export const key: string = 'Users';
+export const keyOfLoggedUser: string = 'loggedIn';

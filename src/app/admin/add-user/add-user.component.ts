@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { GENDERS, HOBBIES } from 'src/app/constants/constants';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
@@ -14,28 +15,32 @@ export class AddUserComponent implements OnInit {
   public genders: string[] = GENDERS;
   public hobbies: string[] = HOBBIES;
 
-  constructor(private registerService: RegisterService, private toaster: ToastrService) { }
+  constructor(private registerService: RegisterService, private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
   public ngOnInit(): void {
     this.initializeForm();
   }
 
   public onSubmit(): void {
-    if (this.registerService.setRegistrationData(this.addUserForm.value)) {
-      this.toaster.success("User Added Successfully");
-      this.addUserForm.reset();
+    if (this.addUserForm.valid) {
+      if (this.registerService.setRegistrationData(this.addUserForm.value)) {
+        this.toaster.success("User Added Successfully");
+        this.addUserForm.reset();
+      }
+    } else {
+      this.toaster.error("Please fill out the form correctly.");
     }
   }
 
   private initializeForm(): void {
     this.addUserForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.pattern("^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$"),]),
-      password: new FormControl('', [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,12}$')]),
-      confirmPassword: new FormControl('', [Validators.required, this.confirmPasswordValidator.bind(this)]),
-      gender: new FormControl('', [Validators.required]),
-      hobbies: new FormControl('', [Validators.required]),
+      firstName: new FormControl(null, [Validators.required]),
+      lastName: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required, Validators.pattern("^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$"),]),
+      password: new FormControl(null, [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,12}$')]),
+      confirmPassword: new FormControl(null, [Validators.required, this.confirmPasswordValidator.bind(this)]),
+      gender: new FormControl(null, [Validators.required]),
+      hobbies: new FormControl(null, [Validators.required]),
       role: new FormControl('User'),
       adminList: new FormControl(this.getAdminEmail())
     });
@@ -43,7 +48,7 @@ export class AddUserComponent implements OnInit {
 
   //get admin email who is loggedIn
   private getAdminEmail(): string {
-    return localStorage.getItem('loggedIn') as string;
+    return this.localStorage.getLoggedUserEmail();
   }
 
   // confirm password validator

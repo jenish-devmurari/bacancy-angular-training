@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Admin } from '../interfaces/admin.interface';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(private localStorage: LocalStorageService) { }
 
   public isLoggedIn(): boolean {
-    const email = localStorage.getItem('loggedIn');
+    const email = this.localStorage.getLoggedUserEmail();
     if (email) {
       return true;
     }
@@ -18,7 +19,7 @@ export class AuthService {
 
   // get loggedIn role based on email
   public getUserRole(email: string): string {
-    const localStorageData = localStorage.getItem('Users');
+    const localStorageData = this.localStorage.getUserData();
     if (localStorageData) {
       const adminData: Admin[] = JSON.parse(localStorageData);
       const foundAdminData = adminData.find((admin) => admin.email === email);
