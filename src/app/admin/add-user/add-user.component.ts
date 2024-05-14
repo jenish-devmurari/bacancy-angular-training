@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { GENDERS, HOBBIES } from 'src/app/constants/constants';
+import { GENDERS, HOBBIES, Roles } from 'src/app/constants/constants';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
 
@@ -41,7 +41,7 @@ export class AddUserComponent implements OnInit {
       confirmPassword: new FormControl(null, [Validators.required, this.confirmPasswordValidator.bind(this)]),
       gender: new FormControl(null, [Validators.required]),
       hobbies: new FormControl(null, [Validators.required]),
-      role: new FormControl('User'),
+      role: new FormControl(Roles.User),
       adminList: new FormControl(this.getAdminEmail())
     });
   }

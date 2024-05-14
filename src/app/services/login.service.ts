@@ -10,7 +10,6 @@ import { LocalStorageService } from './local-storage.service';
 })
 export class LoginService {
   public userFound: boolean = false;
-  private readonly registrationKey = 'Users';
 
   constructor(private route: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
 

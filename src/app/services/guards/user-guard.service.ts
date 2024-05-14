@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { AuthService } from '../auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from '../local-storage.service';
+import { Roles } from 'src/app/constants/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UserGuardService implements CanActivate {
       const email = this.localStorage.getLoggedUserEmail();
       if (email) {
         const userRole = this.authService.getUserRole(email);
-        if (userRole === 'User') {
+        if (userRole === Roles.User) {
           return true;
         } else {
           this.toaster.error("Are you trying to access Admin but are you not Admin.");

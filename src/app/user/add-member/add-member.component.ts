@@ -49,7 +49,7 @@ export class AddMemberComponent {
       hobbies: new FormControl(null),
       role: new FormControl(null, [Validators.required]),
       salary: new FormControl(null, [Validators.required]),
-      contactNumber: new FormControl('', [Validators.required, this.contactNumberValidator.bind(this)]),
+      contactNumber: new FormControl(null, [Validators.required, this.contactNumberValidator.bind(this)]),
     });
   }
 

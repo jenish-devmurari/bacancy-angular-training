@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Admin } from '../interfaces/admin.interface';
 import { Router } from '@angular/router';
-import { User } from '../interfaces/user.interface';
-import { Member } from '../interfaces/member.interface';
 import { ToastrService } from 'ngx-toastr';
+import { Admin } from '../interfaces/admin.interface';
+import { Register } from '../interfaces/register.interface';
+import { User } from '../interfaces/user.interface';
 import { LocalStorageService } from './local-storage.service';
+import { Roles } from '../constants/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
-  private readonly registrationKey = 'Users';
-  constructor(private router: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
+  constructor(private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
-  public setRegistrationData(data: any): boolean {
+  public setRegistrationData(data: Register): boolean {
     if (this.isEmailRegister(data.email)) {
       this.toaster.error('This email is already register');
       return false
     } else {
-      if (data.role === 'Admin') {
+      if (data.role === Roles.Admin) {
         this.addAdmin(data);
         return true
       } else {
@@ -36,13 +36,13 @@ export class RegisterService {
   // get admin list to show user for which admin present inside system
   public getAdminList(): string[] {
     const existingData: Admin[] = this.getRegistrationData() || [];
-    const adminUsers: Admin[] = existingData.filter((user) => user.role === 'Admin');
+    const adminUsers: Admin[] = existingData.filter((user) => user.role === Roles.Admin);
     const adminEmails: string[] = adminUsers.map(user => user.email);
     return adminEmails;
   }
 
   // add admin
-  private addAdmin(data: Admin): void {
+  private addAdmin(data: Register): void {
     let admin: Admin = {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -51,7 +51,7 @@ export class RegisterService {
       confirmPassword: data.confirmPassword,
       gender: data.gender,
       hobbies: data.hobbies,
-      role: 'Admin',
+      role: Roles.Admin,
       isActive: true,
       users: [],
     };
@@ -65,8 +65,8 @@ export class RegisterService {
   }
 
   // add user 
-  private addUser(data: any): void {
-    const adminEmail: string | null = data.adminList;
+  private addUser(data: Register): void {
+    const adminEmail: string | undefined = data.adminList;
     if (!adminEmail) {
       return;
     }
@@ -78,7 +78,7 @@ export class RegisterService {
       confirmPassword: data.confirmPassword,
       gender: data.gender,
       hobbies: data.hobbies,
-      role: 'User',
+      role: Roles.User,
       isActive: true,
       members: []
     };

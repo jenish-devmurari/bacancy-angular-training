@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { GENDERS, HOBBIES, ROLES } from 'src/app/constants/constants';
+import { GENDERS, HOBBIES, ROLES, Roles } from 'src/app/constants/constants';
 import { Admin } from 'src/app/interfaces/admin.interface';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
   // on role change of user generate dynamic admin control
   public onRoleChange(): void {
     const selectedRole: string = this.registrationForm.get('role')?.value;
-    if (selectedRole === 'User') {
+    if (selectedRole === Roles.User) {
       this.registrationForm.addControl('adminList', new FormControl(null, [Validators.required]));
       this.adminList = this.registerService.getAdminList();
     } else {
@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
         confirmPassword: 'Admin@123',
         gender: 'Male',
         hobbies: 'Coding',
-        role: 'Admin',
+        role: Roles.Admin,
         isActive: true,
         users: [],
       };
