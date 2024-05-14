@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Admin } from '../interfaces/admin.interface';
 import { Register } from '../interfaces/register.interface';
 import { User } from '../interfaces/user.interface';
 import { LocalStorageService } from './local-storage.service';
 import { Roles } from '../constants/constants';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
+  [x: string]: any;
   constructor(private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
   public setRegistrationData(data: Register): boolean {
@@ -43,12 +44,13 @@ export class RegisterService {
 
   // add admin
   private addAdmin(data: Register): void {
+    const hashPassword = this.encrypt(data.password);
     let admin: Admin = {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
+      password: hashPassword,
+      confirmPassword: hashPassword,
       gender: data.gender,
       hobbies: data.hobbies,
       role: Roles.Admin,
@@ -67,6 +69,7 @@ export class RegisterService {
   // add user 
   private addUser(data: Register): void {
     const adminEmail: string | undefined = data.adminList;
+    const hashPassword = this.encrypt(data.password);
     if (!adminEmail) {
       return;
     }
@@ -74,8 +77,8 @@ export class RegisterService {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
+      password: hashPassword,
+      confirmPassword: hashPassword,
       gender: data.gender,
       hobbies: data.hobbies,
       role: Roles.User,
@@ -114,4 +117,9 @@ export class RegisterService {
     }
     return false;
   }
+
+  private encrypt(txt: string): string {
+    return CryptoJS.AES.encrypt(txt, 'HelloFromWorld').toString();
+  }
+
 }

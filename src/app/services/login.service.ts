@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Login } from '../interfaces/login.interface';
 import { Router } from '@angular/router';
-import { Admin } from '../interfaces/admin.interface';
+import * as CryptoJS from 'crypto-js';
 import { ToastrService } from 'ngx-toastr';
+import { Admin } from '../interfaces/admin.interface';
+import { Login } from '../interfaces/login.interface';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -17,7 +18,7 @@ export class LoginService {
     const existingData: Admin[] = this.getRegistrationData() || [];
     const foundAdmin = existingData.find((user) => user.email === loginData.email);
     if (foundAdmin) {
-      if (foundAdmin && loginData.password === foundAdmin.password) {
+      if (foundAdmin && loginData.password === this.decrypt(foundAdmin.password)) {
         this.localStorage.setLoggedInUserEmail(foundAdmin.email);
         this.route.navigate(['/admin/dashboard']);
         this.toaster.success(`Welcome ${loginData.email}`);
@@ -29,7 +30,7 @@ export class LoginService {
     }
     for (const admin of existingData) {
       const foundUser = admin.users.find((user) => user.email === loginData.email);
-      if (foundUser && foundUser.password === loginData.password) {
+      if (foundUser && this.decrypt(foundUser.password) === loginData.password) {
         if (foundUser.isActive) {
           this.localStorage.setLoggedInUserEmail(foundUser.email);
           this.route.navigate(['/user/dashboard']);
@@ -53,5 +54,9 @@ export class LoginService {
   private getRegistrationData(): Admin[] | null {
     const dataString = this.localStorage.getUserData();
     return dataString ? JSON.parse(dataString) : null;
+  }
+
+  private decrypt(txtToDecrypt: string): string {
+    return CryptoJS.AES.decrypt(txtToDecrypt, 'HelloFromWorld').toString(CryptoJS.enc.Utf8);
   }
 }
