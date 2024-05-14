@@ -31,7 +31,9 @@ export class AddMemberComponent {
     this.memberForm = new FormGroup({
       members: new FormArray([])
     });
-    this.addMember()
+    if ((this.memberForm.get('members') as FormArray).length === 0) {
+      this.addMember();
+    }
   }
 
   // add whole form of members with control inside member form
@@ -83,6 +85,7 @@ export class AddMemberComponent {
       this.toaster.success("Member Added successfully")
       this.memberForm.reset();
       (this.memberForm.get('members') as FormArray).clear();
+      this.initializeForm();
     } else {
       this.toaster.error("Please fill out the form correctly.");
     }

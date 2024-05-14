@@ -114,14 +114,17 @@
                                         class="text-danger"> Enter a valid contact number.
                                     </span>
                                 </div>
-                                <button type="button" class="btn btn-danger mt-2 mb-2" (click)="removeMember(i)">Remove
+                                <button type="button" class="btn btn-danger mt-2 mb-2" *ngIf="i !== 0"
+                                    (click)="removeMember(i)">Remove
                                     Member</button>
                             </div>
                         </div>
-                        <button type="button" (click)="addMember()" class="btn btn-primary">Add Member</button>
+                        <button type="button" (click)="addMember()" class="btn btn-primary mt-3">Add Member</button>
                     </div>
-                    <button type="submit" [disabled]="isSubmitDisabled()"
-                        class="btn btn-primary mt-2 mb-2">Submit</button>
+                    <div class="text-center">
+                        <button type="submit" [disabled]="isSubmitDisabled()"
+                            class="submit btn btn-primary mt-2 mb-2">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
