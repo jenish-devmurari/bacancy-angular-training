@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { GENDERS, HOBBIES, ROLES, Roles } from 'src/app/constants/constants';
+import { GENDERS, HOBBIES, ROLES, Roles, emailRegex, passwordRegex } from 'src/app/constants/constants';
 import { Admin } from 'src/app/interfaces/admin.interface';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
@@ -54,8 +54,8 @@ export class RegisterComponent implements OnInit {
     this.registrationForm = new FormGroup({
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required, Validators.pattern("^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$")]),
-      password: new FormControl(null, [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,12}$')]),
+      email: new FormControl(null, [Validators.required, Validators.pattern(emailRegex)]),
+      password: new FormControl(null, [Validators.required, Validators.pattern(passwordRegex)]),
       confirmPassword: new FormControl(null, [Validators.required, this.confirmPasswordValidator.bind(this)]),
       gender: new FormControl(null, [Validators.required]),
       hobbies: new FormControl(null, [Validators.required]),

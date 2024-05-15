@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
 import { Post } from 'src/app/interfaces/post.interface';
 import { HttpService } from 'src/app/services/http.service';
 
@@ -9,11 +8,11 @@ import { HttpService } from 'src/app/services/http.service';
   templateUrl: './http.component.html',
   styleUrls: ['./http.component.scss']
 })
-export class HttpComponent implements OnInit, OnDestroy {
+export class HttpComponent implements OnInit {
   public posts: Post[] = [];
   public searchId !: number;
   public searchPost: Post[] = [];
-  public selectedPost: Post = { userId: 0, id: 0, title: '', body: '' };
+  public selectedPost!: Post;
   public newPost: Post = {
     userId: 0,
     id: 0,
@@ -21,9 +20,15 @@ export class HttpComponent implements OnInit, OnDestroy {
     body: ''
   }
   public loadingPosts: boolean = false;
-  private subscription: Subscription[] = [];
 
-  constructor(private httpService: HttpService, private toaster: ToastrService) { }
+  constructor(private httpService: HttpService, private toaster: ToastrService) {
+    this.selectedPost = {
+      userId: 0,
+      id: 0,
+      title: '',
+      body: ''
+    }
+  }
 
   public ngOnInit(): void {
     // initial post 
@@ -33,7 +38,7 @@ export class HttpComponent implements OnInit, OnDestroy {
   // get post by id 
   public getPostById(id: number): void {
     this.loadingPosts = true;
-    const postSubscriptionById = this.httpService.getPostsById(id).subscribe({
+    this.httpService.getPostsById(id).subscribe({
       next: () => {
         this.searchPost = this.posts.filter(p => p.id == id);
         this.loadingPosts = false;
@@ -49,12 +54,11 @@ export class HttpComponent implements OnInit, OnDestroy {
         this.loadingPosts = false;
       }
     })
-    this.subscription.push(postSubscriptionById);
   }
 
   // delete post delete request
   public deletePost(id: number): void {
-    const deletePostSubscription = this.httpService.deletePost(id).subscribe(
+    this.httpService.deletePost(id).subscribe(
       {
         next: () => {
           this.posts = this.posts.filter(p => p.id !== id);
@@ -63,12 +67,11 @@ export class HttpComponent implements OnInit, OnDestroy {
         error: () => { this.toaster.error("Error while deleting post ") }
       }
     )
-    this.subscription.push(deletePostSubscription);
   }
 
   // create post post request
   public createPost(): void {
-    const createPostSubscription = this.httpService.createPost(this.newPost).subscribe({
+    this.httpService.createPost(this.newPost).subscribe({
       next: (res) => {
         this.posts.push(res);
         this.toaster.success("New Post Added")
@@ -81,7 +84,6 @@ export class HttpComponent implements OnInit, OnDestroy {
       title: '',
       body: ''
     }
-    this.subscription.push(createPostSubscription);
   }
 
   public openEditModal(post: Post): void {
@@ -90,7 +92,7 @@ export class HttpComponent implements OnInit, OnDestroy {
 
   // edit post put request
   public editPost(): void {
-    const editPostSubscription = this.httpService.editPost(this.selectedPost, this.selectedPost.id).subscribe({
+    this.httpService.editPost(this.selectedPost, this.selectedPost.id).subscribe({
       next: (res) => {
         const index = this.posts.findIndex(p => p.id === this.selectedPost.id);
         if (index !== -1) {
@@ -101,22 +103,17 @@ export class HttpComponent implements OnInit, OnDestroy {
       error: () => { this.toaster.error("Error while editing post ") }
     }
     )
-    this.subscription.push(editPostSubscription);
   }
 
   // fetch post
   private fetchPost(): void {
     this.loadingPosts = true;
-    const postSubscription = this.httpService.getPosts().subscribe({
+    this.httpService.getPosts().subscribe({
       next: (res) => { this.posts = res; this.loadingPosts = false; },
       error: (err) => { this.toaster.error(err); this.loadingPosts = false; } // global interceptor error 
     }
     )
-    this.subscription.push(postSubscription);
   }
 
-  // unsubscribe all observables
-  public ngOnDestroy(): void {
-    this.subscription.forEach(sub => sub.unsubscribe())
-  }
+
 }

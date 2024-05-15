@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -8,9 +8,14 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   templateUrl: './admin-header.component.html',
   styleUrls: ['./admin-header.component.scss']
 })
-export class AdminHeaderComponent {
+export class AdminHeaderComponent implements OnInit {
+  public name: string | null = '';
 
   constructor(private router: Router, private toaster: ToastrService, private localStorage: LocalStorageService) {
+  }
+
+  ngOnInit(): void {
+    this.name = this.localStorage.getLoggedUserName();
   }
 
   public logout(): void {

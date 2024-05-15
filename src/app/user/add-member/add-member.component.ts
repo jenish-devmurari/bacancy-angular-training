@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, map, of } from 'rxjs';
-import { GENDERS, HOBBIES, ROLESOFMEMBERS } from 'src/app/constants/constants';
+import { GENDERS, HOBBIES, ROLESOFMEMBERS, emailRegex } from 'src/app/constants/constants';
 import { Admin } from 'src/app/interfaces/admin.interface';
 import { Member } from 'src/app/interfaces/member.interface';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -46,7 +45,7 @@ export class AddMemberComponent {
     return new FormGroup({
       firstName: new FormControl(null, [Validators.required, this.whiteSpaceValidator]),
       lastName: new FormControl(null, [Validators.required, this.whiteSpaceValidator]),
-      email: new FormControl(null, [Validators.required, Validators.pattern("^[a-z]{1}[a-z0-9.]+@[a-z0-9]+\.[a-z]{2,6}$"), this.emailExistsValidator.bind(this)]),
+      email: new FormControl(null, [Validators.required, Validators.pattern(emailRegex), this.emailExistsValidator.bind(this)]),
       gender: new FormControl(null, [Validators.required]),
       hobbies: new FormControl(null),
       role: new FormControl(null, [Validators.required]),

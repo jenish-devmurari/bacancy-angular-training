@@ -19,9 +19,8 @@ export class AdminGuardService implements CanActivate {
         if (userRole === Roles.Admin) {
           return true;
         } else {
-          this.toaster.error("Are you trying to access User but are you not User");
-          this.route.navigate(['/login']);
-          this.localStorage.removeEmail();
+          this.toaster.error("Unauthorize");
+          this.route.navigate(['/user/dashboard']);
           return false;
         }
       } else {
