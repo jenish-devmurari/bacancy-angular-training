@@ -21,14 +21,16 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   // delete user 
-  public deleteUser(email: string) {
-    if (this.loggedAdminData) {
-      const index = this.loggedAdminData.users.findIndex(u => u.email === email);
-      if (index !== -1) {
-        this.loggedAdminData.users.splice(index, 1);
-        this.updateData(this.loggedAdminData)
-        this.toaster.success("User Deleted");
-        this.getUserData();
+  public deleteUser(email: string): void {
+    if (confirm("Are you sure you want to delete?")) {
+      if (this.loggedAdminData) {
+        const index = this.loggedAdminData.users.findIndex(u => u.email === email);
+        if (index !== -1) {
+          this.loggedAdminData.users.splice(index, 1);
+          this.updateData(this.loggedAdminData)
+          this.toaster.success("User Deleted");
+          this.getUserData();
+        }
       }
     }
   }

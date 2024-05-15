@@ -11,6 +11,7 @@ import { Roles } from 'src/app/constants/constants';
 export class AdminGuardService implements CanActivate {
 
   constructor(private authService: AuthService, private route: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
+  
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.isLoggedIn()) {
       const email = this.localStorage.getLoggedUserEmail();

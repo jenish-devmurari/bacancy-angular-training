@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HttpService {
   private apiUrl: string = "https://jsonplaceholder.typicode.com";
-  constructor(private http: HttpClient, private toaster: ToastrService) { }
+  constructor(private http: HttpClient) { }
 
   // get request for fetch all post data
   public getPosts(): Observable<Post[]> {

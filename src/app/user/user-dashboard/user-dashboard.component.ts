@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { femaleImageUrl, getGenderImageUrl, maleImageUrl, thirdGenderImageUrl } from 'src/app/constants/constants';
+import { getGenderImageUrl } from 'src/app/constants/constants';
 import { Admin } from 'src/app/interfaces/admin.interface';
 import { Member } from 'src/app/interfaces/member.interface';
-import { User } from 'src/app/interfaces/user.interface';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({

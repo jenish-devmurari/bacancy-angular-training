@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Admin } from '../interfaces/admin.interface';
 import { key, keyOfLoggedUser } from '../constants/constants';
-import { delayWhen } from 'rxjs';
+import { Admin } from '../interfaces/admin.interface';
 
 @Injectable({
   providedIn: 'root'

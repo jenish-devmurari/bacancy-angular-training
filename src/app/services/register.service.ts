@@ -11,7 +11,6 @@ import * as CryptoJS from 'crypto-js';
   providedIn: 'root'
 })
 export class RegisterService {
-  [x: string]: any;
   constructor(private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
   public setRegistrationData(data: Register): boolean {
