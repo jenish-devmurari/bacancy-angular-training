@@ -26,6 +26,9 @@ export class BookActionComponent {
   @Output() bookAdded = new EventEmitter<Book>();
   @Output() bookEdited = new EventEmitter<Book>();
 
+  /**
+ * Emit event of adding a new book if the form is valid.
+ */
   public addBook(): void {
     if (this.validForm()) {
       this.bookAdded.emit(this.newBook);
@@ -36,10 +39,19 @@ export class BookActionComponent {
     }
   }
 
+
+  /**
+   * Emit book edit event
+   */
   public updateBook(): void {
     this.bookEdited.emit(this.newBook);
     this.resetForm();
   }
+
+  /**
+ * Validates the form fields.
+ * @returns true if the form is valid, false otherwise.
+ */
 
   private validForm(): boolean {
     return this.newBook.title.trim() !== '' &&
@@ -51,6 +63,9 @@ export class BookActionComponent {
       this.newBook.stock !== null;
   }
 
+  /**
+  * Resets the form fields.
+  */
   public resetForm(): void {
     this.newBook = {
       imgUrl: '', title: '', description: '', price: 0,

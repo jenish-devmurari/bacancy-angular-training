@@ -48,6 +48,10 @@ export class BookListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+ * Adds a new book to the list of books.
+ * @param book The book to add.
+ */
   public onBookAdded(book: Book): void {
     book.id = this.books.length;
     book.imgUrl = "assets/book1.jpeg";
@@ -59,6 +63,10 @@ export class BookListComponent implements OnInit {
     this.isEditMode = false;
   }
 
+  /**
+   * Switches the component to edit mode for the specified book.
+   * @param bookId The ID of the book to edit.
+   */
   public editBook(bookId: number): void {
     const currentIndex = this.books.findIndex(book => book.id === bookId);
     if (currentIndex !== -1) {
@@ -68,10 +76,18 @@ export class BookListComponent implements OnInit {
     }
   }
 
+  /**
+   * Displays detailed information about the specified book.
+   * @param bookId The ID of the book to view.
+   */
   public viewBook(bookId: number): void {
     this.selectedBookInfo = this.books.find(book => book.id === bookId);
   }
 
+  /**
+   * Retrieves and displays the stock count for the specified book.
+   * @param bookId The ID of the book to view stock for.
+   */
   public viewStock(bookId: number): void {
     const selectedBook = this.books.find(book => book.id === bookId);
     if (selectedBook) {
@@ -81,6 +97,10 @@ export class BookListComponent implements OnInit {
     }
   }
 
+  /**
+  * Updates the details of the specified book.
+  * @param book The updated book details.
+  */
   public updateBook(book: Book): void {
     book.stock = Math.round(book.stock);
     if (book.rating > 5) {
@@ -95,10 +115,18 @@ export class BookListComponent implements OnInit {
     this.isEditMode = false;
   }
 
+  /**
+  * Initiates the deletion process for the specified book.
+  * @param bookId The ID of the book to delete.
+  */
   public deleteConfirmation(bookId: number): void {
     this.bookToDeleteId = bookId;
   }
 
+  /**
+  * Handles the confirmation of book deletion.
+  * @param confirm A boolean value indicating whether deletion is confirmed.
+  */
   public onDeleteConfirmed(confirm: boolean): void {
     if (confirm && this.bookToDeleteId !== undefined) {
       const index = this.books.findIndex(book => book.id === this.bookToDeleteId);

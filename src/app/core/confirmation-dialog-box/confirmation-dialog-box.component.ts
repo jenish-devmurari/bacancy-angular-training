@@ -8,6 +8,10 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 export class ConfirmationDialogBoxComponent {
   @Output() confirmed = new EventEmitter<boolean>();
 
+  /**
+   * emit confirm dialog box event
+   * @param confirm 
+   */
   confirmAction(confirm: boolean): void {
     this.confirmed.emit(confirm);
   }

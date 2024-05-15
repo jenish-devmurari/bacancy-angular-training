@@ -8,23 +8,31 @@ import { Book } from 'src/app/interface/book-details.interface';
 })
 export class BookDetailsComponent {
 
-  @Input() selectedBook !: Book;
+  @Input() selectedBook: Book | undefined;
   @Input() stockCount !: number;
 
-  getStarArray(rating: number): { filled: boolean; style: { color: string } }[] {
-    const ratingRound = Math.round(rating);
+  /**
+  * Generates an array representing the star rating of a book.
+  * @param rating The rating of the book.
+  * @returns An array representing the star rating.
+  */
+  getStarArray(rating?: number): { filled: boolean; style: { color: string } }[] {
+    const ratingRound = rating ? Math.round(rating) : 0;
     const stars: { filled: boolean; style: { color: string } }[] = [];
     for (let i = 1; i <= 5; i++) {
-      stars.push({
-        filled: i <= ratingRound, style: {
-          color: ''
-        }
-      });
+      stars.push({ filled: i <= ratingRound, style: { color: '' } });
     }
     return stars;
   }
 
-  getStarStyle(star: { filled: boolean; style: any }, rating: number): { color: string } {
+  /**
+  * Determines the style for a star based on its filled status and the book's rating.
+  * @param star The star object.
+  * @param rate The rating of the book.
+  * @returns The style for the star.
+  */
+  getStarStyle(star: { filled: boolean; style: any }, rate: number = 0): { color: string } {
+    const rating = rate ? rate : 0;
     if (star.filled) {
       if (rating > 4) {
         return { color: 'green' };
@@ -37,5 +45,5 @@ export class BookDetailsComponent {
       return { color: 'grey' };
     }
   }
-
 }
+
