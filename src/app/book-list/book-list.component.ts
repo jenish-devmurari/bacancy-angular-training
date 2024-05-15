@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class BookListComponent implements OnInit, OnDestroy {
   public filterForm  !: FormGroup
-  public categories: string[] = ['All', 'Friction', 'Non-Friction', 'Sci-fi'];
+  public categories: string[] = ['All', 'Fiction', 'Non-Fiction', 'Sci-fi'];
   public books: Book[] = []
   public errorSubscription!: Subscription;
   public subscriptions: Subscription[] = [];
@@ -34,6 +34,7 @@ export class BookListComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(this.errorSubscription);
     this.initializeForm();
+    this.subscribeToAddBookEvent();
     this.fetchBooks();
   }
 
@@ -67,6 +68,13 @@ export class BookListComponent implements OnInit, OnDestroy {
       }
     });
     this.subscriptions.push(fetchSubscription);
+  }
+
+  private subscribeToAddBookEvent(): void {
+    const updateBook = this.bookService.bookAdded$.subscribe((newBook: Book) => {
+      this.books.push(newBook);
+    });
+    this.subscriptions.push(updateBook);
   }
 
   ngOnDestroy() {

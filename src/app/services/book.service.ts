@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Book } from '../interface/book.interface';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -10,13 +10,23 @@ import { ErrorService } from './error.service';
 export class BookService {
 
   private apiUrl: string = "https://bookstore-6ce7e-default-rtdb.firebaseio.com/books.json"
+  public bookAdded$: Subject<Book> = new Subject<Book>();
 
   constructor(private httpClient: HttpClient, private errorService: ErrorService) { }
 
   public addBook(book: Book, imageData: string): Observable<[key: string]> {
     // const apiUrl = "https://bookstore-6ce-default-rtdb.firebaseio.com/books.json"
     book.File = imageData
-    return this.httpClient.post<[key: string]>(this.apiUrl, book);
+    return this.httpClient.post<[key: string]>(this.apiUrl, book).pipe(
+      map(response => {
+        this.bookAdded$.next(book);
+        return response;
+      }),
+      catchError(error => {
+        this.errorService.emitError(error);
+        return throwError(() => error);
+      })
+    );
   }
 
   public getAllBooks(): Observable<Book[]> {

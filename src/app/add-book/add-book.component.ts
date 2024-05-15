@@ -15,7 +15,7 @@ export class AddBookComponent implements OnInit, OnDestroy {
   public bookForm!: FormGroup;
   public book: Book[] = []
   public selectedFile!: File;
-  public categories: string[] = ['Friction', 'Non-Friction', 'Sci-fi'];
+  public categories: string[] = ['Fiction', 'Non-Fiction', 'Sci-fi'];
   public subscriptions: Subscription[] = [];
   public url: string = "";
 
