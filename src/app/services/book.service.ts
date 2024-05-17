@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Book } from '../interface/book.interface';
 import { Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { ErrorService } from './error.service';
+import { Filter } from '../interface/filter.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,12 @@ export class BookService {
 
   constructor(private httpClient: HttpClient, private errorService: ErrorService) { }
 
+  /**
+   * this method is requesting post api to add new book
+   * @param book 
+   * @param imageData 
+   * @returns response (key)as observable of post api after adding book in firebase
+   */
   public addBook(book: Book, imageData: string): Observable<[key: string]> {
     // const apiUrl = "https://bookstore-6ce-default-rtdb.firebaseio.com/books.json"
     book.File = imageData
@@ -29,6 +36,10 @@ export class BookService {
     );
   }
 
+  /**
+   * this method is get all books with get api
+   * @returns observable of book 
+   */
   public getAllBooks(): Observable<Book[]> {
     // const apiUrl = "https://bookstore-6ce-default-rtdb.firebaseio.com/books.json"
     let headers = new HttpHeaders();
@@ -52,8 +63,33 @@ export class BookService {
     )
   }
 
-  public getFilterBooks(value: any): Observable<Book[]> {
-    return this.getAllBooks().pipe(
+  /**
+   * this method is get book by filter pass parameter as params into payload 
+   * @param value filter value 
+   * @returns observable of books based on filter
+   */
+  public getFilterBooks(value: Filter): Observable<Book[]> {
+    let params = new HttpParams();
+    if (value.title) {
+      params = params.set('title', value.title);
+    }
+    if (value.category) {
+      params = params.set('category', value.category);
+    }
+    if (value.priceRange) {
+      params = params.set('priceRange', value.priceRange);
+    }
+    return this.httpClient.get<{ [key: string]: Book }>(this.apiUrl, { params }).pipe(
+      map(response => {
+        let bookArray: Book[] = [];
+        for (let key in response) {
+          if (response.hasOwnProperty(key)) {
+            bookArray.push({ ...response[key], id: key });
+          }
+        }
+        return bookArray;
+      }
+      ),
       map((books: Book[]) => {
         return books.filter((book: Book) => {
           return (
@@ -70,7 +106,13 @@ export class BookService {
     );
   }
 
-  checkPriceRange(price: number, priceRange: string): boolean {
+  /**
+   * this method is to check price of book based on filter 
+   * @param price 
+   * @param priceRange 
+   * @returns boolean value based on condition
+   */
+  private checkPriceRange(price: number, priceRange: string): boolean {
     const [min, max] = priceRange.split('-').map(Number);
     if (max === undefined || Number.isNaN(max)) {
       return price >= min;

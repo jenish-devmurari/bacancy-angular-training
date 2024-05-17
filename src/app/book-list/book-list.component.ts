@@ -28,6 +28,9 @@ export class BookListComponent implements OnInit, OnDestroy {
   constructor(private bookService: BookService, private errorService: ErrorService, private toastr: ToastrService, private form: FormBuilder) {
   }
 
+  /**
+   * onInit method when component called
+   */
   ngOnInit() {
     this.errorSubscription = this.errorService.getErrorObservable().subscribe(error => {
       this.toastr.error(error, 'Error');
@@ -38,6 +41,9 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.fetchBooks();
   }
 
+  /**
+   * initialize filter form
+   */
   public initializeForm(): void {
     this.filterForm = this.form.group({
       title: [''],
@@ -46,6 +52,9 @@ export class BookListComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * onSubmit method call after click on search button of filter form
+   */
   public onSubmit(): void {
     const filterSubscription = this.bookService.getFilterBooks(this.filterForm.value).subscribe({
       next: (books: Book[]) => {
@@ -58,6 +67,9 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(filterSubscription);
   }
 
+  /**
+   * fetch book when page load with get api call of get books
+   */
   public fetchBooks(): void {
     const fetchSubscription = this.bookService.getAllBooks().subscribe({
       next: (books) => {
@@ -70,6 +82,9 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(fetchSubscription);
   }
 
+  /**
+   * get added book using subject
+   */
   private subscribeToAddBookEvent(): void {
     const updateBook = this.bookService.bookAdded$.subscribe((newBook: Book) => {
       this.books.push(newBook);
@@ -77,6 +92,9 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(updateBook);
   }
 
+  /**
+   * to unsubscribe observables when components are destroy
+   */
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }

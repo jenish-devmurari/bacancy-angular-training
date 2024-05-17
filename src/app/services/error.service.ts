@@ -10,11 +10,19 @@ export class ErrorService {
 
   constructor() { }
 
-  emitError(error: string) {
+  /**
+   * get error while api call and emit into subject
+   * @param error 
+   */
+  public emitError(error: string) {
     this.errorSubject.next(error);
   }
 
-  getErrorObservable(): Observable<any> {
+  /**
+   * this method simply return subject as observable
+   * @returns return subject as observables
+   */
+  public getErrorObservable(): Observable<any> {
     return this.errorSubject.asObservable();
   }
 
