@@ -137,4 +137,14 @@ export class BookListComponent implements OnInit {
     this.bookToDeleteId = undefined;
   }
 
+  /**
+   * change flag when modal close
+   */
+  public close(): void {
+    if (this.isEditMode) {
+      this.isEditMode = !this.isEditMode
+    } else {
+      this.isEditMode = !this.isEditMode
+    }
+  }
 }

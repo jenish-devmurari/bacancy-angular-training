@@ -1,5 +1,5 @@
 <app-book-action [book]="selectedBook" [isEditMode]="isEditMode" (bookAdded)="onBookAdded($event)"
-    (bookEdited)="updateBook($event)"></app-book-action>
+    (bookEdited)="updateBook($event)" (close)="close()"></app-book-action>
 <app-book [books]="books" (deleteConfirmation)="deleteConfirmation($event)" (viewClick)="viewBook($event)"
     (edit)="editBook($event)" (viewStock)="viewStock($event)" [stockCount]="stockCount"></app-book>
 <app-book-details [selectedBook]="selectedBookInfo"></app-book-details>

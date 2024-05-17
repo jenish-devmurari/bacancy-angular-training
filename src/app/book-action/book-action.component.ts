@@ -15,6 +15,7 @@ export class BookActionComponent {
   }
   @Input() isEditMode: boolean | undefined;
 
+
   newBook: Book = {
     imgUrl: '', title: '', description: '', price: 0,
     id: 0,
@@ -25,6 +26,7 @@ export class BookActionComponent {
 
   @Output() bookAdded = new EventEmitter<Book>();
   @Output() bookEdited = new EventEmitter<Book>();
+  @Output() close = new EventEmitter<any>();
 
   /**
  * Emit event of adding a new book if the form is valid.
@@ -73,6 +75,11 @@ export class BookActionComponent {
       review: '',
       rating: 0, stock: 0
     };
-    this.isEditMode = false;
   }
+
+  public modalClose(): void {
+    this.close.emit();
+    this.resetForm();
+  }
+
 }
