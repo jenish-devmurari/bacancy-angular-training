@@ -7,6 +7,11 @@ import { AddPostComponent } from './add-post/add-post.component';
 import { AlertComponent } from './alert/alert.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
+import { HeaderComponent } from './core/header/header.component';
+import { FooterComponent } from './core/footer/footer.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,16 +20,19 @@ import { AppRoutingModule } from './app-routing.module';
     AddPostComponent,
     AlertComponent,
     ConfirmComponent,
-   
-   
+    HeaderComponent,
+    FooterComponent
+
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    CoreModule,
+    HttpClientModule,
     AppRoutingModule
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-  

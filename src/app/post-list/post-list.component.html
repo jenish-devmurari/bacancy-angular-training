@@ -1,1 +1,16 @@
-<p>post-list works!</p>
+<div class="container">
+    <div class="row">
+        <h1 class="text-center mb-4">Posts</h1>
+        <div *ngFor="let post of posts; let i = index" class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.body }}</p>
+                    <button class="icon btn btn-link" (click)="deletePost(post.id)">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,21 @@
-<p>add-post works!</p>
+<button class="btn btn-primary" (click)="goBack()"> &larr; Go To Post</button>
+<div class="container">
+    <form (ngSubmit)="addPost(postData)" #postData="ngForm">
+        <h2>Add New Post</h2>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" [(ngModel)]="post.title" #title="ngModel" name="title"
+                required>
+            <span *ngIf="title.errors?.['required'] && (title.touched || title.dirty)" class="text-danger">title is
+                required</span>
+        </div>
+        <div class="mb-3">
+            <label for="body" class="form-label">Content</label>
+            <textarea class="form-control" id="body" [(ngModel)]="post.body" #body="ngModel" name="body"
+                required></textarea>
+            <span *ngIf="body.errors?.['required'] && (body.touched || body.dirty)" class="text-danger">content is
+                required</span>
+        </div>
+        <button class="btn btn-primary" [disabled]="postData.invalid">Add</button>
+    </form>
+</div>
