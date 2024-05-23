@@ -1,0 +1,33 @@
+$color-black: black;
+$color-white: white;
+$color-success-bg: #5bcc76;
+$color-success-border: #c3e6cb;
+$color-danger-bg: #e65d68;
+$color-danger-border: #f5c6cb;
+
+.alert {
+    padding: 20px;
+    margin-bottom: 1rem;
+    border: 1px solid $color-white;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: $color-black;
+    background-color: $color-success-bg;
+    border-color: $color-success-border;
+}
+
+.alert-danger {
+    color: $color-black;
+    background-color: $color-danger-bg;
+    border-color: $color-danger-border;
+}
+
+.close {
+    float: right;
+    border: none;
+    margin-left: 10px;
+    font-size: 10px;
+    color: $color-black;
+}

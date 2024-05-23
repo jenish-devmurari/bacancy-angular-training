@@ -1,8 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Post } from '../interfaces/post.interface';
 import { Router } from '@angular/router';
 import { PostService } from '../services/post.service';
 import { NgForm } from '@angular/forms';
+import { ViewContainerDirective } from '../directives/view-container.directive';
+import { AlertComponent } from '../alert/alert.component';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-add-post',
@@ -11,8 +14,8 @@ import { NgForm } from '@angular/forms';
 })
 export class AddPostComponent {
   @ViewChild('postData') postData!: NgForm;
-
-  constructor(private postService: PostService, private router: Router) { }
+  @ViewChild(ViewContainerDirective, { static: false }) container!: ViewContainerDirective;
+  constructor(private postService: PostService, private router: Router, private alertService: AlertService) { }
 
   public post: Post = {
     userId: 0,
@@ -25,11 +28,13 @@ export class AddPostComponent {
     if (form.valid) {
       this.postService.createPost(this.post).subscribe({
         next: (response) => {
-          alert("New Post Created");
+          this.alertService.showAlert(this.container.viewContainer, 'Post added successfully', 'success')
           this.postData.reset();
+          setTimeout(() => this.router.navigate(['/post']), 1000);
         },
         error: (error) => {
-          alert("An error occurred while creating the post");
+          this.alertService.showAlert(this.container.viewContainer, 'Something wrong happen post is not added ', 'error')
+          this.postData.reset();
         }
       });
     } else {
@@ -41,7 +46,4 @@ export class AddPostComponent {
     this.router.navigateByUrl("/post");
   }
 
-  public hasUnsavedChanges(): boolean {
-    return this.post.title !== "" || this.post.body !== "";
-  }
 }

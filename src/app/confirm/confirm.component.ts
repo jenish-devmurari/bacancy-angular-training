@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-confirm',
@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./confirm.component.scss']
 })
 export class ConfirmComponent {
+  @Output() confirmed = new EventEmitter<void>();
+  @Output() cancelled = new EventEmitter<void>();
 
+  onConfirm(): void {
+    this.confirmed.emit();
+  }
+
+  onCancel(): void {
+    this.cancelled.emit();
+  }
 }

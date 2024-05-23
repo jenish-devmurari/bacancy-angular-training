@@ -1,9 +1,21 @@
+$first-color: #ccecf6;
+$second-color: #ffebb2;
+
 .container {
     width: 50%;
     margin-bottom: 10%;
     margin-top: 5%;
+    background-image: linear-gradient($first-color, $second-color);
 }
 .btn {
     margin-top: 10px;
     margin-left: 10px;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
 }

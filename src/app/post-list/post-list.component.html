@@ -1,16 +1,29 @@
-<div class="container">
-    <div class="row">
-        <h1 class="text-center mb-4">Posts</h1>
-        <div *ngFor="let post of posts; let i = index" class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ post.title }}</h5>
-                    <p class="card-text">{{ post.body }}</p>
-                    <button class="icon btn btn-link" (click)="deletePost(post.id)">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
+<ng-container *ngIf="posts.length > 0; else noPost">
+    <div class="container">
+        <div class="notification">
+            <ng-template appViewContainer></ng-template>
+        </div>
+        <div class="row">
+            <h1 class="text-center mb-4">Posts</h1>
+            <div *ngFor="let post of posts; let i = index" class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.body }}</p>
+                        <button class="icon btn btn-link" (click)="showConfirmDelete(post.id)">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</ng-container>
+
+<ng-template #noPost>
+    <div class="container-not-available">
+        <div class="row">
+            <p class="text-danger">No Posts available.</p>
+        </div>
+    </div>
+</ng-template>

@@ -12,6 +12,7 @@ import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ViewContainerDirective } from './directives/view-container.directive';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     AlertComponent,
     ConfirmComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ViewContainerDirective
 
   ],
   imports: [

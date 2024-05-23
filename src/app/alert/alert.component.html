@@ -1,1 +1,8 @@
-<p>alert works!</p>
+<div class="alert" [ngClass]="{ 'alert-success': type === 'success',
+'alert-danger': type === 'error'
+}" role="alert">
+  <span>{{ message }}</span>
+  <button *ngIf="type == 'error'" type="button" class="close" (click)="onClose()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>

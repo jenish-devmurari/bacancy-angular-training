@@ -1,0 +1,43 @@
+$confirm-color: #28a745;
+$cancel-color: #dc3545;
+$text-color: white;
+$background-color: white;
+$border-color: white;
+$box-shadow-color: rgba(0, 0, 0, 0.5);
+
+@mixin button-style {
+    color: $text-color;
+    border: 2px solid $border-color;
+    border-radius: 5px;
+}
+
+.confirm-box {
+    background: $background-color;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px $box-shadow-color;
+    text-align: center;
+
+    p {
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+    .confirm-box button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
+
+.confirm {
+    @include button-style();
+    background-color: $confirm-color;
+}
+
+.cancel {
+    @include button-style();
+    background-color: $cancel-color;
+    margin: 5px;
+}

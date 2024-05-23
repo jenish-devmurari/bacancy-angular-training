@@ -3,7 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { PostListComponent } from './post-list/post-list.component';
 import { AddPostComponent } from './add-post/add-post.component';
 
+
 const routes: Routes = [
+  {
+    path: '', redirectTo: 'post', pathMatch: 'full'
+  },
   {
     path: 'post', component: PostListComponent, pathMatch: 'full'
   },
@@ -11,7 +15,7 @@ const routes: Routes = [
     path: 'add-post', component: AddPostComponent, pathMatch: 'full'
   },
   {
-    path: '**', redirectTo: ''
+    path: '**', redirectTo: 'post'
   }
 ];
 
