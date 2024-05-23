@@ -17,5 +17,9 @@ export class AlertService {
       closeSub.unsubscribe();
       container.clear();
     });
+    setTimeout(() => {
+      closeSub.unsubscribe();
+      container.clear();
+    }, 2000);
   }
 }

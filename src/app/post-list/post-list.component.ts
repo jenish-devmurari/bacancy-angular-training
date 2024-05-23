@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AlertComponent } from '../alert/alert.component';
 import { ConfirmComponent } from '../confirm/confirm.component';
 import { ViewContainerDirective } from '../directives/view-container.directive';
 import { Post } from '../interfaces/post.interface';
-import { PostService } from '../services/post.service';
 import { AlertService } from '../services/alert.service';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-post-list',
@@ -39,8 +38,14 @@ export class PostListComponent implements OnInit, OnDestroy {
   private getAllPost(): void {
     const postSubscription = this.postService.getPosts().subscribe(
       {
-        next: (res) => { this.posts = res },
-        error: (err) => { this.alertService.showAlert(this.container.viewContainer, 'Error while fetching post: ', 'error'); }
+        next: (res) => {
+          this.posts = res;
+        },
+        error: (err) => {
+          if (this.container && this.container.viewContainer) {
+            this.alertService.showAlert(this.container.viewContainer, 'Error while fetching post', 'error');
+          }
+        }
       }
     )
     this.subscription.push(postSubscription);
@@ -49,10 +54,15 @@ export class PostListComponent implements OnInit, OnDestroy {
   private deletePost(postId: number): void {
     const deleteSubscription = this.postService.deletePost(postId).subscribe({
       next: (res) => {
-        this.posts = this.posts.filter((id) => id.id !== postId)
+        this.posts = this.posts.filter((id) => id.id !== postId);
+        if (this.container && this.container.viewContainer) {
+          this.alertService.showAlert(this.container.viewContainer, 'Post deleted', 'success');
+        }
       },
       error: (err) => {
-        this.alertService.showAlert(this.container.viewContainer, 'Error while deleting post', 'error');
+        if (this.container && this.container.viewContainer) {
+          this.alertService.showAlert(this.container.viewContainer, 'Error while deleting post', 'error');
+        }
       }
     }
     );

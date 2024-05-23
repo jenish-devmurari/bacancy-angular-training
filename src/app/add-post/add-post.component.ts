@@ -1,11 +1,11 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { Post } from '../interfaces/post.interface';
-import { Router } from '@angular/router';
-import { PostService } from '../services/post.service';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ViewContainerDirective } from '../directives/view-container.directive';
-import { AlertComponent } from '../alert/alert.component';
+import { Post } from '../interfaces/post.interface';
 import { AlertService } from '../services/alert.service';
+import { PostService } from '../services/post.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-add-post',
@@ -26,14 +26,18 @@ export class AddPostComponent {
 
   public addPost(form: NgForm): void {
     if (form.valid) {
-      this.postService.createPost(this.post).subscribe({
+      this.postService.createPost(this.post).pipe(take(1)).subscribe({
         next: (response) => {
-          this.alertService.showAlert(this.container.viewContainer, 'Post added successfully', 'success')
+          if (this.container && this.container.viewContainer) {
+            this.alertService.showAlert(this.container.viewContainer, 'Post added successfully', 'success');
+          }
           this.postData.reset();
           setTimeout(() => this.router.navigate(['/post']), 1000);
         },
         error: (error) => {
-          this.alertService.showAlert(this.container.viewContainer, 'Something wrong happen post is not added ', 'error')
+          if (this.container && this.container.viewContainer) {
+            this.alertService.showAlert(this.container.viewContainer, 'Something wrong happen post is not added ', 'error');
+          }
           this.postData.reset();
         }
       });

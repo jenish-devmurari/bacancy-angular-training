@@ -6,11 +6,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent {
-  @Input() message!: string;
-  @Input() type!: 'success' | 'error';
+  public message!: string;
+  public type!: 'success' | 'error';
   @Output() dismissed = new EventEmitter<void>();
 
-  onClose(): void {
+  public onClose(): void {
     this.dismissed.emit();
   }
 }
