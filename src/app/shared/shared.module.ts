@@ -16,7 +16,8 @@ import { AppHighlightDirective } from './directives/app-highlight.directive';
     SharedRoutingModule
   ],
   exports: [
-    CardComponent
+    CardComponent,
+    AppHighlightDirective
   ]
 })
 export class SharedModule { }
