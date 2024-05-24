@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from '../interfaces/product.interface';
-import { Review } from '../interfaces/review.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor() { }
+  constructor(private toaster: ToastrService) { }
 
+  private cart: Product[] = [];
   private products: Product[] = [
     {
       id: 1,
       name: 'Smartphone',
       description: 'Latest model smartphone with advanced features',
-      price: 699,
+      price: 9999,
       imageUrl: 'assets/smartphone.jpg',
       category: 'Electronics',
       availability: 'In Stock',
@@ -39,7 +40,7 @@ export class ProductService {
       id: 2,
       name: 'Laptop',
       description: 'High performance laptop for professionals',
-      price: 1299,
+      price: 49999,
       imageUrl: 'assets/laptop.jpg',
       category: 'Electronics',
       availability: 'In Stock',
@@ -64,7 +65,7 @@ export class ProductService {
       id: 3,
       name: 'Headphones',
       description: 'Noise-cancelling over-ear headphones',
-      price: 199,
+      price: 999,
       imageUrl: 'assets/headphone.jpg',
       category: 'Audio',
       availability: 'Out of Stock',
@@ -89,7 +90,7 @@ export class ProductService {
       id: 4,
       name: 'Smartwatch',
       description: 'Smartwatch with health tracking features',
-      price: 299,
+      price: 2999,
       imageUrl: 'assets/smartwatch.jpg',
       category: 'Wearables',
       availability: 'In Stock',
@@ -114,7 +115,7 @@ export class ProductService {
       id: 5,
       name: 'Bluetooth Speaker',
       description: 'Portable Bluetooth speaker with excellent sound quality',
-      price: 150,
+      price: 1499,
       imageUrl: 'assets/bluetooth-speaker.jpg',
       category: 'Audio',
       availability: 'In Stock',
@@ -139,7 +140,7 @@ export class ProductService {
       id: 6,
       name: 'Gaming Console',
       description: 'Next-gen gaming console with stunning graphics',
-      price: 499,
+      price: 4999,
       imageUrl: 'assets/gaming-console.jpg',
       category: 'Gaming',
       availability: 'Pre-Order',
@@ -164,7 +165,7 @@ export class ProductService {
       id: 7,
       name: '4K TV',
       description: 'Ultra HD 4K TV with smart features',
-      price: 899,
+      price: 45499,
       imageUrl: 'assets/4k-tv.jpg',
       category: 'Electronics',
       availability: 'In Stock',
@@ -189,7 +190,7 @@ export class ProductService {
       id: 8,
       name: 'Tablet',
       description: 'Lightweight tablet with high-resolution display',
-      price: 399,
+      price: 19999,
       imageUrl: 'assets/tablet.jpg',
       category: 'Electronics',
       availability: 'In Stock',
@@ -214,7 +215,7 @@ export class ProductService {
       id: 9,
       name: 'Camera',
       description: 'Digital camera with 4K video recording',
-      price: 599,
+      price: 59999,
       imageUrl: 'assets/camera.jpg',
       category: 'Photography',
       availability: 'In Stock',
@@ -224,20 +225,20 @@ export class ProductService {
         {
           reviewer: 'Quinn',
           comment: 'Fantastic image quality.',
-          rating: 5,
+          rating: 4.2,
           date: '2024-03-10'
         },
         {
           reviewer: 'Rita',
           comment: 'Easy to use and very versatile.',
-          rating: 4,
+          rating: 3,
           date: '2024-03-12'
         }
       ]
     },
   ];
 
-  public getProducts(): Product[] {
+  public getProducts(): Product[] | undefined {
     return this.products;
   }
 
@@ -245,4 +246,15 @@ export class ProductService {
     return this.products.find(product => product.id === id);
   }
 
+  public addToCart(product: Product): void {
+    const productAddToCart = this.products.find(p => p.id === product.id);
+    if (productAddToCart) {
+      this.cart.push(productAddToCart);
+      this.toaster.success('Product added to your cart');
+    }
+  }
+
+  public getCartProduct(): Product[] | undefined {
+    return this.cart;
+  }
 }

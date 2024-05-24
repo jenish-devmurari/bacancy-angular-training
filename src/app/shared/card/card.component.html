@@ -1,4 +1,4 @@
-<div class="card mb-4 mt-5">
+<div class="card mb-4 mt-5" appHighlight>
     <img [src]="product.imageUrl" class="card-img-top" alt="{{ product.name }}">
     <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
@@ -10,10 +10,16 @@
         <p class="card-text"><strong>Price:</strong> {{ product.price | currency :'INR' }}</p>
         <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-                <a [routerLink]="['/product/detail', product.id]" class="btn btn-sm btn-outline-secondary">View
+                <a *ngIf="showDetailButton" [routerLink]="['/product/detail', product.id]"
+                    class="btn btn-sm btn-outline-secondary">View
                     Details</a>
             </div>
-            <button class="btn btn-success ml-auto">Add to Cart</button>
+            <div *ngIf="showDeleteButton" class="delete-icon">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </div>
+            <button *ngIf="showCartButton" class="btn btn-success ml-auto" (click)="addCart(product)">Add to
+                Cart</button>
         </div>
+
     </div>
 </div>

@@ -1,7 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4" *ngFor="let product of products">
-            <app-card [product]="product"></app-card>
+            <app-card [product]="product" [showDetailButton]="detailButton" [showCartButton]="cartButton"
+                [showDeleteButton]="deleteButton"></app-card>
         </div>
     </div>
 </div>

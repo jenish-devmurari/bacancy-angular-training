@@ -22,4 +22,31 @@ export class ViewReviewComponent implements OnInit {
     this.product = this.productService.getProductById(id);
   }
 
+  public addCart(product: Product | undefined): void {
+    if (product) {
+      this.productService.addToCart(product);
+    }
+  }
+
+  public starArray(rating: number): number[] {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    const starArray: number[] = [];
+
+    for (let i = 0; i < fullStars; i++) {
+      starArray.push(1);
+    }
+
+    if (hasHalfStar) {
+      starArray.push(0.5);
+    }
+
+    const remainingStars = 5 - starArray.length;
+    for (let i = 0; i < remainingStars; i++) {
+      starArray.push(0);
+    }
+
+    return starArray;
+  }
+
 }

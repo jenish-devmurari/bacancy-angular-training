@@ -5,6 +5,7 @@ import { ProductDetailRoutingModule } from './product-detail-routing.module';
 import { ProductDetailComponent } from './product-detail.component';
 
 import { RouterModule } from '@angular/router';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule,
-    ProductDetailRoutingModule
+    ProductDetailRoutingModule,
+    SharedModule
   ]
 })
 export class ProductDetailModule {

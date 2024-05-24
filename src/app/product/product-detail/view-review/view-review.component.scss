@@ -3,6 +3,23 @@
     margin-bottom: 20px;
 }
 
-.review {
-    margin: 20px;
+.date {
+    position: absolute;
+    top: 15px;
+    right: 5px;
+}
+
+.rating {
+    position: absolute;
+    top: 0;
+}
+
+.user {
+    position: absolute;
+    bottom: 0;
+}
+
+.comment {
+    margin: 30px 20px 50px 0px;
+    text-align: left;
 }

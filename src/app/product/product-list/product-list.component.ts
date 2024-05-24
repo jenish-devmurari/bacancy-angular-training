@@ -8,7 +8,10 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  public products: Product[] = [];
+  public products: Product[] | undefined;
+  public detailButton: boolean = true;
+  public cartButton: boolean = true;
+  public deleteButton: boolean = false;
 
   constructor(private productService: ProductService) { }
 

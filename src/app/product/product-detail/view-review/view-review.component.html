@@ -11,18 +11,30 @@
             <p><strong>Availability:</strong> {{ product?.availability }}</p>
             <p><strong>Rating:</strong> {{ product?.rating }} / 5</p>
             <p><strong>Price:</strong> {{ product?.price | currency:'INR'}}</p>
-            <button class="btn btn-success">Add to Cart</button>
+            <button class="btn btn-success" (click)="addCart(product)">Add to Cart</button>
         </div>
     </div>
     <hr>
     <h3 class="mt-4">Product Reviews</h3>
-    <ng-container *ngIf="product?.reviews; else noReview">
+    <ng-container *ngIf="product?.reviews?.length !== 0; else noReview">
         <div class="row">
-            <div *ngFor="let review of product?.reviews" class="card mt-3 mb-3">
+            <div class="col-md-4 card m-3" *ngFor="let review of product?.reviews">
                 <div class="card-body">
-                    <h5 class="card-title">{{ review.reviewer }} </h5>
-                    <p class="card-text">{{ review.rating }}</p>
-                    <p class="card-text">{{ review.comment }}</p>
+                    <div>
+                        <span *ngFor="let star of starArray(review.rating)">
+                            <ng-container [ngSwitch]="star">
+                                <i *ngSwitchCase="1" class="fa fa-star"></i>
+                                <i *ngSwitchCase="0.5" class="fa fa-star-half"></i>
+                                <i *ngSwitchDefault class="fa fa-star-o"></i>
+                            </ng-container>
+                        </span>
+                    </div>
+                    <p class="comment">{{ review.comment }}</p>
+                    <p class="user">
+                        <i class="fa-solid fa-user"></i>
+                        {{ review.reviewer }}
+                    </p>
+                    <p class="date">{{ review.date | date :'MMMM d, y'}}</p>
                 </div>
             </div>
         </div>
