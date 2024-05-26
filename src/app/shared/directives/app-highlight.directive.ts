@@ -1,11 +1,11 @@
-import { Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
+import { Directive, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appHighlight]'
 })
 export class AppHighlightDirective {
 
-  constructor(private element: ElementRef) { }
+  constructor() { }
 
   @HostBinding('style.box-shadow') boxShadow: string | null = null;
   @HostBinding('style.transform') transform: string | null = null;
