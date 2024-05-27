@@ -15,7 +15,7 @@ export class TaskFiveComponent {
     gender: signal('')
   }
 
-  public fullName = computed(() => this.user.firstName() + " " + this.user.lastName())
+  public fullName = computed(() => this.user.firstName() + " " + this.user.lastName());
 
   public submitForm(form: NgForm): void {
     if (form.valid) {

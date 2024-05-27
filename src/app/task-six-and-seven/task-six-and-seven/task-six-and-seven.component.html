@@ -1,0 +1,57 @@
+<div class="container mt-2">
+    <div class="text mb-2 text-center">Register Your Self(Reactive Form)</div>
+    <div class="d-flex align-content-center justify-content-center">
+        <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+            <div class="form-group mt-3">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" class="form-control" formControlName="firstName">
+                <span
+                    *ngIf="registerForm.get('firstName')?.errors?.['required'] && (registerForm.get('firstName')?.dirty || registerForm.get('firstName')?.touched)"
+                    class="text-danger"> First Name is
+                    required
+                </span>
+            </div>
+            <div class="form-group mt-3">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" class="form-control" formControlName="lastName">
+                <span
+                    *ngIf="registerForm.get('lastName')?.errors?.['required'] && (registerForm.get('lastName')?.dirty || registerForm.get('lastName')?.touched)"
+                    class="text-danger"> Last Name is
+                    required
+                </span>
+            </div>
+            <div class="form-group mt-3">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" class="form-control" formControlName="age">
+                <span
+                    *ngIf="registerForm.get('age')?.errors?.['required'] && (registerForm.get('age')?.dirty || registerForm.get('age')?.touched)"
+                    class="text-danger"> Age is
+                    required
+                </span>
+            </div>
+            <div class="form-group mt-3">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" class="form-control" formControlName="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <span
+                    *ngIf="registerForm.get('gender')?.errors?.['required'] && (registerForm.get('gender')?.dirty || registerForm.get('gender')?.touched)"
+                    class="text-danger"> Gender is
+                    required
+                </span>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2 ">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h3> Your Data</h3>
+    <p>First Name: {{ firstName() }}</p>
+    <p>Last Name: {{ lastName() }}</p>
+    <p>Full Name : {{fullName()}}</p>
+    <p>Age: {{ age() }}</p>
+    <p>Gender: {{ gender() }}</p>
+</div>
