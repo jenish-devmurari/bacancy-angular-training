@@ -5,6 +5,7 @@ import { GENDERS, HOBBIES, Roles, emailRegex, passwordRegex } from 'src/app/cons
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
 
+
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -47,7 +48,7 @@ export class AddUserComponent implements OnInit {
   }
 
   //get admin email who is loggedIn
-  private getAdminEmail(): string {
+  private getAdminEmail(): string | undefined {
     return this.localStorage.getLoggedUserEmail();
   }
 

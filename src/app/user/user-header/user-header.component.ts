@@ -9,7 +9,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./user-header.component.scss']
 })
 export class UserHeaderComponent implements OnInit {
-  public name: string | null = '';
+  public name: string | undefined;
 
   constructor(private router: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
 

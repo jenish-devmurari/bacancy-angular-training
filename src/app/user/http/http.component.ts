@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Post } from 'src/app/interfaces/post.interface';
+import { IPost } from 'src/app/interfaces/post.model';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
@@ -9,11 +9,11 @@ import { HttpService } from 'src/app/services/http.service';
   styleUrls: ['./http.component.scss']
 })
 export class HttpComponent implements OnInit {
-  public posts: Post[] = [];
+  public posts: IPost[] = [];
   public searchId !: number;
-  public searchPost: Post[] = [];
-  public selectedPost!: Post;
-  public newPost: Post = {
+  public searchPost: IPost[] = [];
+  public selectedPost!: IPost;
+  public newPost: IPost = {
     userId: 0,
     id: 0,
     title: '',
@@ -86,7 +86,7 @@ export class HttpComponent implements OnInit {
     }
   }
 
-  public openEditModal(post: Post): void {
+  public openEditModal(post: IPost): void {
     this.selectedPost = { ...post };
   }
 

@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GENDERS, HOBBIES, ROLES, Roles, emailRegex, passwordRegex } from 'src/app/constants/constants';
-import { Admin } from 'src/app/interfaces/admin.interface';
+import { IAdmin } from 'src/app/interfaces/admin.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
 
@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
   private seedAdminData(): void {
     const localStorageData = this.localStorage.getUserData();
     if (!localStorageData || localStorageData.trim() === '') {
-      const admin: Admin = {
+      const admin: IAdmin = {
         firstName: 'Admin',
         lastName: 'Admin',
         email: 'admin@gmail.com',

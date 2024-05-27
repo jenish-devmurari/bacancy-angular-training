@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Admin } from '../interfaces/admin.interface';
-import { Register } from '../interfaces/register.interface';
-import { User } from '../interfaces/user.interface';
+import { IAdmin } from '../interfaces/admin.model';
+import { IRegister } from '../interfaces/register.model';
+import { IUser } from '../interfaces/user.model';
 import { LocalStorageService } from './local-storage.service';
 import { Roles } from '../constants/constants';
 import * as CryptoJS from 'crypto-js';
@@ -13,7 +13,7 @@ import * as CryptoJS from 'crypto-js';
 export class RegisterService {
   constructor(private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
-  public setRegistrationData(data: Register): boolean {
+  public setRegistrationData(data: IRegister): boolean {
     if (this.isEmailRegister(data.email)) {
       this.toaster.error('This email is already register');
       return false
@@ -28,23 +28,23 @@ export class RegisterService {
     }
   }
 
-  public getRegistrationData(): Admin[] | null {
+  public getRegistrationData(): IAdmin[] | null {
     const dataString = this.localStorage.getUserData();
     return dataString ? JSON.parse(dataString) : null;
   }
 
   // get admin list to show user for which admin present inside system
   public getAdminList(): string[] {
-    const existingData: Admin[] = this.getRegistrationData() || [];
-    const adminUsers: Admin[] = existingData.filter((user) => user.role === Roles.Admin);
+    const existingData: IAdmin[] = this.getRegistrationData() || [];
+    const adminUsers: IAdmin[] = existingData.filter((user) => user.role === Roles.Admin);
     const adminEmails: string[] = adminUsers.map(user => user.email);
     return adminEmails;
   }
 
   // add admin
-  private addAdmin(data: Register): void {
+  private addAdmin(data: IRegister): void {
     const hashPassword = this.encrypt(data.password);
-    let admin: Admin = {
+    let admin: IAdmin = {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
@@ -56,7 +56,7 @@ export class RegisterService {
       isActive: true,
       users: [],
     };
-    let adminData: Admin[] = [];
+    let adminData: IAdmin[] = [];
     const localStorageData = this.localStorage.getUserData();
     if (localStorageData !== null) {
       adminData = JSON.parse(localStorageData);
@@ -66,13 +66,13 @@ export class RegisterService {
   }
 
   // add user 
-  private addUser(data: Register): void {
+  private addUser(data: IRegister): void {
     const adminEmail: string | undefined = data.adminList;
     const hashPassword = this.encrypt(data.password);
     if (!adminEmail) {
       return;
     }
-    let user: User = {
+    let user: IUser = {
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
@@ -84,7 +84,7 @@ export class RegisterService {
       isActive: true,
       members: []
     };
-    let adminData: Admin[] = [];
+    let adminData: IAdmin[] = [];
     const localStorageData = this.localStorage.getUserData();
     if (localStorageData !== null) {
       adminData = JSON.parse(localStorageData);
@@ -102,7 +102,7 @@ export class RegisterService {
   private isEmailRegister(email: string): boolean {
     const localStorageData = this.localStorage.getUserData();
     if (localStorageData) {
-      const adminData: Admin[] = JSON.parse(localStorageData);
+      const adminData: IAdmin[] = JSON.parse(localStorageData);
       const adminWithEmail = adminData.some((admin) => admin.email === email);
       if (adminWithEmail) {
         return true;

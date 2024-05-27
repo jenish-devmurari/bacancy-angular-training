@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Post } from '../interfaces/post.interface';
+import { IPost } from '../interfaces/post.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -12,27 +12,27 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   // get request for fetch all post data
-  public getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/posts`);
+  public getPosts(): Observable<IPost[]> {
+    return this.http.get<IPost[]>(`${this.apiUrl}/posts`);
   }
 
   // get post by id
-  public getPostsById(id: number): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/posts/${id}`);
+  public getPostsById(id: number): Observable<IPost[]> {
+    return this.http.get<IPost[]>(`${this.apiUrl}/posts/${id}`);
   }
 
   // delete post delete request
-  public deletePost(id: number): Observable<Post> {
-    return this.http.delete<Post>(`${this.apiUrl}/posts/${id}`);
+  public deletePost(id: number): Observable<IPost> {
+    return this.http.delete<IPost>(`${this.apiUrl}/posts/${id}`);
   }
 
   // create new post post request
-  public createPost(post: Post): Observable<Post> {
-    return this.http.post<Post>(`${this.apiUrl}/posts`, post);
+  public createPost(post: IPost): Observable<IPost> {
+    return this.http.post<IPost>(`${this.apiUrl}/posts`, post);
   }
 
   // edit post put request
-  public editPost(post: Post, id: number): Observable<Post> {
-    return this.http.put<Post>(`${this.apiUrl}/posts/${id}`, post)
+  public editPost(post: IPost, id: number): Observable<IPost> {
+    return this.http.put<IPost>(`${this.apiUrl}/posts/${id}`, post)
   }
 }

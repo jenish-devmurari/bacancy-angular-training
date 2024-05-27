@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Login } from 'src/app/interfaces/login.interface';
+import { ILogin } from 'src/app/interfaces/login.model';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class LoginComponent {
   constructor(private loginService: LoginService, private toaster: ToastrService) {
   }
 
-  public loginData: Login = {
+  public loginData: ILogin = {
     email: '',
     password: ''
   }

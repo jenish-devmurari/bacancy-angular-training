@@ -1,6 +1,6 @@
-import { Member } from "./member.interface";
+import { IUser } from "./user.model";
 
-export interface User {
+export interface IAdmin {
     firstName: string;
     lastName: string;
     email: string;
@@ -10,5 +10,5 @@ export interface User {
     hobbies: string;
     role: string;
     isActive: boolean;
-    members: Member[]
+    users: IUser[];
 }

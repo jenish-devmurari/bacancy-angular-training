@@ -9,7 +9,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./admin-header.component.scss']
 })
 export class AdminHeaderComponent implements OnInit {
-  public name: string | null = '';
+  public name: string | undefined;
 
   constructor(private router: Router, private toaster: ToastrService, private localStorage: LocalStorageService) {
   }
@@ -19,8 +19,7 @@ export class AdminHeaderComponent implements OnInit {
   }
 
   public logout(): void {
-    const confirmLogout = confirm('Are you sure you want to log out?');
-    if (confirmLogout) {
+    if (confirm('Are you sure you want to log out?')) {
       this.localStorage.removeEmail();
       this.toaster.success('Logout Successful');
       this.router.navigate(['/login']);

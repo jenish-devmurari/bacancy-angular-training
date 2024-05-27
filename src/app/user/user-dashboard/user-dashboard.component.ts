@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { getGenderImageUrl } from 'src/app/constants/constants';
-import { Admin } from 'src/app/interfaces/admin.interface';
-import { Member } from 'src/app/interfaces/member.interface';
+import { IAdmin } from 'src/app/interfaces/admin.model';
+import { IMember } from 'src/app/interfaces/member.model';
+
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
@@ -10,14 +11,14 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent {
-  public memberData: Member[] | null = [];
+  public memberData: IMember[] | null = [];
 
   constructor(private localStorage: LocalStorageService) { }
 
   public ngOnInit(): void {
     this.getUserData();
   }
-  
+
   // Get image based on gender to show in card
   public getGenderImage(gender: string): string {
     return getGenderImageUrl(gender);
@@ -27,7 +28,7 @@ export class UserDashboardComponent {
   private getUserData(): void {
     const dataString = this.localStorage.getUserData();
     if (dataString) {
-      const allAdmins: Admin[] = JSON.parse(dataString);
+      const allAdmins: IAdmin[] = JSON.parse(dataString);
       const loggedInEmail = this.localStorage.getLoggedUserEmail();
       for (const admin of allAdmins) {
         const user = admin.users.find(user => user.email === loggedInEmail);

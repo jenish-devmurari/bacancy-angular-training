@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { GENDERS, HOBBIES, ROLESOFMEMBERS, emailRegex } from 'src/app/constants/constants';
-import { Admin } from 'src/app/interfaces/admin.interface';
-import { Member } from 'src/app/interfaces/member.interface';
+import { IAdmin } from 'src/app/interfaces/admin.model';
+import { IMember } from 'src/app/interfaces/member.model';
+
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class AddMemberComponent {
   public genders: string[] = GENDERS
   public hobbies: string[] = HOBBIES
   public roleOfMember: string[] = ROLESOFMEMBERS
-  private loggedEmail: string | null = "";
+  private loggedEmail: string | undefined;
 
   constructor(private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
@@ -66,9 +67,9 @@ export class AddMemberComponent {
 
   public onSubmit(): void {
     if (this.memberForm.valid) {
-      const members: Member[] = [];
+      const members: IMember[] = [];
       this.getMemberControl().forEach((member) => {
-        const memberData: Member = {
+        const memberData: IMember = {
           firstName: member.get('firstName')?.value,
           lastName: member.get('lastName')?.value,
           email: member.get('email')?.value,
@@ -105,7 +106,7 @@ export class AddMemberComponent {
   private checkEmailExists(email: string): boolean {
     const userDataString = this.localStorage.getUserData();
     if (userDataString) {
-      const userData: Admin[] = JSON.parse(userDataString);
+      const userData: IAdmin[] = JSON.parse(userDataString);
       for (const admin of userData) {
         if (admin.email === email) {
           return true;
@@ -146,10 +147,10 @@ export class AddMemberComponent {
   }
 
   // add member at particular user
-  private addMemberToUser(userEmail: string | null, member: Member[]): void {
+  private addMemberToUser(userEmail: string | undefined, member: IMember[]): void {
     const userDataString = this.localStorage.getUserData();
     if (userDataString) {
-      const userData: Admin[] = JSON.parse(userDataString);
+      const userData: IAdmin[] = JSON.parse(userDataString);
       for (const admin of userData) {
         const user = admin.users.find(user => user.email === userEmail);
         if (user) {

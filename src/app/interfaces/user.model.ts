@@ -1,4 +1,6 @@
-export interface Register {
+import { IMember } from "./member.model";
+
+export interface IUser {
     firstName: string;
     lastName: string;
     email: string;
@@ -8,5 +10,5 @@ export interface Register {
     hobbies: string;
     role: string;
     isActive: boolean;
-    adminList?: string;
+    members: IMember[]
 }

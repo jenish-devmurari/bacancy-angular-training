@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { key, keyOfLoggedUser } from '../constants/constants';
-import { Admin } from '../interfaces/admin.interface';
+import { IAdmin } from '../interfaces/admin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +11,15 @@ export class LocalStorageService {
   private loggedIn: string = keyOfLoggedUser;
   constructor() { }
 
-  public getLoggedUserEmail(): string {
+  public getLoggedUserEmail(): string | undefined {
     return localStorage.getItem(this.loggedIn) as string;
   }
 
   public getUserData(): string | null {
-    return localStorage.getItem(this.key);;
+    return localStorage.getItem(this.key);
   }
 
-  public setLocalStorage(data: Admin[]): void {
+  public setLocalStorage(data: IAdmin[]): void {
     localStorage.setItem(this.key, JSON.stringify(data));
   }
 
@@ -31,7 +31,7 @@ export class LocalStorageService {
     localStorage.removeItem(this.loggedIn);
   }
 
-  public getLoggedUserName(): string | null {
+  public getLoggedUserName(): string | undefined {
     const loggedInEmail = this.getLoggedUserEmail();
     const userData = JSON.parse(this.getUserData() || '[]');
     const mainUser = userData.find((user: { email: string; }) => user.email === loggedInEmail);
@@ -44,6 +44,6 @@ export class LocalStorageService {
         return user.firstName;
       }
     }
-    return null;
+    return undefined;
   }
 }

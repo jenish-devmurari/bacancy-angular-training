@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import { ToastrService } from 'ngx-toastr';
-import { Admin } from '../interfaces/admin.interface';
-import { Login } from '../interfaces/login.interface';
+import { IAdmin } from '../interfaces/admin.model';
+import { ILogin } from '../interfaces/login.model';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -14,8 +14,8 @@ export class LoginService {
 
   constructor(private route: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
-  public login(loginData: Login): void {
-    const existingData: Admin[] = this.getRegistrationData() || [];
+  public login(loginData: ILogin): void {
+    const existingData: IAdmin[] = this.getRegistrationData() || [];
     const foundAdmin = existingData.find((user) => user.email === loginData.email);
     if (foundAdmin) {
       if (foundAdmin && loginData.password === this.decrypt(foundAdmin.password)) {
@@ -51,7 +51,7 @@ export class LoginService {
     }
   }
 
-  private getRegistrationData(): Admin[] | null {
+  private getRegistrationData(): IAdmin[] | null {
     const dataString = this.localStorage.getUserData();
     return dataString ? JSON.parse(dataString) : null;
   }
