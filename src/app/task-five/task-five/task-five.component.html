@@ -1,0 +1,41 @@
+<div class="container mt-2">
+  <div class="text mb-2 text-center">Register Your Self</div>
+  <div class="d-flex align-content-center justify-content-center">
+    <form (ngSubmit)="submitForm(formData)" #formData="ngForm">
+      <div class="form-group mt-3">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" class="form-control" [ngModel]="user.firstName()"
+          (ngModelChange)="user.firstName.set($event)">
+      </div>
+      <div class="form-group mt-3">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" class="form-control" [ngModel]="user.lastName()"
+          (ngModelChange)="user.lastName.set($event)">
+      </div>
+      <div class="form-group mt-3">
+        <label for="age">Age:</label>
+        <input id="age" name="age" type="number" class="form-control" [ngModel]="user.age()"
+          (ngModelChange)="user.age.set($event)">
+      </div>
+      <div class="form-group mt-3">
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" class="form-control" [ngModel]="user.gender()"
+          (ngModelChange)="user.gender.set($event)">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary mt-2 ">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h3> Your Data</h3>
+  <p>First Name: {{ user.firstName() }}</p>
+  <p>Last Name: {{ user.lastName() }}</p>
+  <p>Full Name : {{fullName()}}</p>
+  <p>Age: {{ user.age() }}</p>
+  <p>Gender: {{ user.gender() }}</p>
+</div>

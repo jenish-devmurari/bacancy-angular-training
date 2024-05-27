@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row m-5">
+        <hr>
+        <h1>String signal</h1>
+        <p>{{ stringSignal()}}</p>
+        <button class="btn btn-info w-25" (click)="changeName()">Change name</button>
+    </div>
+    <div class="row m-5">
+        <hr>
+        <h1>Number signal</h1>
+        <p>{{ numberSignal()}}</p>
+        <button class="btn btn-info w-25" (click)="updateNumber()">Update Value</button>
+    </div>
+    <div class="row m-5">
+        <hr>
+        <h1>Boolean signal</h1>
+        <p>{{ booleanSignal()}}</p>
+        <button class="btn btn-info w-25" (click)="updateBoolean()">Update boolean value </button>
+    </div>
+    <div class="row m-5">
+        <hr>
+        <h1>Object signal</h1>
+        <p>{{ person()| json}}</p>
+        <button class="btn btn-info w-25 m-2" (click)="updateObject()">Update name </button>
+        <button class="btn btn-info w-25 m-2" (click)="setNewObject()">Set New value </button>
+    </div>
+    <div class="row m-5">
+        <hr>
+        <h1>array signal</h1>
+        <div *ngFor="let person of persons(); let i = index"> {{i + 1}} Name: {{ person.name }}, Age : {{ person.age }}
+        </div>
+        <button class="btn btn-info w-25 m-2" (click)="addPerson()">Add value </button>
+        <button class="btn btn-info w-25 m-2" (click)="mutateArray()">Update value of array</button>
+        <button class="btn btn-info w-25 m-2" (click)="setArray()">set new array </button>
+    </div>
+</div>
