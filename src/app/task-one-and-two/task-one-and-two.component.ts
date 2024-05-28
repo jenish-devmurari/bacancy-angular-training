@@ -31,7 +31,7 @@ export class TaskOneAndTwoComponent {
   }
 
   public updateBoolean(): void {
-    this.booleanSignal.update(() => !this.booleanSignal);
+    this.booleanSignal.update(value => !value);
   }
 
   public updateObject(): void {
@@ -48,11 +48,9 @@ export class TaskOneAndTwoComponent {
 
   public mutateArray(): void {
     this.persons.mutate(value => {
-      if (value) {
-        for (let i = 0; i < this.persons().length; i++) {
-          value[i].name = 'Bacancy';
-          value[i].age = 29;
-        }
+      for (let i = 0; i < this.persons().length; i++) {
+        value[i].name = 'Bacancy';
+        value[i].age = 29;
       }
     })
   }

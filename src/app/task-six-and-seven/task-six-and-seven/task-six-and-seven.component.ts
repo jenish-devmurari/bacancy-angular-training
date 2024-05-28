@@ -16,7 +16,7 @@ export class TaskSixAndSevenComponent implements OnInit {
   public fullName: Signal<string> = computed(() => this.firstName() + " " + this.lastName())
 
   constructor() {
-    effect((values) => {
+    effect((value) => {
       console.log("New updated value: ", this.firstName(), this.lastName(), this.age(), this.gender());
     }
     )
@@ -38,8 +38,7 @@ export class TaskSixAndSevenComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.registerForm.valid) {
-      alert(`submitted ${this.firstName()
-        } ${this.lastName()} ${this.age()} ${this.gender()}`);
+      alert(`submitted ${this.firstName()} ${this.lastName()} ${this.age()} ${this.gender()}`);
       this.registerForm.reset();
     } else {
       alert("Please fill up form");
@@ -47,14 +46,17 @@ export class TaskSixAndSevenComponent implements OnInit {
   }
 
   public handleValueChanges(): void {
-    this.registerForm.valueChanges.forEach(values => {
-      debugger
-      console.log(values)
-      this.firstName.set(values.firstName);
-      this.lastName.set(values.lastName);
-      this.gender.set(values.gender);
-      this.age.set(values.age);
-    });
+    this.registerForm.get('firstName')?.valueChanges.forEach((value) => {
+      this.firstName.set(value);
+    })
+    this.registerForm.get('lastName')?.valueChanges.forEach((value) => {
+      this.lastName.set(value);
+    })
+    this.registerForm.get('age')?.valueChanges.forEach((value) => {
+      this.age.set(value);
+    })
+    this.registerForm.get('gender')?.valueChanges.forEach((value) => {
+      this.gender.set(value);
+    })
   }
-
 }

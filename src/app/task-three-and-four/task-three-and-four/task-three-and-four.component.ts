@@ -1,4 +1,4 @@
-import { Component, WritableSignal, signal } from '@angular/core';
+import { Component, WritableSignal, effect, signal } from '@angular/core';
 
 @Component({
   selector: 'app-task-three-and-four',
@@ -8,7 +8,9 @@ import { Component, WritableSignal, signal } from '@angular/core';
 export class TaskThreeAndFourComponent {
   public parentSignalMessage: WritableSignal<string> = signal("Hello From Parents");
 
-  public handleEventFromChild(value: string): void {
-    alert(value);
+  constructor() {
+    effect(() => {
+      alert(`Updated Signal: ${this.parentSignalMessage()}`);
+    });
   }
 }
