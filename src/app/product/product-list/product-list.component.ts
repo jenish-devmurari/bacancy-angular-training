@@ -12,6 +12,7 @@ export class ProductListComponent implements OnInit {
   public detailButton: boolean = true;
   public cartButton: boolean = true;
   public deleteButton: boolean = false;
+  public valueButton: boolean = false;
 
   constructor(private productService: ProductService) { }
 

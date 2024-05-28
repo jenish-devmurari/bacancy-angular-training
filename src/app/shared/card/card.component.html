@@ -14,12 +14,16 @@
                     class="btn btn-sm btn-outline-secondary">View
                     Details</a>
             </div>
+            <button *ngIf="showCartButton" class="btn btn-success ml-auto" (click)="addCart(product)">Add to
+                Cart</button>
+            <div *ngIf="showValueButton" class="d-flex justify-content-center align-items-center mt-3">
+                <button class="btn btn-danger" (click)="decrementCartValue()">-</button>
+                <span class="mx-3">{{ cartValue }}</span>
+                <button class="btn btn-success" (click)="incrementCartValue()">+</button>
+            </div>
             <div *ngIf="showDeleteButton" class="delete-icon">
                 <i class="fa fa-trash" aria-hidden="true"></i>
             </div>
-            <button *ngIf="showCartButton" class="btn btn-success ml-auto" (click)="addCart(product)">Add to
-                Cart</button>
         </div>
-
     </div>
 </div>

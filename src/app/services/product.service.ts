@@ -249,8 +249,13 @@ export class ProductService {
   public addToCart(product: Product): void {
     const productAddToCart = this.products.find(p => p.id === product.id);
     if (productAddToCart) {
-      this.cart.push(productAddToCart);
-      this.toaster.success('Product added to your cart');
+      const isAvailable = this.cart.some(value => value.id === productAddToCart.id)
+      if (!isAvailable) {
+        this.cart.push(productAddToCart);
+        this.toaster.success('Product added to your cart');
+      } else {
+        this.toaster.error("This product is already added in cart");
+      }
     }
   }
 

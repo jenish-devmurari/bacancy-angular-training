@@ -12,6 +12,7 @@ export class CartComponent implements OnInit {
   public detailButton: boolean = false;
   public cartButton: boolean = false;
   public deleteButton: boolean = true;
+  public valueButton: boolean = true;
 
   constructor(private productService: ProductService) {
   }
