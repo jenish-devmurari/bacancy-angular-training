@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from 'src/app/cart/services/cart.service';
 import { Product } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -11,10 +12,11 @@ import { ProductService } from 'src/app/services/product.service';
 export class ViewReviewComponent implements OnInit {
   public product: Product | undefined;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.getProduct();
+    this.cartService.call();
   }
 
   private getProduct(): void {
