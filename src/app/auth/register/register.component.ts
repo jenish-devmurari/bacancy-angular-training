@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
   // seed admin data when application run
   private seedAdminData(): void {
     const localStorageData = this.localStorage.getUserData();
-    if (!localStorageData || localStorageData.trim() === '') {
+    if (!localStorageData || localStorageData.length === 0) {
       const admin: IAdmin = {
         firstName: 'Admin',
         lastName: 'Admin',

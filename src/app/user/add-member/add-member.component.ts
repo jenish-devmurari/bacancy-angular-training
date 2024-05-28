@@ -7,6 +7,7 @@ import { IMember } from 'src/app/interfaces/member.model';
 import { IUser } from 'src/app/interfaces/user.model';
 
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-add-member',
@@ -20,7 +21,7 @@ export class AddMemberComponent {
   public roleOfMember: string[] = ROLESOFMEMBERS
   private loggedEmail: string | undefined;
 
-  constructor(private toaster: ToastrService, private localStorage: LocalStorageService) { }
+  constructor(private toaster: ToastrService, private localStorage: LocalStorageService, private registerService: RegisterService) { }
 
   public ngOnInit(): void {
     this.loggedEmail = this.localStorage.getLoggedUserEmail();
@@ -82,7 +83,7 @@ export class AddMemberComponent {
         };
         members.push(memberData);
       });
-      this.addMemberToUser(this.loggedEmail, members)
+      this.addMemberToUser(this.loggedEmail, members);
       this.toaster.success("Member Added successfully")
       this.memberForm.reset();
       (this.memberForm.get('members') as FormArray).clear();
@@ -99,64 +100,30 @@ export class AddMemberComponent {
 
   // email exist validator for member
   private emailExistsValidator(control: FormControl): { [key: string]: boolean } | null {
-    const email = control.value;
-    const exists = this.checkEmailExists(email);
-    return exists ? { emailExists: true } : null;
-  }
-
-  // check email is register or not for register member 
-  private checkEmailExists(email: string): boolean {
-    const userDataString = this.localStorage.getUserData();
-    if (userDataString) {
-      const userData: IAdmin[] = JSON.parse(userDataString);
-      return userData.some(admin =>
-        admin.email === email || this.checkNestedUsers(admin.users, email)
-      );
-    }
-    return false;
-  }
-
-  private checkNestedUsers(users: IUser[] | undefined, email: string): boolean {
-    if (users) {
-      return users.some(user =>
-        user.email === email || (user.members && user.members.some(member => member.email === email))
-      );
-    }
-    return false;
+    return this.registerService.isEmailRegister(control.value) ? { emailExists: true } : null;
   }
 
   // white space validator
   private whiteSpaceValidator(control: FormControl): { [key: string]: boolean } | null {
     const value = control.value;
-    if (value && value.trim() !== value) {
-      return { isWhiteSpace: true };
-    }
-    return null;
+    return value && value.trim() !== value ? { isWhiteSpace: true } : null;
   }
 
   // contact number validator
   private contactNumberValidator(control: FormControl): { [key: string]: boolean } | null {
     const validPhoneNumberRegex: RegExp = /^[6-9]\d{9}$/;
-    const contactNumber: string = control.value;
-    if (!contactNumber || validPhoneNumberRegex.test(contactNumber)) {
-      return null;
-    } else {
-      return { invalidContactNumber: true };
-    }
+    return validPhoneNumberRegex.test(control.value) ? null : { invalidContactNumber: true };
   }
 
   // add member at particular user
   private addMemberToUser(userEmail: string | undefined, member: IMember[]): void {
-    const userDataString = this.localStorage.getUserData();
-    if (userDataString) {
-      const userData: IAdmin[] = JSON.parse(userDataString);
-      for (const admin of userData) {
-        const user = admin.users.find(user => user.email === userEmail);
-        if (user) {
-          user.members = user.members.concat(member);
-          this.localStorage.setLocalStorage(userData);
-          break;
-        }
+    const userData: IAdmin[] = this.localStorage.getUserData()
+    for (const admin of userData) {
+      const user = admin.users.find(user => user.email === userEmail);
+      if (user) {
+        user.members = user.members.concat(member);
+        this.localStorage.setLocalStorage(userData);
+        break;
       }
     }
   }

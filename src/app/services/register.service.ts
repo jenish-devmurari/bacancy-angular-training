@@ -26,14 +26,9 @@ export class RegisterService {
     return true;
   }
 
-  public getRegistrationData(): IAdmin[] | null {
-    const dataString = this.localStorage.getUserData();
-    return dataString ? JSON.parse(dataString) : null;
-  }
-
   // get admin list to show user for which admin present inside system
   public getAdminList(): string[] {
-    const existingData: IAdmin[] = this.getRegistrationData() || [];
+    const existingData: IAdmin[] = this.localStorage.getUserData();
     const adminEmails: string[] = existingData
       .filter((user) => user.role === Roles.Admin)
       .map(user => user.email);
@@ -55,7 +50,7 @@ export class RegisterService {
       isActive: true,
       users: [],
     };
-    let adminData: IAdmin[] = this.getRegistrationData() || [];
+    let adminData: IAdmin[] = this.localStorage.getUserData();
     adminData.push(admin);
     this.localStorage.setLocalStorage(adminData);
   }
@@ -80,7 +75,7 @@ export class RegisterService {
       isActive: true,
       members: []
     };
-    let adminData: IAdmin[] = this.getRegistrationData() || [];
+    let adminData: IAdmin[] = this.localStorage.getUserData();
     const adminIndex = adminData.findIndex(admin => admin.email === adminEmail);
     if (adminIndex !== -1) {
       adminData[adminIndex].users.push(user);
@@ -89,13 +84,16 @@ export class RegisterService {
   }
 
   // check is email is register or not for admin and user registration
-  private isEmailRegister(email: string): boolean {
-    const adminData: IAdmin[] = this.getRegistrationData() || [];
+  public isEmailRegister(email: string): boolean {
+    const adminData: IAdmin[] = this.localStorage.getUserData();
     return adminData.some(admin =>
-      admin.email === email || admin.users.some(user => user.email === email)
+      admin.email === email || this.checkNestedUsers(admin.users, email)
     );
   }
 
+  private checkNestedUsers(users: IUser[] | undefined, email: string): boolean {
+    return users ? users.some(user => user.email === email || user.members?.some(member => member.email === email)) : false;
+  }
   private encrypt(txt: string): string {
     return CryptoJS.AES.encrypt(txt, 'HelloFromWorld').toString();
   }

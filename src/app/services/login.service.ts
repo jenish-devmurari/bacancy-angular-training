@@ -52,8 +52,7 @@ export class LoginService {
   }
 
   private getRegistrationData(): IAdmin[] | null {
-    const dataString = this.localStorage.getUserData();
-    return dataString ? JSON.parse(dataString) : null;
+    return this.localStorage.getUserData();
   }
 
   private decrypt(txtToDecrypt: string): string {

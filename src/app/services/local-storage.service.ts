@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { key, keyOfLoggedUser } from '../constants/constants';
 import { IAdmin } from '../interfaces/admin.model';
+import { IRegister } from '../interfaces/register.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,13 @@ export class LocalStorageService {
 
   private key: string = key;
   private loggedIn: string = keyOfLoggedUser;
-  constructor() { }
 
   public getLoggedUserEmail(): string | undefined {
     return localStorage.getItem(this.loggedIn) as string;
   }
 
-  public getUserData(): string | null {
-    return localStorage.getItem(this.key);
+  public getUserData(): IAdmin[] {
+    return JSON.parse(localStorage.getItem(this.key) || '[]');
   }
 
   public setLocalStorage(data: IAdmin[]): void {
@@ -31,20 +31,19 @@ export class LocalStorageService {
     localStorage.removeItem(this.loggedIn);
   }
 
-  public getLoggedUserName(): string | undefined {
+  public getLoggedUser(): IRegister | undefined {
     const email: string | undefined = this.getLoggedUserEmail();
-    const localStorageData = this.getUserData();
-    if (!localStorageData) {
+    if (!email) {
       return undefined;
     }
-    const adminData: IAdmin[] = JSON.parse(localStorageData);
+    const adminData: IAdmin[] = this.getUserData();
     for (const admin of adminData) {
       if (admin.email === email) {
-        return admin.firstName;
+        return admin;
       }
-      const user = admin.users.find(user => user.email === email);
+      const user = admin.users?.find(user => user.email === email);
       if (user) {
-        return user.firstName;
+        return user;
       }
     }
     return undefined;

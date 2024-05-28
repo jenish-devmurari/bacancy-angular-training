@@ -26,16 +26,13 @@ export class UserDashboardComponent {
 
   // Get member data from local storage based on particular user
   private getUserData(): void {
-    const dataString = this.localStorage.getUserData();
-    if (dataString) {
-      const allAdmins: IAdmin[] = JSON.parse(dataString);
-      const loggedInEmail = this.localStorage.getLoggedUserEmail();
-      for (const admin of allAdmins) {
-        const user = admin.users.find(user => user.email === loggedInEmail);
-        if (user) {
-          this.memberData = user.members;
-          break;
-        }
+    const allAdmins: IAdmin[] = this.localStorage.getUserData()
+    const loggedInEmail: string | undefined = this.localStorage.getLoggedUserEmail();
+    for (const admin of allAdmins) {
+      const user = admin.users.find(user => user.email === loggedInEmail);
+      if (user) {
+        this.memberData = user.members;
+        break;
       }
     }
   }

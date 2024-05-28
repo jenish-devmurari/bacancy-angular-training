@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GlobalErrorInterceptor } from './interceptors/global-error.interceptor';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { GlobalErrorInterceptor } from './interceptors/global-error.interceptor'
   ],
   imports: [
     BrowserModule,
+    CoreModule,
     AppRoutingModule,
     FormsModule,
     RouterModule,
