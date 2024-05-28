@@ -32,14 +32,17 @@ export class LocalStorageService {
   }
 
   public getLoggedUserName(): string | undefined {
-    const loggedInEmail = this.getLoggedUserEmail();
-    const userData = JSON.parse(this.getUserData() || '[]');
-    const mainUser = userData.find((user: { email: string; }) => user.email === loggedInEmail);
-    if (mainUser) {
-      return mainUser.firstName;
+    const email: string | undefined = this.getLoggedUserEmail();
+    const localStorageData = this.getUserData();
+    if (!localStorageData) {
+      return undefined;
     }
-    for (const admin of userData) {
-      const user = admin.users.find((user: { email: string; }) => user.email === loggedInEmail);
+    const adminData: IAdmin[] = JSON.parse(localStorageData);
+    for (const admin of adminData) {
+      if (admin.email === email) {
+        return admin.firstName;
+      }
+      const user = admin.users.find(user => user.email === email);
       if (user) {
         return user.firstName;
       }

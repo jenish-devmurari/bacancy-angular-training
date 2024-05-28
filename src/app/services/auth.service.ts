@@ -10,7 +10,7 @@ export class AuthService {
   constructor(private localStorage: LocalStorageService) { }
 
   public isLoggedIn(): boolean {
-    const email = this.localStorage.getLoggedUserEmail();
+    const email: string | undefined = this.localStorage.getLoggedUserEmail();
     if (email) {
       return true;
     }
@@ -18,21 +18,21 @@ export class AuthService {
   }
 
   // get loggedIn role based on email
-  public getUserRole(email: string): string {
+  public getUserRole(email: string): string | null {
     const localStorageData = this.localStorage.getUserData();
-    if (localStorageData) {
-      const adminData: IAdmin[] = JSON.parse(localStorageData);
-      const foundAdminData = adminData.find((admin) => admin.email === email);
-      if (foundAdminData) {
-        return foundAdminData.role;
+    if (!localStorageData) {
+      return null;
+    }
+    const adminData: IAdmin[] = JSON.parse(localStorageData);
+    for (const admin of adminData) {
+      if (admin.email === email) {
+        return admin.role;
       }
-      for (const admin of adminData) {
-        const foundUserData = admin.users.find((user) => user.email === email);
-        if (foundUserData) {
-          return foundUserData.role;
-        }
+      const foundUser = admin.users.find(user => user.email === email);
+      if (foundUser) {
+        return foundUser.role;
       }
     }
-    return "";
+    return null;
   }
 }

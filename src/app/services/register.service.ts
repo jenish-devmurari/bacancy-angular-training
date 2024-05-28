@@ -15,17 +15,15 @@ export class RegisterService {
 
   public setRegistrationData(data: IRegister): boolean {
     if (this.isEmailRegister(data.email)) {
-      this.toaster.error('This email is already register');
-      return false
-    } else {
-      if (data.role === Roles.Admin) {
-        this.addAdmin(data);
-        return true
-      } else {
-        this.addUser(data);
-        return true
-      }
+      this.toaster.error('This email is already registered');
+      return false;
     }
+    if (data.role === Roles.Admin) {
+      this.addAdmin(data);
+    } else {
+      this.addUser(data);
+    }
+    return true;
   }
 
   public getRegistrationData(): IAdmin[] | null {
@@ -36,8 +34,9 @@ export class RegisterService {
   // get admin list to show user for which admin present inside system
   public getAdminList(): string[] {
     const existingData: IAdmin[] = this.getRegistrationData() || [];
-    const adminUsers: IAdmin[] = existingData.filter((user) => user.role === Roles.Admin);
-    const adminEmails: string[] = adminUsers.map(user => user.email);
+    const adminEmails: string[] = existingData
+      .filter((user) => user.role === Roles.Admin)
+      .map(user => user.email);
     return adminEmails;
   }
 
@@ -56,11 +55,7 @@ export class RegisterService {
       isActive: true,
       users: [],
     };
-    let adminData: IAdmin[] = [];
-    const localStorageData = this.localStorage.getUserData();
-    if (localStorageData !== null) {
-      adminData = JSON.parse(localStorageData);
-    }
+    let adminData: IAdmin[] = this.getRegistrationData() || [];
     adminData.push(admin);
     this.localStorage.setLocalStorage(adminData);
   }
@@ -70,6 +65,7 @@ export class RegisterService {
     const adminEmail: string | undefined = data.adminList;
     const hashPassword = this.encrypt(data.password);
     if (!adminEmail) {
+      this.toaster.error('Admin email is required to add a user.');
       return;
     }
     let user: IUser = {
@@ -84,14 +80,8 @@ export class RegisterService {
       isActive: true,
       members: []
     };
-    let adminData: IAdmin[] = [];
-    const localStorageData = this.localStorage.getUserData();
-    if (localStorageData !== null) {
-      adminData = JSON.parse(localStorageData);
-    }
-    const adminIndex = adminData.findIndex(
-      (admin) => admin.email === adminEmail
-    );
+    let adminData: IAdmin[] = this.getRegistrationData() || [];
+    const adminIndex = adminData.findIndex(admin => admin.email === adminEmail);
     if (adminIndex !== -1) {
       adminData[adminIndex].users.push(user);
       this.localStorage.setLocalStorage(adminData);
@@ -100,21 +90,10 @@ export class RegisterService {
 
   // check is email is register or not for admin and user registration
   private isEmailRegister(email: string): boolean {
-    const localStorageData = this.localStorage.getUserData();
-    if (localStorageData) {
-      const adminData: IAdmin[] = JSON.parse(localStorageData);
-      const adminWithEmail = adminData.some((admin) => admin.email === email);
-      if (adminWithEmail) {
-        return true;
-      }
-      for (const admin of adminData) {
-        const userWithEmail = admin.users.some((user) => user.email === email);
-        if (userWithEmail) {
-          return true;
-        }
-      }
-    }
-    return false;
+    const adminData: IAdmin[] = this.getRegistrationData() || [];
+    return adminData.some(admin =>
+      admin.email === email || admin.users.some(user => user.email === email)
+    );
   }
 
   private encrypt(txt: string): string {

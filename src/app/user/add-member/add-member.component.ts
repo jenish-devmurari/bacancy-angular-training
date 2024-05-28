@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GENDERS, HOBBIES, ROLESOFMEMBERS, emailRegex } from 'src/app/constants/constants';
 import { IAdmin } from 'src/app/interfaces/admin.model';
 import { IMember } from 'src/app/interfaces/member.model';
+import { IUser } from 'src/app/interfaces/user.model';
 
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
@@ -103,25 +104,23 @@ export class AddMemberComponent {
     return exists ? { emailExists: true } : null;
   }
 
+  // check email is register or not for register member 
   private checkEmailExists(email: string): boolean {
     const userDataString = this.localStorage.getUserData();
     if (userDataString) {
       const userData: IAdmin[] = JSON.parse(userDataString);
-      for (const admin of userData) {
-        if (admin.email === email) {
-          return true;
-        }
-        if (admin.users) {
-          for (const user of admin.users) {
-            if (user.email === email) {
-              return true;
-            }
-            if (user.members && user.members.some(member => member.email === email)) {
-              return true;
-            }
-          }
-        }
-      }
+      return userData.some(admin =>
+        admin.email === email || this.checkNestedUsers(admin.users, email)
+      );
+    }
+    return false;
+  }
+
+  private checkNestedUsers(users: IUser[] | undefined, email: string): boolean {
+    if (users) {
+      return users.some(user =>
+        user.email === email || (user.members && user.members.some(member => member.email === email))
+      );
     }
     return false;
   }
