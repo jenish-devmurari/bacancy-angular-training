@@ -11,7 +11,8 @@ const routes: Routes = [
   },
   {
     path: 'detail', pathMatch: 'prefix',
-    loadChildren: () => import('./product-detail/product-detail.module').then(m => m.ProductDetailModule)
+    loadChildren: () => import('./product-detail/product-detail.module').then(m => m.ProductDetailModule),
+    data: { preload: true,delay:2000}
   },
   {
     path: '**', redirectTo: 'product-list'

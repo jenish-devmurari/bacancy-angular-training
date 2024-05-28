@@ -8,7 +8,8 @@ const routes: Routes = [
   },
   {
     path: ':id/review', pathMatch: 'prefix',
-    loadChildren: () => import('./view-review/view-review.module').then(m => m.ViewReviewModule)
+    loadChildren: () => import('./view-review/view-review.module').then(m => m.ViewReviewModule),
+    data: { preload: true, delay: 2000 }
   }
 ];
 
