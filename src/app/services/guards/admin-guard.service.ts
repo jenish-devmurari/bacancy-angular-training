@@ -11,7 +11,7 @@ import { Roles } from 'src/app/constants/constants';
 export class AdminGuardService implements CanActivate {
 
   constructor(private authService: AuthService, private route: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
-  
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.isLoggedIn()) {
       const email = this.localStorage.getLoggedUserEmail();
@@ -21,17 +21,17 @@ export class AdminGuardService implements CanActivate {
           return true;
         } else {
           this.toaster.error("Unauthorize");
-          this.route.navigate(['/user/dashboard']);
+          this.route.navigate(['user', 'dashboard']);
           return false;
         }
       } else {
         this.toaster.error("You Are Not Logged In. Please log in first.");
-        this.route.navigate(['/login']);
+        this.route.navigate(['login']);
         return false;
       }
     } else {
       this.toaster.error("You Are Not Logged In. Please log in first.");
-      this.route.navigate(['/login']);
+      this.route.navigate(['login']);
       return false;
     }
   }

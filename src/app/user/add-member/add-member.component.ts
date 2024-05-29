@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { GENDERS, HOBBIES, ROLESOFMEMBERS, emailRegex } from 'src/app/constants/constants';
 import { IAdmin } from 'src/app/interfaces/admin.model';
 import { IMember } from 'src/app/interfaces/member.model';
-import { IUser } from 'src/app/interfaces/user.model';
 
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';

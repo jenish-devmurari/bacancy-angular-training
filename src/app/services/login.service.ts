@@ -15,12 +15,12 @@ export class LoginService {
   constructor(private route: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
 
   public login(loginData: ILogin): void {
-    const existingData: IAdmin[] = this.getRegistrationData() || [];
+    const existingData: IAdmin[] = this.localStorage.getUserData();
     const foundAdmin = existingData.find((user) => user.email === loginData.email);
     if (foundAdmin) {
       if (foundAdmin && loginData.password === this.decrypt(foundAdmin.password)) {
         this.localStorage.setLoggedInUserEmail(foundAdmin.email);
-        this.route.navigate(['/admin/dashboard']);
+        this.route.navigate(['admin', 'dashboard']);
         this.toaster.success(`Welcome ${loginData.email}`);
         return;
       } else {
@@ -33,7 +33,7 @@ export class LoginService {
       if (foundUser && this.decrypt(foundUser.password) === loginData.password) {
         if (foundUser.isActive) {
           this.localStorage.setLoggedInUserEmail(foundUser.email);
-          this.route.navigate(['/user/dashboard']);
+          this.route.navigate(['user', 'dashboard']);
           this.toaster.success(`Welcome ${loginData.email}`);
           return;
         } else {
@@ -49,10 +49,6 @@ export class LoginService {
     } else {
       this.toaster.error("User not registered. Please register.");
     }
-  }
-
-  private getRegistrationData(): IAdmin[] | null {
-    return this.localStorage.getUserData();
   }
 
   private decrypt(txtToDecrypt: string): string {

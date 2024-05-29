@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
     if (this.registrationForm.valid) {
       if (this.registerService.setRegistrationData(this.registrationForm.value)) {
         this.toaster.success("Successfully register");
-        this.router.navigate(['/login']);
+        this.router.navigate(['login']);
         this.registrationForm.reset();
       }
     } else {

@@ -94,6 +94,7 @@ export class RegisterService {
   private checkNestedUsers(users: IUser[] | undefined, email: string): boolean {
     return users ? users.some(user => user.email === email || user.members?.some(member => member.email === email)) : false;
   }
+  
   private encrypt(txt: string): string {
     return CryptoJS.AES.encrypt(txt, 'HelloFromWorld').toString();
   }

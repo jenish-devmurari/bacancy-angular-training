@@ -16,7 +16,7 @@ export class UserDashboardComponent {
   constructor(private localStorage: LocalStorageService) { }
 
   public ngOnInit(): void {
-    this.getUserData();
+    this.getMemberData();
   }
 
   // Get image based on gender to show in card
@@ -25,7 +25,7 @@ export class UserDashboardComponent {
   }
 
   // Get member data from local storage based on particular user
-  private getUserData(): void {
+  private getMemberData(): void {
     const allAdmins: IAdmin[] = this.localStorage.getUserData()
     const loggedInEmail: string | undefined = this.localStorage.getLoggedUserEmail();
     for (const admin of allAdmins) {

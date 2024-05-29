@@ -23,13 +23,10 @@ export class LoginComponent {
   public onSubmit(loginData: NgForm): void {
     if (this.loginForm.valid) {
       this.loginService.login(loginData.form.value);
-      this.resetForm();
+      this.loginForm.reset();
     } else {
       this.toaster.error("Please fill out the login detail.");
     }
   }
 
-  private resetForm(): void {
-    this.loginForm.reset();
-  }
 }

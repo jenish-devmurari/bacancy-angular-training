@@ -21,17 +21,17 @@ export class UserGuardService implements CanActivate {
           return true;
         } else {
           this.toaster.error("Unauthorize");
-          this.route.navigate(['/admin/dashboard']);
+          this.route.navigate(['admin', 'dashboard']);
           return false;
         }
       } else {
         this.toaster.error("You Are Not Logged In. Please log in first.");
-        this.route.navigate(['/login']);
+        this.route.navigate(['login']);
         return false;
       }
     } else {
       this.toaster.error("You Are Not Logged In. Please log in first.");
-      this.route.navigate(['/login']);
+      this.route.navigate(['login']);
       return false;
     }
   }

@@ -26,7 +26,7 @@ export class HeaderComponent {
     if (confirm('Are you sure you want to log out?')) {
       this.localStorage.removeEmail();
       this.toaster.success('Logout Successful');
-      this.router.navigate(['/login']);
+      this.router.navigate(['login']);
     }
   }
 }
