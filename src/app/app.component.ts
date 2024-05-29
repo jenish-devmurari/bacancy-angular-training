@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'bacancy-angular-training';
+
+  constructor(private route: Router) {
+  }
+
+  public navigate() {
+    this.route.navigate(['employee', '101', 'Jenish Devmurari', 'Full stack Developer'])
+  }
 }
