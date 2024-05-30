@@ -7,6 +7,7 @@ import { IMember } from 'src/app/interfaces/member.model';
 
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
+import { ValidationService } from 'src/app/services/validation.service';
 
 @Component({
   selector: 'app-add-member',
@@ -20,7 +21,7 @@ export class AddMemberComponent {
   public roleOfMember: string[] = ROLESOFMEMBERS
   private loggedEmail: string | undefined;
 
-  constructor(private toaster: ToastrService, private localStorage: LocalStorageService, private registerService: RegisterService) { }
+  constructor(private toaster: ToastrService, private localStorage: LocalStorageService, private registerService: RegisterService, private validation: ValidationService) { }
 
   public ngOnInit(): void {
     this.loggedEmail = this.localStorage.getLoggedUserEmail();
@@ -125,5 +126,17 @@ export class AddMemberComponent {
         break;
       }
     }
+  }
+
+  public validationClass(control: AbstractControl | null): { [key: string]: boolean | undefined } {
+    return this.validation.validationNgClass(control);
+  }
+
+  public isFieldInvalid(control: AbstractControl | null): boolean {
+    return this.validation.isFormFieldInvalid(control);
+  }
+
+  public emailPattern(control: AbstractControl | null): boolean {
+    return this.validation.isEmailPatternMatch(control);
   }
 }

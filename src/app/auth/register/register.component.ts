@@ -6,6 +6,7 @@ import { GENDERS, HOBBIES, ROLES, Roles, emailRegex, passwordRegex } from 'src/a
 import { IAdmin } from 'src/app/interfaces/admin.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
+import { ValidationService } from 'src/app/services/validation.service';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
   public role: string[] = ROLES;
   public adminList: string[] = [];
 
-  constructor(private registerService: RegisterService, private router: Router, private toaster: ToastrService, private localStorage: LocalStorageService) { }
+  constructor(private registerService: RegisterService, private router: Router, private toaster: ToastrService, private localStorage: LocalStorageService, private validation: ValidationService) { }
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -98,5 +99,17 @@ export class RegisterComponent implements OnInit {
       return { passwordMatch: true }
     }
     return null
+  }
+
+  public validationClass(control: AbstractControl | null): { [key: string]: boolean | undefined } {
+    return this.validation.validationNgClass(control);
+  }
+
+  public isFieldInvalid(control: AbstractControl | null): boolean {
+    return this.validation.isFormFieldInvalid(control);
+  }
+
+  public emailPattern(control: AbstractControl | null): boolean {
+    return this.validation.isEmailPatternMatch(control);
   }
 }

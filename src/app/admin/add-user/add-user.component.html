@@ -6,46 +6,34 @@
                 <div class="form-group mt-2">
                     <label for="firstName">First Name</label>
                     <input type="text" class="form-control" id="firstName" placeholder="Enter first name here"
-                        formControlName="firstName" [ngClass]="{'error': addUserForm.get('firstName')?.invalid && (addUserForm.get('firstName')?.dirty || addUserForm.get('firstName')?.touched),
-                        'success': addUserForm.get('firstName')?.valid}">
-                    <span
-                        *ngIf="addUserForm.get('firstName')?.errors?.['required'] && (addUserForm.get('firstName')?.dirty || addUserForm.get('firstName')?.touched)"
-                        class="text-danger">
+                        formControlName="firstName" [ngClass]="validationClass(addUserForm.get('firstName'))">
+                    <span *ngIf="isFieldInvalid(addUserForm.get('firstName'))" class="text-danger">
                         First name is required.
                     </span>
                 </div>
                 <div class="form-group mt-2">
                     <label for="lastName">Last Name</label>
                     <input type="text" class="form-control" id="lastName" placeholder="Enter last name here"
-                        formControlName="lastName" [ngClass]="{'error': addUserForm.get('lastName')?.invalid && (addUserForm.get('lastName')?.dirty || addUserForm.get('lastName')?.touched),
-                        'success': addUserForm.get('lastName')?.valid}">
-                    <span
-                        *ngIf="addUserForm.get('lastName')?.errors?.['required'] && (addUserForm.get('lastName')?.dirty || addUserForm.get('lastName')?.touched)"
-                        class="text-danger">
+                        formControlName="lastName" [ngClass]="validationClass(addUserForm.get('lastName'))">
+                    <span *ngIf="isFieldInvalid(addUserForm.get('lastName'))" class="text-danger">
                         Last name is required.
                     </span>
                 </div>
                 <div class="form-group mt-2">
                     <label for="email">Email</label>
-                    <input type="email" id="email" formControlName="email" class="form-control" [ngClass]="{'error': addUserForm.get('email')?.invalid && (addUserForm.get('email')?.dirty || addUserForm.get('email')?.touched),
-                    'success': addUserForm.get('email')?.valid}" placeholder="Enter email here" [ngClass]="{'error': addUserForm.get('email')?.invalid && (addUserForm.get('email')?.dirty || addUserForm.get('email')?.touched),
-                        'success': addUserForm.get('email')?.valid}">
-                    <span
-                        *ngIf="addUserForm.get('email')?.errors?.['required'] && (addUserForm.get('email')?.dirty || addUserForm.get('email')?.touched)"
-                        class="text-danger"> Email is
+                    <input type="email" id="email" formControlName="email" class="form-control"
+                        placeholder="Enter email here" [ngClass]="validationClass(addUserForm.get('email'))">
+                    <span *ngIf="isFieldInvalid(addUserForm.get('email'))" class="text-danger"> Email is
                         required</span>
-                    <span *ngIf="addUserForm.get('email')?.errors?.['pattern']" class="text-danger">Please
+                    <span *ngIf="emailPattern(addUserForm.get('email'))" class="text-danger">
                         Please Enter valid email
                     </span>
                 </div>
                 <div class="form-group mt-2">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" placeholder="Enter password"
-                        formControlName="password" [ngClass]="{'error': addUserForm.get('password')?.invalid && (addUserForm.get('password')?.dirty || addUserForm.get('password')?.touched),
-                        'success': addUserForm.get('password')?.valid}">
-                    <span
-                        *ngIf="addUserForm.get('password')?.errors?.['required'] && (addUserForm.get('password')?.dirty || addUserForm.get('password')?.touched)"
-                        class="text-danger">
+                        formControlName="password" [ngClass]="validationClass(addUserForm.get('password'))">
+                    <span *ngIf="isFieldInvalid(addUserForm.get('password'))" class="text-danger">
                         Password is required.
                     </span>
                     <span *ngIf="addUserForm.get('password')?.errors?.['pattern']" class="text-danger">
@@ -56,11 +44,9 @@
                 <div class="form-group mt-2">
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" class="form-control" id="confirmPassword"
-                        placeholder="Enter confirm password" formControlName="confirmPassword" [ngClass]="{'error': addUserForm.get('confirmPassword')?.invalid && (addUserForm.get('confirmPassword')?.dirty || addUserForm.get('confirmPassword')?.touched),
-                        'success': addUserForm.get('confirmPassword')?.valid}">
-                    <span
-                        *ngIf="addUserForm.get('confirmPassword')?.errors?.['required'] && (addUserForm.get('confirmPassword')?.dirty || addUserForm.get('confirmPassword')?.touched)"
-                        class="text-danger">
+                        placeholder="Enter confirm password" formControlName="confirmPassword"
+                        [ngClass]="validationClass(addUserForm.get('confirmPassword'))">
+                    <span *ngIf="isFieldInvalid(addUserForm.get('confirmPassword'))" class="text-danger">
                         Confirm password is required.
                     </span>
                     <span
@@ -76,23 +62,19 @@
                             <input type="radio" [id]="gender" [value]="gender" formControlName="gender" name="gender" />
                             <label [for]="gender" class="ms-2">{{ gender }}</label>
                         </div>
-                        <span
-                            *ngIf="addUserForm.get('gender')?.errors?.['required'] && (addUserForm.get('gender')?.dirty || addUserForm.get('gender')?.touched)"
-                            class="text-danger">
+                        <span *ngIf="isFieldInvalid(addUserForm.get('gender'))" class="text-danger">
                             Gender is required.
                         </span>
                     </div>
                 </div>
                 <div class="form-group mt-2">
                     <label for="hobbies">Hobbies</label>
-                    <select id="hobbies" formControlName="hobbies" class="form-control" [ngClass]="{'error': addUserForm.get('hobbies')?.invalid && (addUserForm.get('hobbies')?.dirty || addUserForm.get('hobbies')?.touched),
-                    'success': addUserForm.get('hobbies')?.valid}">
+                    <select id="hobbies" formControlName="hobbies" class="form-control"
+                        [ngClass]="validationClass(addUserForm.get('hobbies'))">
                         <option value="" selected>Select your hobby</option>
                         <option *ngFor="let hobby of hobbies" [value]="hobby">{{ hobby }}</option>
                     </select>
-                    <span
-                        *ngIf="addUserForm.get('hobbies')?.errors?.['required'] && (addUserForm.get('hobbies')?.dirty || addUserForm.get('hobbies')?.touched)"
-                        class="text-danger">Hobbies are required.
+                    <span *ngIf="isFieldInvalid(addUserForm.get('hobbies'))" class="text-danger">Hobbies are required.
                     </span>
                 </div>
                 <button type="submit" class="btn btn-primary mb-5" [disabled]="addUserForm.invalid">Add User</button>

@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GENDERS, HOBBIES, Roles, emailRegex, passwordRegex } from 'src/app/constants/constants';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
+import { ValidationService } from 'src/app/services/validation.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class AddUserComponent implements OnInit {
   public genders: string[] = GENDERS;
   public hobbies: string[] = HOBBIES;
 
-  constructor(private registerService: RegisterService, private toaster: ToastrService, private localStorage: LocalStorageService) { }
+  constructor(private registerService: RegisterService, private toaster: ToastrService, private localStorage: LocalStorageService, private validation: ValidationService) { }
 
   public ngOnInit(): void {
     this.initializeForm();
@@ -67,6 +68,18 @@ export class AddUserComponent implements OnInit {
       return { passwordMatch: true };
     }
     return null;
+  }
+
+  public validationClass(control: AbstractControl | null): { [key: string]: boolean | undefined } {
+    return this.validation.validationNgClass(control);
+  }
+
+  public isFieldInvalid(control: AbstractControl | null): boolean {
+    return this.validation.isFormFieldInvalid(control);
+  }
+
+  public emailPattern(control: AbstractControl | null): boolean {
+    return this.validation.isEmailPatternMatch(control);
   }
 }
 
