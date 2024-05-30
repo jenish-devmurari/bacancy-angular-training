@@ -12,6 +12,6 @@ export class AppComponent {
   }
 
   public navigate() {
-    this.route.navigate(['employee', '101', 'Jenish Devmurari', 'Full stack Developer'])
+    this.route.navigate(['employee', '101', 'Jenish Devmurari', 'Full stack Developer', 10])
   }
 }

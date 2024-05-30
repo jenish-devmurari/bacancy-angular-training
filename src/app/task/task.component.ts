@@ -10,4 +10,5 @@ export class TaskComponent {
   @Input() id?: number;
   @Input() name?: string;
   @Input() role?: string;
+  @Input() rank?: number;
 }
