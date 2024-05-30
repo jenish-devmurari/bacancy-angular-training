@@ -3,7 +3,8 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth.service';
 import { LocalStorageService } from '../local-storage.service';
-import { Roles } from 'src/app/constants/constants';
+import { Roles } from 'src/app/enums/roles.enum';
+
 
 @Injectable({
   providedIn: 'root'

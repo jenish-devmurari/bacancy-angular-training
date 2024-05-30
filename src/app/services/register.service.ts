@@ -4,8 +4,9 @@ import { IAdmin } from '../interfaces/admin.model';
 import { IRegister } from '../interfaces/register.model';
 import { IUser } from '../interfaces/user.model';
 import { LocalStorageService } from './local-storage.service';
-import { Roles } from '../constants/constants';
+
 import * as CryptoJS from 'crypto-js';
+import { Roles } from '../enums/roles.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class RegisterService {
 
   // add admin
   private addAdmin(data: IRegister): void {
-    const hashPassword = this.encrypt(data.password);
+    const hashPassword: string = this.encrypt(data.password);
     let admin: IAdmin = {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -58,7 +59,7 @@ export class RegisterService {
   // add user 
   private addUser(data: IRegister): void {
     const adminEmail: string | undefined = data.adminList;
-    const hashPassword = this.encrypt(data.password);
+    const hashPassword: string = this.encrypt(data.password);
     if (!adminEmail) {
       this.toaster.error('Admin email is required to add a user.');
       return;
@@ -76,7 +77,7 @@ export class RegisterService {
       members: []
     };
     let adminData: IAdmin[] = this.localStorage.getUserData();
-    const adminIndex = adminData.findIndex(admin => admin.email === adminEmail);
+    const adminIndex: number = adminData.findIndex(admin => admin.email === adminEmail);
     if (adminIndex !== -1) {
       adminData[adminIndex].users.push(user);
       this.localStorage.setLocalStorage(adminData);
@@ -94,7 +95,7 @@ export class RegisterService {
   private checkNestedUsers(users: IUser[] | undefined, email: string): boolean {
     return users ? users.some(user => user.email === email || user.members?.some(member => member.email === email)) : false;
   }
-  
+
   private encrypt(txt: string): string {
     return CryptoJS.AES.encrypt(txt, 'HelloFromWorld').toString();
   }

@@ -1,17 +1,19 @@
 $first-color: #ccecf6;
 $second-color: #ffebb2;
 
-.container-not-available {
+@mixin center {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.container-not-available {
+    @include center();
     border-radius: 5%;
     font-size: 30px;
 }
 .gender-img-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include center();
     height: 150px;
 }
 .gender-img {

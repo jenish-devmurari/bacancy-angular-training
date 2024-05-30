@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { IAdmin } from '../interfaces/admin.model';
 import { ILogin } from '../interfaces/login.model';
 import { LocalStorageService } from './local-storage.service';
+import { IUser } from '../interfaces/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class LoginService {
 
   public login(loginData: ILogin): void {
     const existingData: IAdmin[] = this.localStorage.getUserData();
-    const foundAdmin = existingData.find((user) => user.email === loginData.email);
+    const foundAdmin: IAdmin | undefined = existingData.find((user) => user.email === loginData.email);
     if (foundAdmin) {
       if (foundAdmin && loginData.password === this.decrypt(foundAdmin.password)) {
         this.localStorage.setLoggedInUserEmail(foundAdmin.email);
@@ -29,7 +30,7 @@ export class LoginService {
       }
     }
     for (const admin of existingData) {
-      const foundUser = admin.users.find((user) => user.email === loginData.email);
+      const foundUser: IUser | undefined = admin.users.find((user) => user.email === loginData.email);
       if (foundUser && this.decrypt(foundUser.password) === loginData.password) {
         if (foundUser.isActive) {
           this.localStorage.setLoggedInUserEmail(foundUser.email);

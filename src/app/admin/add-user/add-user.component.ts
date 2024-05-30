@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { GENDERS, HOBBIES, Roles, emailRegex, passwordRegex } from 'src/app/constants/constants';
+import { GENDERS, HOBBIES, emailRegex, passwordRegex } from 'src/app/constants/constants';
+import { Roles } from 'src/app/enums/roles.enum';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
 import { ValidationService } from 'src/app/services/validation.service';

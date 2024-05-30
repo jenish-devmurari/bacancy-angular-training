@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Roles } from 'src/app/constants/constants';
+import { Roles } from 'src/app/enums/roles.enum';
 import { IRegister } from 'src/app/interfaces/register.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';

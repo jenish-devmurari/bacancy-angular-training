@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GENDERS, HOBBIES, ROLESOFMEMBERS, emailRegex } from 'src/app/constants/constants';
 import { IAdmin } from 'src/app/interfaces/admin.model';
 import { IMember } from 'src/app/interfaces/member.model';
+import { IUser } from 'src/app/interfaces/user.model';
 
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
@@ -119,7 +120,7 @@ export class AddMemberComponent {
   private addMemberToUser(userEmail: string | undefined, member: IMember[]): void {
     const userData: IAdmin[] = this.localStorage.getUserData()
     for (const admin of userData) {
-      const user = admin.users.find(user => user.email === userEmail);
+      const user: IUser | undefined = admin.users.find(user => user.email === userEmail);
       if (user) {
         user.members = user.members.concat(member);
         this.localStorage.setLocalStorage(userData);

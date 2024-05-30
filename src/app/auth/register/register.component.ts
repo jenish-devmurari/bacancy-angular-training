@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { GENDERS, HOBBIES, ROLES, Roles, emailRegex, passwordRegex } from 'src/app/constants/constants';
+import { GENDERS, HOBBIES, ROLES, emailRegex, passwordRegex } from 'src/app/constants/constants';
+import { Roles } from 'src/app/enums/roles.enum';
 import { IAdmin } from 'src/app/interfaces/admin.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { RegisterService } from 'src/app/services/register.service';
@@ -66,7 +67,7 @@ export class RegisterComponent implements OnInit {
 
   // seed admin data when application run
   private seedAdminData(): void {
-    const localStorageData = this.localStorage.getUserData();
+    const localStorageData: IAdmin[] = this.localStorage.getUserData();
     if (!localStorageData || localStorageData.length === 0) {
       const admin: IAdmin = {
         firstName: 'Admin',

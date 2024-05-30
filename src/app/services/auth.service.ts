@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IAdmin } from '../interfaces/admin.model';
 import { LocalStorageService } from './local-storage.service';
+import { IUser } from '../interfaces/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
       if (admin.email === email) {
         return admin.role;
       }
-      const foundUser = admin.users.find(user => user.email === email);
+      const foundUser: IUser | undefined = admin.users.find(user => user.email === email);
       if (foundUser) {
         return foundUser.role;
       }

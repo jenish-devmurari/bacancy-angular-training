@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { getGenderImageUrl } from 'src/app/constants/constants';
 import { IAdmin } from 'src/app/interfaces/admin.model';
 import { IMember } from 'src/app/interfaces/member.model';
+import { IUser } from 'src/app/interfaces/user.model';
 
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
@@ -29,7 +30,7 @@ export class UserDashboardComponent {
     const allAdmins: IAdmin[] = this.localStorage.getUserData()
     const loggedInEmail: string | undefined = this.localStorage.getLoggedUserEmail();
     for (const admin of allAdmins) {
-      const user = admin.users.find(user => user.email === loggedInEmail);
+      const user: IUser | undefined = admin.users.find(user => user.email === loggedInEmail);
       if (user) {
         this.memberData = user.members;
         break;
