@@ -25,4 +25,24 @@ export class TaskFiveComponent {
       alert('Form is invalid. Please fill out all required fields.');
     }
   }
+
+  public updateFirstName(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.user.firstName.set(inputElement.value);
+  }
+
+  public updateLastName(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.user.lastName.set(inputElement.value);
+  }
+
+  public updateAge(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.user.age.set(Number(inputElement.value));
+  }
+
+  public updateGender(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    this.user.gender.set(selectElement.value);
+  }
 }

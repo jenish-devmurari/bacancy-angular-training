@@ -1,4 +1,5 @@
 import { Component, OnInit, Signal, WritableSignal, computed, effect, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -6,9 +7,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './task-six-and-seven.component.html',
   styleUrls: ['./task-six-and-seven.component.scss']
 })
-export class TaskSixAndSevenComponent implements OnInit {
+export class TaskSixAndSevenComponent {
 
   public registerForm !: FormGroup;
+  public formValueChanges !: Signal<any>;
   public firstName: WritableSignal<string> = signal('');
   public lastName: WritableSignal<string> = signal('');
   public gender: WritableSignal<string> = signal('');
@@ -16,24 +18,24 @@ export class TaskSixAndSevenComponent implements OnInit {
   public fullName: Signal<string> = computed(() => this.firstName() + " " + this.lastName())
 
   constructor() {
-    effect((value) => {
-      console.log("New updated value: ", this.firstName(), this.lastName(), this.age(), this.gender());
-    }
-    )
-  }
-
-  ngOnInit(): void {
-    this.initializeForm();
-    this.handleValueChanges();
-  }
-
-  public initializeForm(): void {
     this.registerForm = new FormGroup({
       firstName: new FormControl(null, Validators.required),
       lastName: new FormControl(null, Validators.required),
       gender: new FormControl(null, Validators.required),
       age: new FormControl(null, Validators.required)
-    })
+    });
+
+    this.formValueChanges = toSignal(this.registerForm.valueChanges) as WritableSignal<any>;
+
+    effect(() => {
+      const formValue = this.formValueChanges();
+      if (formValue) {
+        this.firstName.set(formValue.firstName);
+        this.lastName.set(formValue.lastName);
+        this.age.set(formValue.age);
+        this.gender.set(formValue.gender);
+      }
+    }, { allowSignalWrites: true });
   }
 
   public onSubmit(): void {
@@ -43,20 +45,5 @@ export class TaskSixAndSevenComponent implements OnInit {
     } else {
       alert("Please fill up form");
     }
-  }
-
-  public handleValueChanges(): void {
-    this.registerForm.get('firstName')?.valueChanges.forEach((value) => {
-      this.firstName.set(value);
-    })
-    this.registerForm.get('lastName')?.valueChanges.forEach((value) => {
-      this.lastName.set(value);
-    })
-    this.registerForm.get('age')?.valueChanges.forEach((value) => {
-      this.age.set(value);
-    })
-    this.registerForm.get('gender')?.valueChanges.forEach((value) => {
-      this.gender.set(value);
-    })
   }
 }

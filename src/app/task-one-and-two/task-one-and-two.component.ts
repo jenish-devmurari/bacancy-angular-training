@@ -1,4 +1,5 @@
 import { Component, WritableSignal, signal } from '@angular/core';
+import { IPerson } from '../interfaces/person.model';
 
 @Component({
   selector: 'app-task-one-and-two',
@@ -7,31 +8,31 @@ import { Component, WritableSignal, signal } from '@angular/core';
 })
 export class TaskOneAndTwoComponent {
   // string signal
-  public stringSignal: WritableSignal<string> = signal('Jenish Devmurari');
+  public name: WritableSignal<string> = signal('Jenish Devmurari');
 
   // number signal
-  public numberSignal: WritableSignal<number> = signal(7);
+  public id: WritableSignal<number> = signal(7);
 
   // boolean signal
-  public booleanSignal: WritableSignal<boolean> = signal(true);
+  public isAvailable: WritableSignal<boolean> = signal(true);
 
   // object type signal 
-  public person: WritableSignal<{ name: string, age: number }> = signal({ name: 'jenish', age: 21 });
+  public person: WritableSignal<IPerson> = signal({ name: 'jenish', age: 21 });
 
   // array type signal
-  public persons: WritableSignal<{ name: string, age: number }[]> = signal([{ name: 'jenish', age: 21 }, { name: 'vivek', age: 21 }])
+  public persons: WritableSignal<IPerson[]> = signal([{ name: 'jenish', age: 21 }, { name: 'vivek', age: 21 }])
 
 
   public changeName(): void {
-    this.stringSignal.set('JENISH DEVMURARI');
+    this.name.set('JENISH DEVMURARI');
   }
 
   public updateNumber(): void {
-    this.numberSignal.update(value => value + 1);
+    this.id.update(value => value + 1);
   }
 
   public updateBoolean(): void {
-    this.booleanSignal.update(value => !value);
+    this.isAvailable.update(value => !value);
   }
 
   public updateObject(): void {
