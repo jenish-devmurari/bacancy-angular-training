@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { key, keyOfLoggedUser } from '../constants/constants';
 import { IAdmin } from '../interfaces/admin.model';
 import { IRegister } from '../interfaces/register.model';
+import { IUser } from '../interfaces/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,7 @@ export class LocalStorageService {
       if (admin.email === email) {
         return admin;
       }
-      const user = admin.users?.find(user => user.email === email);
+      const user: IUser | undefined = admin.users?.find(user => user.email === email);
       if (user) {
         return user;
       }

@@ -87,19 +87,7 @@ export class RegisterComponent implements OnInit {
 
   // confirm password validator
   private confirmPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const confirmPassword: string = control.value;
-    const password: string = this.registrationForm?.get('password')?.value;
-    this.registrationForm?.get('password')?.valueChanges.subscribe((newValue) => {
-      if (newValue !== confirmPassword) {
-        control.setErrors({ passwordMatch: true });
-      } else {
-        control.setErrors(null);
-      }
-    });
-    if (confirmPassword !== password) {
-      return { passwordMatch: true }
-    }
-    return null
+    return this.validation.confirmPasswordValidatorForForm(this.registrationForm, control);
   }
 
   public validationClass(control: AbstractControl | null): { [key: string]: boolean | undefined } {

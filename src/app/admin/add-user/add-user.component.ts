@@ -56,19 +56,7 @@ export class AddUserComponent implements OnInit {
 
   // confirm password validator
   private confirmPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const confirmPassword: string = control.value;
-    const password: string = this.addUserForm?.get('password')?.value;
-    this.addUserForm?.get('password')?.valueChanges.subscribe((newValue) => {
-      if (newValue !== confirmPassword) {
-        control.setErrors({ passwordMatch: true });
-      } else {
-        control.setErrors(null);
-      }
-    });
-    if (confirmPassword !== password) {
-      return { passwordMatch: true };
-    }
-    return null;
+    return this.validation.confirmPasswordValidatorForForm(this.addUserForm, control);
   }
 
   public validationClass(control: AbstractControl | null): { [key: string]: boolean | undefined } {
