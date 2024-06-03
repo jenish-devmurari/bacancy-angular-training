@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, Input } from '@angular/core';
 import { IPerson } from '../interfaces/person.interface';
 
 @Component({
@@ -13,20 +13,25 @@ export class ChildComponent {
 
   public currentPerson: IPerson = { id: 0, name: '', age: 0, gender: '' };
 
-  constructor() {
+  constructor(private child: ChangeDetectorRef) {
   }
 
-  // savePerson(person: IPerson): void {
-  //   const index: number = this.persons.findIndex(per => per.id == person.id);
-  //   this.persons[index] = person;
-  // }
+  public savePerson(person: IPerson): void {
+    const index: number = this.persons.findIndex(per => per.id == person.id);
+    this.persons[index] = person;
+  }
 
-  // editPerson(person: IPerson): void {
-  //   this.currentPerson = { ...person };
-  // }
+  public editPerson(person: IPerson): void {
+    this.currentPerson = { ...person };
+  }
 
-  // deletePerson(person: IPerson): void {
-  //   this.persons = this.persons.filter(per => per.id !== person.id);
-  // }
+  public deletePerson(person: IPerson): void {
+    const index: number = this.persons.findIndex(per => per.id == person.id);
+    this.persons.splice(index, 1);
+  }
+
+  public increaseAge(): void {
+    this.person.age++;
+  }
 
 }
