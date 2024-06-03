@@ -5,7 +5,6 @@ import { IPerson } from '../interfaces/person.interface';
   selector: 'app-parent',
   templateUrl: './parent.component.html',
   styleUrls: ['./parent.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
 })
 export class ParentComponent {
 
