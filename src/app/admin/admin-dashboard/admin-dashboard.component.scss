@@ -1,10 +1,14 @@
 $first-color: #ccecf6;
 $second-color: #ffebb2;
 
-.gender-img-container {
+@mixin center {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.gender-img-container {
+    @include center();
     height: 150px;
 }
 .gender-img {
@@ -13,9 +17,7 @@ $second-color: #ffebb2;
     max-height: 100%;
 }
 .container-not-available {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include center();
     border-radius: 5%;
     font-size: 30px;
 }

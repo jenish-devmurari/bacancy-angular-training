@@ -26,12 +26,18 @@ export class AddUserComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.addUserForm.valid) {
-      if (this.registerService.setRegistrationData(this.addUserForm.value)) {
-        this.toaster.success("User Added Successfully");
-        this.addUserForm.reset();
-      }
+      this.registerUser();
     } else {
       this.toaster.error("Please fill out the form correctly.");
+    }
+  }
+
+  private registerUser(): void {
+    if (this.registerService.setRegistrationData(this.addUserForm.value)) {
+      this.toaster.success("User Added Successfully");
+      this.addUserForm.reset();
+    } else {
+      this.toaster.error("Failed to add user. Please try again.");
     }
   }
 

@@ -31,13 +31,19 @@ export class RegisterComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.registrationForm.valid) {
-      if (this.registerService.setRegistrationData(this.registrationForm.value)) {
-        this.toaster.success("Successfully register");
-        this.router.navigate(['login']);
-        this.registrationForm.reset();
-      }
+      this.registerUser();
     } else {
       this.toaster.error("Please fill out the form correctly.");
+    }
+  }
+
+  private registerUser(): void {
+    if (this.registerService.setRegistrationData(this.registrationForm.value)) {
+      this.toaster.success("Successfully register");
+      this.router.navigate(['login']);
+      this.registrationForm.reset();
+    } else {
+      this.toaster.error("Failed to register. Please try again.");
     }
   }
 
