@@ -144,7 +144,9 @@
           "builder": "@angular-devkit/build-angular:prerender",
           "options": {
             "routes": [
-              "/"
+              "/",
+              "/product/detail/1",
+              "/product/detail/2"
             ]
           },
           "configurations": {
