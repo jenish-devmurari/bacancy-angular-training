@@ -1,5 +1,25 @@
 <div class="wrapper">
     <app-header></app-header>
-    <router-outlet></router-outlet>
+    <div class="container mt-4">
+        <div class="row">
+            @defer (on viewport) {
+            @for (product of products; track product.id) {
+            <div class="col-md-4">
+                <app-product-detail [product]="product"></app-product-detail>
+            </div>
+            }
+            @empty {
+            <div class="text-center text-danger">
+                <p class="">No Products available</p>
+            </div>
+            }
+            }
+            @placeholder(minimum 2000ms) {
+            <div class="spinner-container">
+                <div class="spinner"></div>
+            </div>
+            }
+        </div>
+    </div>
     <app-footer></app-footer>
 </div>

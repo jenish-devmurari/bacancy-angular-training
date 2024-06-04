@@ -1,1 +1,31 @@
-<p>product-detail works!</p>
+<div class="card mb-4 d-flex">
+    <img [src]="product.image" class="image card-img-top" [alt]="product.title">
+    <div class="card-body">
+        <h5 class="card-title">{{ product.title }}</h5>
+        <strong>Price:</strong><span>{{product.price | currency}}</span>
+        @if (product.rating) {
+        <p class="card-text">
+            <strong>Rating:</strong> {{ product.rating.rate }}
+            <span>({{ product.rating.count }} reviews)</span>
+        </p>
+        }
+        @else {
+        <div class="text-danger">
+            <p class="">No ratings available</p>
+        </div>
+        }
+        <button class="btn btn-primary" (click)="toggle()">View Description</button>
+        @defer (when load) {
+        <app-product-description [description]="product.description"></app-product-description>
+        }
+        @loading(minimum 2000ms){
+        <p class="text-center m-5">Loading..........</p>
+        }
+        @placeholder {
+        <p class="text-info m-5">Click On View Description button to see description of product</p>
+        }
+        @error {
+        <p>Failed to load description of product </p>
+        }
+    </div>
+</div>
