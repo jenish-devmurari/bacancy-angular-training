@@ -1,0 +1,19 @@
+<div class="container mt-5">
+    <h1 class="text-center text-dark">Products</h1>
+    <div class="row">
+        @for (product of products; track product.id) {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img [src]="product.image" class="card-img-top" alt="{{product.title}}">
+                <div class="card-body text-center mt-3">
+                    <h5 class="card-title">{{product.title}}</h5>
+                    <p class="card-text"><strong>Price:</strong> ${{product.price}}</p>
+                    <p class="card-text">
+                        <strong>Rating:</strong> {{product.rating.rate}} ({{product.rating.count}} reviews)
+                    </p>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
