@@ -2,21 +2,23 @@
     <app-header></app-header>
     <div class="container mt-4">
         <div class="row">
-            @defer (on viewport) {
             @for (product of products; track product.id) {
+            @defer (on viewport) {
             <div class="col-md-4">
                 <app-product-detail [product]="product"></app-product-detail>
             </div>
             }
-            @empty {
-            <div class="text-center text-danger">
-                <p class="">No Products available</p>
+            @placeholder(minimum 2000ms) {
+            <div class="col-md-4">
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                </div>
             </div>
             }
             }
-            @placeholder(minimum 2000ms) {
-            <div class="spinner-container">
-                <div class="spinner"></div>
+            @empty {
+            <div class="text-center text-danger">
+                <p class="">No Products available</p>
             </div>
             }
         </div>
