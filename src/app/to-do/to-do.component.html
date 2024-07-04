@@ -1,1 +1,66 @@
+<div class="container mt-4">
+    <h1 class="text-center">To-Do List</h1>
 
+    <div class="d-flex justify-content-center mb-4">
+        <form (submit)="addTodoItem()" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="newTodo.title" placeholder="Add new todo"
+                    name="todo" required />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">To-Do</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor=" let todo of todoList">
+                <td>
+                    <p class="text-center"
+                        [ngStyle]="{'text-decoration': todo.completed ? 'line-through' : 'none', 'color': todo.completed ? 'green' : 'red'}">
+                        {{todo.title}}</p>
+                </td>
+                <td>
+                    <i class="fas fa-edit m-2" data-bs-toggle="modal" data-bs-target="#editTodoModal"
+                        (click)="editTodo(todo.id)"></i>
+                    <i class="fa-solid fa-trash m-2" style="color: #74C0FC;" (click)=" deleteTodoItem(todo.id)"></i>
+                    <input type="checkbox" [checked]="todo.completed" (click)="toggleCompletion(todo.id,todo.completed)"
+                        class="m-2">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="editTodoModal" tabindex="-1" role="dialog" aria-labelledby="editTodoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editTodoModalLabel">Edit To-Do Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeModal></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="editTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="editTitle" name="editTodoTitle"
+                            [(ngModel)]="editedTodo.title">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeModal>Close</button>
+                <button type="button" class="btn btn-primary" (click)="updateTodo(editedTodo.id ,editedTodo.title)">Save
+                    changes</button>
+            </div>
+        </div>
+    </div>
+</div>
